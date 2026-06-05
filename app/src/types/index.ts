@@ -36,6 +36,7 @@ export interface Question {
   answer: string;
   solution: string;
   tags: string[];
+  source?: string;
 }
 
 // 选项（选择题专用）

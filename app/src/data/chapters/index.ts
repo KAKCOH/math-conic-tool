@@ -40,4 +40,40 @@ export const chapter3: ChapterDef = {
   ],
 };
 
-export const allChapters: ChapterDef[] = [chapter1, chapter2, chapter3];
+export const chapter4: ChapterDef = {
+  id: 'ch4',
+  name: '导数基础知识',
+  order: 4,
+  nodes: [
+    { id: '4.1', name: '导数的定义与几何意义', chapterId: 'ch4', order: 1 },
+    { id: '4.2', name: '导数的运算', chapterId: 'ch4', order: 2 },
+    { id: '4.3', name: '导数与函数单调性', chapterId: 'ch4', order: 3 },
+    { id: '4.4', name: '导数与极值、最值', chapterId: 'ch4', order: 4 },
+  ],
+};
+
+export const chapter5: ChapterDef = {
+  id: 'ch5',
+  name: '导数进阶知识',
+  order: 5,
+  nodes: [
+    { id: '5.1', name: '构造函数与同构变换', chapterId: 'ch5', order: 1 },
+    { id: '5.2', name: '隐零点与虚设零点', chapterId: 'ch5', order: 2 },
+    { id: '5.3', name: '极值点偏移', chapterId: 'ch5', order: 3 },
+    { id: '5.4', name: '端点效应与必要性探路', chapterId: 'ch5', order: 4 },
+  ],
+};
+
+export const chapter6: ChapterDef = {
+  id: 'ch6',
+  name: '导数解题策略与技巧',
+  order: 6,
+  nodes: [
+    { id: '6.1', name: '恒成立与存在性问题', chapterId: 'ch6', order: 1 },
+    { id: '6.2', name: '双变量与多变量问题', chapterId: 'ch6', order: 2 },
+    { id: '6.3', name: '导数与不等式证明', chapterId: 'ch6', order: 3 },
+    { id: '6.4', name: '导数与函数零点', chapterId: 'ch6', order: 4 },
+  ],
+};
+
+export const allChapters: ChapterDef[] = [chapter1, chapter2, chapter3, chapter4, chapter5, chapter6];

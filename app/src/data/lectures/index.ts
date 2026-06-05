@@ -14,6 +14,7 @@ import lecture3_4 from './node-3-4';
 import lecture3_5 from './node-3-5';
 import lecture3_6 from './node-3-6';
 import lecture3_7 from './node-3-7';
+import lecture4_1 from './node-4-1';
 
 export const lectures: Record<string, string> = {
   '1.1': lecture1_1,
@@ -32,6 +33,7 @@ export const lectures: Record<string, string> = {
   '3.5': lecture3_5,
   '3.6': lecture3_6,
   '3.7': lecture3_7,
+  '4.1': lecture4_1,
 };
 
 export function getLecture(nodeId: string): string {
