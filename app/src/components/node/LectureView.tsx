@@ -123,10 +123,24 @@ function lectureMarkdown(text: string): string {
       const alt = imgMatch[1] || '';
       const rawSrc = imgMatch[2];
       const src = rawSrc.startsWith('/') ? import.meta.env.BASE_URL.replace(/\/$/, '') + rawSrc : rawSrc;
+      // Render LaTeX in figcaption
+      let figHtml = '';
+      if (alt) {
+        figHtml = alt;
+        try {
+          figHtml = figHtml.replace(/\$\$([\s\S]*?)\$\$/g, (_, f: string) =>
+            katex.renderToString(f.trim(), { displayMode: true, throwOnError: false })
+          ).replace(/\$(.*?)\$/g, (_, f: string) =>
+            katex.renderToString(f.trim(), { displayMode: false, throwOnError: false })
+          );
+        } catch { /* keep raw */ }
+        figHtml = `<figcaption class="text-text-dim text-xs mt-2">${figHtml}</figcaption>`;
+      }
+      const plainAlt = alt.replace(/\$\$[\s\S]*?\$\$/g, '').replace(/\$(.*?)\$/g, '$1').trim();
       result.push(
         `<figure class="my-5 text-center">` +
-        `<img src="${src}" alt="${alt}" loading="lazy" class="max-w-full h-auto rounded-xl border border-white/10 hover:border-primary/25 transition-all duration-300 cursor-pointer" />` +
-        (alt ? `<figcaption class="text-text-dim text-xs mt-2">${alt}</figcaption>` : '') +
+        `<img src="${src}" alt="${plainAlt}" loading="lazy" class="max-w-full h-auto rounded-xl border border-white/10 hover:border-primary/25 transition-all duration-300 cursor-pointer" />` +
+        figHtml +
         `</figure>`
       );
       i++;
