@@ -99,11 +99,11 @@ export function CornerFold() {
               {/* QR Code placeholder */}
               <div className="text-center">
                 <p className="text-xs text-text-dim mb-3">赞助是对我的最大鼓励</p>
-                <div className="w-40 h-40 mx-auto bg-white rounded-lg flex items-center justify-center">
-                  <span className="text-xs text-gray-400 text-center leading-relaxed px-4">
-                    收款码<br />（请替换为<br />实际图片）
-                  </span>
-                </div>
+                <img
+                  src={import.meta.env.BASE_URL.replace(/\/$/, '') + '/收款码.jpg'}
+                  alt="收款码"
+                  className="w-40 h-40 mx-auto rounded-lg object-cover"
+                />
               </div>
             </motion.div>
           </motion.div>
