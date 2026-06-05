@@ -121,7 +121,8 @@ function lectureMarkdown(text: string): string {
     const imgMatch = trimmed.match(/^!\[(.*)\]\((.+)\)$/);
     if (imgMatch) {
       const alt = imgMatch[1] || '';
-      const src = imgMatch[2];
+      const rawSrc = imgMatch[2];
+      const src = rawSrc.startsWith('/') ? import.meta.env.BASE_URL.replace(/\/$/, '') + rawSrc : rawSrc;
       result.push(
         `<figure class="my-5 text-center">` +
         `<img src="${src}" alt="${alt}" loading="lazy" class="max-w-full h-auto rounded-xl border border-white/10 hover:border-primary/25 transition-all duration-300 cursor-pointer" />` +

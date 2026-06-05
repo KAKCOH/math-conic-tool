@@ -18,7 +18,8 @@ const diffConfig = [
 
 function renderContent(text: string): string {
   let html = text.replace(/!\[(.*?)\]\((.+?)\)/g, (_, alt, src) => {
-    return `<figure class="my-3 text-center"><img src="${src}" alt="${alt}" loading="lazy" class="max-w-full h-auto rounded-xl border border-white/10 hover:border-primary/30 transition-colors" /><figcaption class="text-text-dim text-xs mt-1.5">${alt}</figcaption></figure>`;
+    const resolvedSrc = src.startsWith('/') ? import.meta.env.BASE_URL.replace(/\/$/, '') + src : src;
+    return `<figure class="my-3 text-center"><img src="${resolvedSrc}" alt="${alt}" loading="lazy" class="max-w-full h-auto rounded-xl border border-white/10 hover:border-primary/30 transition-colors" /><figcaption class="text-text-dim text-xs mt-1.5">${alt}</figcaption></figure>`;
   });
   html = html.replace(/\$\$([\s\S]*?)\$\$/g, (_, formula) => {
     try {
