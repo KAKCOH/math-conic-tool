@@ -1,0 +1,17 @@
+node_modules
+dist
+dist-ssr
+*.local
+.DS_Store
+*.log
+
+# Demo / prototype / screenshot files
+app/_demo_*.png
+app/_verify_*.png
+app/*-screenshot.png
+app/*.png
+app/design-prototype.html
+app/home-prototype-v2.html
+
+# PDF build artifacts (tex sources are kept)
+app/public/figures/*.pdf

@@ -1,0 +1,8 @@
+# 抛物线：焦点F，准线d，顶点V
+F = (0, 1)
+d = Line((0, -1), (1, -1))
+p = Parabola(F, d)
+V = (0, 0)
+P = (2, 1)
+Segment(F, P)
+Segment(P, (2, -1))

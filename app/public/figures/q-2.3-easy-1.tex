@@ -1,0 +1,39 @@
+\documentclass[border=20pt]{standalone}
+\usepackage{tikz}
+\usepackage{amsmath}
+\usetikzlibrary{calc,arrows.meta}
+\begin{document}
+\begin{tikzpicture}[scale=0.7]
+  % Axes
+  \draw[->, gray!60, thin] (-6.5,0) -- (6.5,0) node[right] {$x$};
+  \draw[->, gray!60, thin] (0,-5.5) -- (0,5.5) node[above] {$y$};
+
+  % Ellipse: x^2/25 + y^2/16 = 1, a=5, b=4
+  \draw[thick, blue!70!black] (0,0) ellipse (5 and 4);
+
+  % Point P(3, 16/5) = (3, 3.2) on the ellipse
+  \coordinate (P) at (3, 3.2);
+
+  % Tangent at P: (x0*x)/a^2 + (y0*y)/b^2 = 1
+  % 3x/25 + 3.2y/16 = 1 → 3x/25 + y/5 = 1 → y = 5 - 3x/5
+  % Tangent slope: -3/5 at P
+  % Tangent direction perpendicular to radius at P
+  \coordinate (T1) at ({3+5}, {3.2-3});  % point along tangent
+  \coordinate (T2) at ({3-5}, {3.2+3});
+
+  \draw[thick, green!60!black] (T1) -- (T2);
+
+  % Points
+  \fill[blue!70!black] (P) circle (2.5pt) node[above right] {$P(3,\frac{16}{5})$};
+
+  % Radius line from O to P (dashed)
+  \draw[gray!50, dashed, thin] (0,0) -- (P);
+
+  % Origin
+  \fill[black] (0,0) circle (1.5pt) node[below left] {$O$};
+
+  % Tangent equation
+  \node[text=gray, font=\small, align=center] at (0, -5.0)
+    {$\dfrac{x^2}{25}+\dfrac{y^2}{16}=1\qquad$ 切线：$\dfrac{3x}{25}+\dfrac{3.2y}{16}=1$ 即 $3x+5y=25$};
+\end{tikzpicture}
+\end{document}

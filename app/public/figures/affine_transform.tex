@@ -1,0 +1,35 @@
+\documentclass[border=20pt]{standalone}
+\usepackage{tikz}
+\usepackage{amsmath}
+\usetikzlibrary{calc,arrows.meta}
+\begin{document}
+\begin{tikzpicture}[scale=0.75]
+  % ===== Left: Ellipse (before transform) =====
+  \begin{scope}[local bounding box=before]
+    \draw[->, gray!60, thin] (-4.5,0) -- (4.5,0) node[right] {$x$};
+    \draw[->, gray!60, thin] (0,-4.5) -- (0,4.5) node[above] {$y$};
+    \draw[thick, blue!70!black] (0,0) ellipse (4 and 3);
+    \coordinate (P) at ({4*cos(55)}, {3*sin(55)});
+    \coordinate (Q) at ({4*cos(20)}, {3*sin(20)});
+    \draw[gray!50, dashed] (P) -- (Q);
+    \fill[blue!70!black] (P) circle (2pt) node[above right] {$P$};
+    \fill[blue!70!black] (Q) circle (2pt) node[above] {$Q$};
+    \node[text=gray] at (0,-4) {\small 椭圆 $\frac{x^2}{a^2}+\frac{y^2}{b^2}=1$};
+    \draw[->, gray!50, thick] (5.5,0) -- (7.5,0) node[midway,above] {\small $x'=\frac{x}{a}$};
+    \draw[->, gray!50, thick] (5.5,-1) -- (7.5,-1) node[midway,below] {\small $y'=\frac{y}{b}$};
+  \end{scope}
+
+  % ===== Right: Unit Circle (after transform) =====
+  \begin{scope}[xshift=15cm,local bounding box=after]
+    \draw[->, gray!60, thin] (-2.5,0) -- (2.5,0) node[right] {$x'$};
+    \draw[->, gray!60, thin] (0,-2.5) -- (0,2.5) node[above] {$y'$};
+    \draw[thick, green!60!black] (0,0) circle (1.5);
+    \coordinate (Pp) at ({1.5*cos(55)}, {1.5*sin(55)});
+    \coordinate (Qp) at ({1.5*cos(20)}, {1.5*sin(20)});
+    \draw[gray!50, dashed] (Pp) -- (Qp);
+    \fill[green!60!black] (Pp) circle (2pt) node[above right] {$P'$};
+    \fill[green!60!black] (Qp) circle (2pt) node[above] {$Q'$};
+    \node[text=gray] at (0,-2.2) {\small 圆 $x'^2+y'^2=1$};
+  \end{scope}
+\end{tikzpicture}
+\end{document}

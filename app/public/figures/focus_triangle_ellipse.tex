@@ -1,0 +1,41 @@
+\documentclass[border=20pt]{standalone}
+\usepackage{tikz}
+\usepackage{amsmath}
+\usetikzlibrary{calc,arrows.meta,angles,quotes}
+\begin{document}
+\begin{tikzpicture}[scale=0.9]
+  % Axes
+  \draw[->, gray!60, thin] (-5.5,0) -- (5.5,0) node[right] {$x$};
+  \draw[->, gray!60, thin] (0,-4.5) -- (0,4.5) node[above] {$y$};
+
+  % Ellipse: x²/16 + y²/9 = 1
+  \draw[thick, blue!70!black] (0,0) ellipse (4 and 3);
+
+  % Foci: (±√7, 0) ≈ (±2.646, 0)
+  \coordinate (F1) at (-2.646, 0);
+  \coordinate (F2) at (2.646, 0);
+  \coordinate (O)  at (0,0);
+  % Point P on ellipse (in first quadrant): pick param angle 55°
+  \coordinate (P)  at ({4*cos(55)}, {3*sin(55)});
+
+  % Triangle sides
+  \draw[thick, blue!50!black] (F1) -- (P) -- (F2) -- cycle;
+
+  % Angle θ at P
+  \draw pic["$\theta$", draw=orange!80!black, thick, angle eccentricity=1.3, angle radius=18] {angle=F1--P--F2};
+
+  % Points
+  \fill[red!70!black]  (F1) circle (2.5pt) node[below] {$F_1$};
+  \fill[red!70!black]  (F2) circle (2.5pt) node[below] {$F_2$};
+  \fill[blue!70!black] (P)  circle (2.5pt) node[above right] {$P$};
+  \fill[black]         (O)  circle (1.5pt) node[below left]  {$O$};
+
+  % Side labels
+  \node[blue!50!black] at (-1.8, 1.8) {$r_1$};
+  \node[blue!50!black] at (2.4, 1.5)  {$r_2$};
+  \node[gray] at (0, -0.4) {$2c$};
+
+  % Note
+  \node[text=gray] at (0, -4) {\small $S_{\triangle F_1PF_2}=b^2\tan\frac{\theta}{2}\quad$（椭圆）};
+\end{tikzpicture}
+\end{document}

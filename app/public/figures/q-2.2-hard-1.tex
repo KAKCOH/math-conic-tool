@@ -1,0 +1,46 @@
+\documentclass[border=20pt]{standalone}
+\usepackage{tikz}
+\usepackage{amsmath}
+\usetikzlibrary{calc,arrows.meta,angles,quotes}
+\begin{document}
+\begin{tikzpicture}[scale=0.8]
+  % Axes
+  \draw[->, gray!60, thin] (-5.5,0) -- (5.5,0) node[right] {$x$};
+  \draw[->, gray!60, thin] (0,-4.5) -- (0,4.5) node[above] {$y$};
+
+  % Ellipse (a,b unknown, use a=4,b=2.5 for visual)
+  \draw[thick, blue!70!black] (0,0) ellipse (4 and 2.5);
+
+  % Foci
+  \coordinate (F1) at (-3.12, 0);
+  \coordinate (F2) at (3.12, 0);
+  \coordinate (O)  at (0,0);
+
+  % P: symmetric case, ∠PF1F2=∠PF2F1=30°
+  % This means P is on the perpendicular bisector, so x_P=0, P=(0, b)
+  % In triangle F1-P-F2: PF1=PF2, ∠F1PF2=120° (since 30+30+120=180)
+  % P at (0, 2.5) — top of the ellipse
+  \coordinate (P) at (0, 2.5);
+
+  % Triangle
+  \draw[thick, blue!50!black] (F1) -- (P) -- (F2) -- cycle;
+
+  % Base angles
+  \draw pic["$30^\circ$", draw=orange!80!black, thick, angle eccentricity=1.5, angle radius=20] {angle=F2--F1--P};
+  \draw pic["$30^\circ$", draw=orange!80!black, thick, angle eccentricity=1.5, angle radius=20] {angle=P--F2--F1};
+
+  % Points
+  \fill[red!70!black]  (F1) circle (2.5pt) node[below] {$F_1$};
+  \fill[red!70!black]  (F2) circle (2.5pt) node[below] {$F_2$};
+  \fill[blue!70!black] (P)  circle (2.5pt) node[above] {$P$};
+  \fill[black]         (O)  circle (1.5pt) node[below left] {$O$};
+
+  % Labels
+  \node[blue!50!black] at (-1.8, 1.2) {$r_1$};
+  \node[blue!50!black] at (1.8, 1.2)  {$r_2$};
+  \node[gray] at (0, -0.4) {$2c$};
+
+  \node[text=gray, font=\small, align=center] at (0, -4.2)
+    {$\angle PF_1F_2=\angle PF_2F_1=30^\circ\quad r_1=r_2=2c\quad e=\dfrac{2c}{2a}=\dfrac{2c}{4c\cos30^\circ}=\dfrac{1}{\sqrt3}$};
+\end{tikzpicture}
+\end{document}

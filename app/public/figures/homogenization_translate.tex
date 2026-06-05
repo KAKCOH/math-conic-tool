@@ -1,0 +1,45 @@
+\documentclass[border=20pt]{standalone}
+\usepackage{tikz}
+\usepackage{amsmath}
+\usetikzlibrary{calc,arrows.meta}
+\begin{document}
+\begin{tikzpicture}[scale=0.9]
+  % ===== Left: Before translation =====
+  \begin{scope}[local bounding box=before]
+    \draw[->, gray!60, thin] (-3.5,0) -- (5.5,0) node[right] {$x$};
+    \draw[->, gray!60, thin] (0,-3.5) -- (0,4.5) node[above] {$y$};
+    \draw[thick, blue!70!black] (0,0) ellipse (4 and 3);
+    \coordinate (P) at (2, 0);
+    \coordinate (A) at (-1.5, 2.8);
+    \coordinate (B) at (3.2, -1.9);
+    \draw[thick, blue!50!black] (A) -- (P) -- (B);
+    \draw[gray!50, dashed] (A) -- (B);
+    \fill[blue!70!black] (A) circle (2pt) node[above] {$A$};
+    \fill[blue!70!black] (B) circle (2pt) node[below] {$B$};
+    \fill[red!70!black]  (P) circle (2pt) node[above right] {$P$};
+    \node[text=gray] at (1, -3.2) {\small 原始坐标系：$P(x_0,y_0)$};
+  \end{scope}
+
+  % Arrow
+  \draw[->, gray!50, thick] (7.5, 0.5) -- (9.5, 0.5) node[midway, above] {\small 平移};
+
+  % ===== Right: After translation =====
+  \begin{scope}[xshift=14cm,local bounding box=after]
+    \draw[->, gray!60, thin] (-5.5,0) -- (3.5,0) node[right] {$x'$};
+    \draw[->, gray!60, thin] (0,-3.5) -- (0,4.5) node[above] {$y'$};
+    % Shifted ellipse: (x'+2)²/16 + y'²/9 = 1
+    \draw[thick, green!60!black, domain=0:360, samples=200, variable=\t]
+      plot ({-2+4*cos(\t)}, {3*sin(\t)});
+    \coordinate (O) at (0,0);
+    \coordinate (A) at (-3.5, 2.8);
+    \coordinate (B) at (1.2, -1.9);
+    \draw[thick, green!50!black] (A) -- (O) -- (B);
+    \draw[gray!50, dashed] (A) -- (B);
+    \fill[green!60!black] (A) circle (2pt) node[above] {$A'$};
+    \fill[green!60!black] (B) circle (2pt) node[below] {$B'$};
+    \fill[red!70!black]   (O) circle (2pt) node[below left] {$O'$};
+    \node[text=gray] at (-1, -3.2) {\small $P$平移到原点$O'$};
+    \node at (0, 4) [text=gray] {\small 齐次化：消去常数项};
+  \end{scope}
+\end{tikzpicture}
+\end{document}

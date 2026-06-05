@@ -1,0 +1,239 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: oklch(0.62 0.20 250);
+  --color-primary-dark: oklch(0.48 0.18 250);
+  --color-primary-light: oklch(0.74 0.12 250);
+  --color-surface: #06080d;
+  --color-surface-card: #0d1117;
+  --color-surface-card-hover: #151b24;
+  --color-gold: oklch(0.78 0.16 85);
+  --color-gold-light: oklch(0.83 0.13 85);
+  --color-silver: oklch(0.68 0.02 260);
+  --color-silver-light: oklch(0.76 0.02 260);
+  --color-text: oklch(0.90 0.005 260);
+  --color-text-muted: oklch(0.61 0.01 260);
+  --color-text-dim: oklch(0.35 0.01 260);
+  --color-success: oklch(0.62 0.18 155);
+  --color-danger: oklch(0.52 0.22 20);
+  --default-font-family: 'PingFang SC', 'Microsoft YaHei', 'Hiragino Sans GB', 'WenQuanYi Micro Hei', system-ui, sans-serif;
+  --font-family-mono: 'Cascadia Code', 'Consolas', 'SF Mono', 'JetBrains Mono', monospace;
+}
+
+:root {
+  --font-display: 'Georgia', 'Noto Serif SC', 'STSong', 'Songti SC', serif;
+  --font-body: 'PingFang SC', 'Microsoft YaHei', 'Hiragino Sans GB', 'WenQuanYi Micro Hei', system-ui, sans-serif;
+}
+
+@utility font-display {
+  font-family: var(--font-display);
+}
+@utility font-body {
+  font-family: var(--font-body);
+}
+
+body {
+  margin: 0;
+  background-color: var(--color-surface);
+  color: var(--color-text);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  line-height: 1.75;
+  letter-spacing: 0.01em;
+}
+
+/* Headings: tighter tracking, balanced wrap */
+h1, h2, h3, h4 {
+  text-wrap: balance;
+  letter-spacing: -0.01em;
+}
+
+/* Body copy: prevent orphans */
+p, li, blockquote {
+  text-wrap: pretty;
+}
+
+.katex {
+  font-size: 1.1em;
+}
+.katex-display {
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 0.25em 0;
+}
+
+/* Selection color */
+::selection {
+  background: oklch(0.62 0.20 250 / 0.2);
+  color: var(--color-text);
+}
+
+/* ---- Lecture tables ---- */
+.lecture-table {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 0.9em;
+}
+.lecture-table th {
+  background: oklch(0.62 0.20 250 / 0.08);
+  font-weight: 600;
+  color: var(--color-text);
+  padding: 0.6em 0.9em;
+  text-align: left;
+  white-space: nowrap;
+}
+.lecture-table td {
+  padding: 0.5em 0.9em;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.lecture-table tr:nth-child(even) td {
+  background: rgba(255,255,255,0.015);
+}
+.lecture-table-wrap {
+  overflow-x: auto;
+  border-radius: 0.75rem;
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+/* ---- Glass ---- */
+@utility glass {
+  background: rgba(13, 17, 23, 0.8);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255,255,255,0.06);
+}
+
+/* ---- Shimmer ---- */
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+@utility shimmer {
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.04), transparent);
+  background-size: 200% 100%;
+  animation: shimmer 2.5s infinite;
+}
+
+/* ---- Focus glow ---- */
+@utility focus-glow {
+  box-shadow: 0 0 24px rgba(59, 130, 246, 0.12);
+}
+
+/* ---- Section header sticky ---- */
+.lecture-section-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--color-surface);
+  padding: 0.5rem 0;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+/* ---- Formula block ---- */
+.formula-block {
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 0.75rem;
+  padding: 1rem 1.25rem;
+  margin: 0.75rem 0;
+  overflow-x: auto;
+}
+
+/* ---- Progress bar track ---- */
+.progress-track {
+  background: rgba(255,255,255,0.06);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+/* ---- Lecture reveal (IntersectionObserver) ---- */
+.lecture-reveal {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.55s cubic-bezier(0.16, 1, 0.3, 1), transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.lecture-reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ---- Content max-width for reading ---- */
+.prose-readable {
+  max-width: 70ch;
+}
+
+/* ---- Shake animation ---- */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  10%, 50%, 90% { transform: translateX(-4px); }
+  30%, 70% { transform: translateX(4px); }
+}
+
+/* ---- Pulse ring ---- */
+@keyframes pulse-ring {
+  0% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.3); }
+  70% { box-shadow: 0 0 0 8px rgba(59, 130, 246, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0); }
+}
+
+/* ---- Orbit rotations ---- */
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+@keyframes spin-reverse {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(-360deg); }
+}
+@keyframes focus-breathe {
+  0%, 100% { r: 3px; opacity: 0.25; }
+  50%      { r: 4.5px; opacity: 0.5; }
+}
+
+/* ---- Difficulty badges ---- */
+.diff-badge-easy {
+  background: oklch(0.62 0.18 155 / 0.12);
+  color: oklch(0.72 0.16 155);
+  border: 1px solid oklch(0.62 0.18 155 / 0.25);
+}
+.diff-badge-mid {
+  background: oklch(0.70 0.16 75 / 0.12);
+  color: oklch(0.78 0.14 75);
+  border: 1px solid oklch(0.70 0.16 75 / 0.25);
+}
+.diff-badge-hard {
+  background: oklch(0.52 0.22 20 / 0.12);
+  color: oklch(0.62 0.20 20);
+  border: 1px solid oklch(0.52 0.22 20 / 0.25);
+}
+
+/* ---- Chapter bg shapes ---- */
+.chapter-bg-shape {
+  position: absolute;
+  pointer-events: none;
+  opacity: 0.03;
+}
+
+/* ---- Timeline ---- */
+.timeline-line {
+  position: absolute;
+  left: 18px;
+  top: 28px;
+  bottom: 28px;
+  width: 2px;
+  background: linear-gradient(to bottom, rgba(255,255,255,0.08), rgba(255,255,255,0.02));
+  border-radius: 1px;
+}
+.timeline-dot {
+  position: absolute;
+  left: 13px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 2px solid;
+  z-index: 1;
+}
