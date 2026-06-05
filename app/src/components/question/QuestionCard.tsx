@@ -17,20 +17,9 @@ const diffConfig = [
 ];
 
 function renderContent(text: string): string {
-  let html = text.replace(/!\[(.*?)\]\((.+?)\)/g, (_, alt, src) => {
+  let html = text.replace(/!\[.*?\]\((.+?)\)/g, (_, src) => {
     const resolvedSrc = src.startsWith('/') ? import.meta.env.BASE_URL.replace(/\/$/, '') + src : src;
-    // Render LaTeX in figcaption
-    let figHtml = alt;
-    try {
-      figHtml = figHtml.replace(/\$\$([\s\S]*?)\$\$/g, (_m: string, f: string) =>
-        katex.renderToString(f.trim(), { displayMode: true, throwOnError: false })
-      ).replace(/\$(.*?)\$/g, (_m: string, f: string) =>
-        katex.renderToString(f.trim(), { displayMode: false, throwOnError: false })
-      );
-    } catch { /* keep raw alt text */ }
-    // Strip LaTeX markers from alt attribute for accessibility
-    const plainAlt = alt.replace(/\$\$[\s\S]*?\$\$/g, '').replace(/\$(.*?)\$/g, '$1').trim();
-    return `<figure class="my-3 text-center"><img src="${resolvedSrc}" alt="${plainAlt}" loading="lazy" class="max-w-full h-auto rounded-xl border border-white/10 hover:border-primary/30 transition-colors" /><figcaption class="text-text-dim text-xs mt-1.5">${figHtml}</figcaption></figure>`;
+    return `<div class="my-3 text-center"><img src="${resolvedSrc}" alt="" loading="lazy" class="max-w-full h-auto rounded-xl border border-white/10 hover:border-primary/30 transition-colors" /></div>`;
   });
   html = html.replace(/\$\$([\s\S]*?)\$\$/g, (_, formula) => {
     try {

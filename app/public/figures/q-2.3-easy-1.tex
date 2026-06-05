@@ -24,16 +24,12 @@
   \draw[thick, green!60!black] (T1) -- (T2);
 
   % Points
-  \fill[blue!70!black] (P) circle (2.5pt) node[above right] {$P(3,\frac{16}{5})$};
+  \fill[blue!70!black] (P) circle (2.5pt) node[above right] {$P$};
 
   % Radius line from O to P (dashed)
   \draw[gray!50, dashed, thin] (0,0) -- (P);
 
   % Origin
   \fill[black] (0,0) circle (1.5pt) node[below left] {$O$};
-
-  % Tangent equation
-  \node[text=gray, font=\small, align=center] at (0, -5.0)
-    {$\dfrac{x^2}{25}+\dfrac{y^2}{16}=1\qquad$ 切线：$\dfrac{3x}{25}+\dfrac{3.2y}{16}=1$ 即 $3x+5y=25$};
 \end{tikzpicture}
 \end{document}
