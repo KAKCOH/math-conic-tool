@@ -1,0 +1,114 @@
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+
+export function CornerFold() {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <>
+      {/* Corner fold triangle */}
+      <button
+        onClick={() => setOpen(true)}
+        className="fixed top-0 right-0 z-50 w-16 h-16 cursor-pointer group"
+        aria-label="关于我"
+      >
+        {/* Shadow under fold */}
+        <div className="absolute top-0 right-0 w-0 h-0
+          border-l-[64px] border-l-transparent
+          border-t-[64px] border-t-white/[0.03]
+          group-hover:border-t-white/[0.06]
+          transition-colors duration-300"
+        />
+        {/* Fold triangle */}
+        <div className="absolute top-0 right-0 w-0 h-0
+          border-l-[64px] border-l-transparent
+          border-t-[64px] border-t-primary/20
+          group-hover:border-t-primary/35
+          transition-colors duration-300 origin-top-right"
+          style={{ clipPath: 'polygon(100% 0, 0 0, 100% 100%)' }}
+        />
+        {/* "About" hint text along diagonal */}
+        <span className="absolute top-[10px] right-[10px] text-[9px] text-primary/50 font-mono tracking-wider rotate-45 select-none group-hover:text-primary/70 transition-colors">
+          ABOUT
+        </span>
+      </button>
+
+      {/* Overlay + Card */}
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            className="fixed inset-0 z-[60] flex items-center justify-center p-6"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
+            {/* Backdrop */}
+            <motion.div
+              className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+              onClick={() => setOpen(false)}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+            />
+
+            {/* Card */}
+            <motion.div
+              className="relative max-w-sm w-full bg-surface-card border border-white/10 rounded-2xl p-8 shadow-2xl"
+              initial={{ scale: 0.9, opacity: 0, y: 20 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.9, opacity: 0, y: 20 }}
+              transition={{ type: 'spring', stiffness: 400, damping: 30 }}
+            >
+              {/* Close button */}
+              <button
+                onClick={() => setOpen(false)}
+                className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full bg-white/5 hover:bg-white/10 text-text-dim hover:text-text transition-colors text-lg leading-none"
+              >
+                ×
+              </button>
+
+              {/* Avatar placeholder */}
+              <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center text-2xl mb-5 mx-auto">
+                🎓
+              </div>
+
+              {/* Bio */}
+              <div className="text-center mb-6">
+                <h3 className="text-lg font-semibold text-text">和枼</h3>
+                <p className="text-sm text-text-muted mt-2 leading-relaxed">
+                  北京大学本科在读
+                </p>
+                <p className="text-sm text-text-muted leading-relaxed">
+                  数学竞赛经历
+                </p>
+              </div>
+
+              {/* Divider */}
+              <div className="border-t border-white/[0.06] my-5" />
+
+              {/* Social */}
+              <div className="text-center mb-6">
+                <p className="text-xs text-text-dim mb-1.5">抖音</p>
+                <p className="text-sm text-text font-medium">和枼</p>
+                <p className="text-xs text-text-dim mt-0.5">数学辅导咨询</p>
+              </div>
+
+              {/* Divider */}
+              <div className="border-t border-white/[0.06] my-5" />
+
+              {/* QR Code placeholder */}
+              <div className="text-center">
+                <p className="text-xs text-text-dim mb-3">赞助是对我的最大鼓励</p>
+                <div className="w-40 h-40 mx-auto bg-white rounded-lg flex items-center justify-center">
+                  <span className="text-xs text-gray-400 text-center leading-relaxed px-4">
+                    收款码<br />（请替换为<br />实际图片）
+                  </span>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
+  );
+}

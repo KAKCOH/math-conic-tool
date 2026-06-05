@@ -2,12 +2,8 @@ import { motion, useReducedMotion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { allChapters } from '../data/chapters';
 import { useProgressStore } from '../store/useProgress';
+import { CornerFold } from '../components/home/CornerFold';
 
-const placeholderSections = [
-  { id: 'functions', name: '函数与导数', icon: 'f', description: '函数性质、导数应用、不等式证明' },
-  { id: 'probability', name: '概率统计', icon: 'P', description: '排列组合、概率分布、统计推断' },
-  { id: 'geometry', name: '立体几何', icon: 'V', description: '空间向量、多面体、二面角计算' },
-];
 
 function statusDotClass(status: string | undefined) {
   switch (status) {
@@ -359,30 +355,26 @@ export function HomePage() {
           {...fadeUp(1.4)}
         />
 
-        {/* Placeholder sections */}
+        {/* Weekly problems */}
         <motion.section {...fadeUp(1.5)}>
           <h2 className="text-[13px] font-medium text-text-muted tracking-[0.04em] mb-5">
-            更多板块即将推出
+            更多板块
           </h2>
-          <div className="flex flex-col gap-2.5">
-            {placeholderSections.map((section) => (
-              <div
-                key={section.id}
-                className="flex items-center gap-4 px-5 py-4 rounded-2xl bg-surface-card border border-white/[0.03] hover:border-white/[0.08] transition-colors duration-300"
-              >
-                <div className="w-[42px] h-[42px] rounded-xl bg-white/[0.03] flex items-center justify-center font-mono text-[15px] font-medium text-text-dim shrink-0">
-                  {section.icon}
-                </div>
-                <div className="flex-1 min-w-0">
-                  <h3 className="text-[15px] font-medium text-text-muted">{section.name}</h3>
-                  <p className="text-[13px] text-text-dim mt-0.5">{section.description}</p>
-                </div>
-                <span className="text-[11px] text-text-dim px-3 py-1.5 rounded-full border border-white/[0.06] tracking-[0.04em] shrink-0">
-                  即将推出
-                </span>
-              </div>
-            ))}
-          </div>
+          <Link
+            to="/weekly"
+            className="flex items-center gap-4 px-5 py-4 rounded-2xl bg-surface-card border border-white/[0.03] hover:border-primary/20 hover:bg-surface-card-hover transition-all duration-300 group"
+          >
+            <div className="w-[42px] h-[42px] rounded-xl bg-primary/10 flex items-center justify-center font-mono text-[15px] font-medium text-primary-light group-hover:bg-primary/15 transition-colors shrink-0">
+              3
+            </div>
+            <div className="flex-1 min-w-0">
+              <h3 className="text-[15px] font-medium text-text group-hover:text-text transition-colors">3 Problems per Week</h3>
+              <p className="text-[13px] text-text-dim mt-0.5">每周精选三道新颖且有相当难度的高中数学题</p>
+            </div>
+            <span className="text-[11px] text-text-dim group-hover:text-primary/70 transition-colors px-3 py-1.5 rounded-full border border-white/[0.06] tracking-[0.04em] shrink-0">
+              进入
+            </span>
+          </Link>
         </motion.section>
 
         {/* Footer */}
@@ -391,6 +383,8 @@ export function HomePage() {
           <div className="text-xs text-text-dim/50 mt-1.5">design by 和枼</div>
         </motion.footer>
       </div>
+
+      <CornerFold />
     </>
   );
 }

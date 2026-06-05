@@ -13,5 +13,7 @@ app/*.png
 app/design-prototype.html
 app/home-prototype-v2.html
 
-# PDF build artifacts (tex sources are kept)
+# LaTeX build artifacts
+app/public/figures/*.aux
+app/public/figures/*.log
 app/public/figures/*.pdf

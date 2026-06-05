@@ -4,6 +4,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { HomePage } from './pages/HomePage';
 import { ChapterPage } from './pages/ChapterPage';
 import { NodePage } from './pages/NodePage';
+import { WeeklyPage } from './pages/WeeklyPage';
 
 function AmbientParticles() {
   return (
@@ -56,6 +57,7 @@ function AnimatedRoutes() {
           <Route path="/" element={<HomePage />} />
           <Route path="/chapter/:chapterId" element={<ChapterPage />} />
           <Route path="/node/:nodeId" element={<NodePage />} />
+          <Route path="/weekly" element={<WeeklyPage />} />
         </Routes>
       </motion.div>
     </AnimatePresence>
