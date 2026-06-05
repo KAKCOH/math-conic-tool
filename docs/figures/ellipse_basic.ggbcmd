@@ -1,0 +1,8 @@
+# 椭圆：焦点F₁、F₂，定义验证线段
+F1 = (-sqrt(7), 0)
+F2 = (sqrt(7), 0)
+P = (4, 0)
+e = Ellipse(F1, F2, P)
+O = (0, 0)
+Segment(F1, P)
+Segment(F2, P)

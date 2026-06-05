@@ -3,6 +3,7 @@ import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
 
 export default defineConfig({
-  base: '/math-conic-tool/',
+  base: '/art-of-math/',
+  build: { outDir: '../docs' },
   plugins: [react(), tailwindcss()],
 })

@@ -66,7 +66,7 @@ function AnimatedRoutes() {
 
 export default function App() {
   return (
-    <BrowserRouter basename="/math-conic-tool">
+    <BrowserRouter basename="/art-of-math">
       <div className="min-h-screen bg-surface relative">
         <AmbientParticles />
         <div className="relative z-10">

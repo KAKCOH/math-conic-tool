@@ -1,0 +1,49 @@
+\documentclass[border=20pt]{standalone}
+\usepackage{tikz}
+\usepackage{amsmath}
+\usetikzlibrary{calc,arrows.meta,angles,quotes}
+\begin{document}
+\begin{tikzpicture}[scale=1.0]
+  % Axes
+  \draw[->, gray!60, thin] (-5.5,0) -- (5.5,0) node[right] {$x$};
+  \draw[->, gray!60, thin] (0,-4) -- (0,4) node[above] {$y$};
+
+  % Ellipse x²/16 + y²/9 = 1
+  \draw[thick, blue!70!black] (0,0) ellipse (4 and 3);
+
+  % Foci
+  \coordinate (F1) at (-2.646, 0);
+  \coordinate (F2) at (2.646, 0);
+  \coordinate (O)  at (0,0);
+  % Point P on ellipse
+  \coordinate (P)  at ({4*cos(55)}, {3*sin(55)});
+
+  % Segments F1P and F2P
+  \draw[thick, blue!50!black, dashed] (F1) -- (P);
+  \draw[thick, blue!50!black, dashed] (F2) -- (P);
+
+  % Triangle F1PF2
+  \draw[thick, blue!50!black] (F1) -- (P) -- (F2);
+
+  % Angle θ at P
+  \draw pic["$\theta$", draw=orange!80!black, thick, angle eccentricity=1.3, angle radius=16] {angle=F1--P--F2};
+
+  % Points
+  \fill[red!70!black]  (F1) circle (2.5pt) node[below] {$F_1$};
+  \fill[red!70!black]  (F2) circle (2.5pt) node[below] {$F_2$};
+  \fill[blue!70!black] (P)  circle (2.5pt) node[above right] {$P$};
+
+  % Labels for lengths
+  \node[blue!50!black] at (-1.2, 1.8) {$r_1$};
+  \node[blue!50!black] at (2.8, 1.5)  {$r_2$};
+
+  % Triangle inequality note
+  \node[text=gray, align=center] at (0, -3.6) {\small $r_1+r_2=2a$（定值）\\\small $|r_1-r_2|\le 2c$（三角形不等式）};
+
+  % Max: P at right vertex
+  \fill[orange!80!black] (4,0) circle (2pt) node[above right] {$A_2$};
+  % Min: P at right vertex? Actually min of PF1 is a-c=1.354
+  \fill[orange!80!black] (1.354, 0) circle (2pt);
+  \draw[gray!50, ->] (3.5, 2.5) -- (4, 0.2) node[midway, right, text=gray] {\small $\max PF_1=a+c$};
+\end{tikzpicture}
+\end{document}

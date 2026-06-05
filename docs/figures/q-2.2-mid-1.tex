@@ -1,0 +1,43 @@
+\documentclass[border=20pt]{standalone}
+\usepackage{tikz}
+\usepackage{amsmath}
+\usetikzlibrary{calc,arrows.meta}
+\begin{document}
+\begin{tikzpicture}[scale=0.8]
+  % Axes
+  \draw[->, gray!60, thin] (-6.5,0) -- (6.5,0) node[right] {$x$};
+  \draw[->, gray!60, thin] (0,-4.5) -- (0,4.5) node[above] {$y$};
+
+  % Ellipse: x^2/25 + y^2/9 = 1, a=5, b=3, c=4 (final answer from part 2)
+  \draw[thick, blue!70!black] (0,0) ellipse (5 and 3);
+
+  % Foci: F1(-4,0), F2(4,0)
+  \coordinate (F1) at (-4, 0);
+  \coordinate (F2) at (4, 0);
+  \coordinate (O)  at (0,0);
+
+  % P where ∠F1PF2 = 90° in ellipse x^2/25+y^2/9=1, c=4:
+  % y_P = S / c = 9 / 4 = 2.25
+  % x_P = 5·√(1 - 2.25²/9) = 5·√(1 - 0.5625) = 5·√0.4375 ≈ 3.307
+  \coordinate (P) at (3.307, 2.25);
+
+  % Triangle F1-P-F2
+  \draw[thick, blue!50!black] (F1) -- (P) -- (F2) -- cycle;
+
+  % Right angle marker at P
+  \coordinate (PA) at ($(P)!0.2!(F1)$);
+  \coordinate (PB) at ($(P)!0.2!(F2)$);
+  \draw[orange!80!black, thick] (PA) -- ($(PA)!(P)!(PB)$) -- (PB);
+
+  % Points
+  \fill[red!70!black]  (F1) circle (2.5pt) node[below] {$F_1$};
+  \fill[red!70!black]  (F2) circle (2.5pt) node[below] {$F_2$};
+  \fill[blue!70!black] (P)  circle (2.5pt) node[above right] {$P$};
+  \fill[black]         (O)  circle (1.5pt) node[below left]  {$O$};
+
+  % Labels
+  \node[blue!50!black] at (-0.2, 1.2) {$r_1$};
+  \node[blue!50!black] at (3.8, 1.5)  {$r_2$};
+  \node[gray] at (0, -0.5) {$2c$};
+\end{tikzpicture}
+\end{document}

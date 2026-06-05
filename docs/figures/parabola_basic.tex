@@ -1,0 +1,48 @@
+\documentclass[border=20pt]{standalone}
+\usepackage{tikz}
+\usepackage{amsmath}
+\usetikzlibrary{calc,arrows.meta,decorations.pathmorphing}
+\begin{document}
+\begin{tikzpicture}[scale=0.9]
+  % Axes
+  \draw[->, gray!60, thin] (-4.5,0) -- (4.5,0) node[right] {$x$};
+  \draw[->, gray!60, thin] (0,-2.5) -- (0,4.5) node[above] {$y$};
+
+  % Directrix: y = -1
+  \draw[gray!50, dashed, thick] (-4,-1) -- (4,-1)
+    node[right, gray] {$d$};
+
+  % Parabola: x² = 4y → y = x²/4
+  \draw[thick, blue!70!black, domain=-4:4, samples=100]
+    plot (\x, {\x*\x/4});
+
+  % Focus: F(0,1)
+  \coordinate (F) at (0,1);
+  % Vertex: V(0,0)
+  \coordinate (V) at (0,0);
+  % Point on parabola: P(2,1) since 2²/4 = 1
+  \coordinate (P) at (2,1);
+  % Foot of perpendicular from P to directrix
+  \coordinate (D) at (2,-1);
+
+  % Segment PF
+  \draw[thick, blue!50!black, dashed] (P) -- (F);
+  % Segment from P to directrix
+  \draw[thick, blue!50!black, dashed] (P) -- (D);
+
+  % Right angle marker at D
+  \draw[gray!50] (1.7, -1) -- (1.7, -0.7) -- (2, -0.7);
+
+  % Points
+  \fill[red!70!black]  (F) circle (2pt) node[above] {$F$};
+  \fill[blue!70!black] (V) circle (2pt) node[below left] {$V$};
+  \fill[blue]          (P) circle (2pt) node[above right] {$P$};
+
+  % Distance labels
+  \node[blue!50!black] at (1.0, 0.2) {$|PF|$};
+  \node[blue!50!black] at (3.0, -0.2) {$|PD|$};
+
+  % Note
+  \node[text=gray] at (0, -2.2) {$|PF|=|PD|$};
+\end{tikzpicture}
+\end{document}

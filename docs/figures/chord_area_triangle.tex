@@ -1,0 +1,46 @@
+\documentclass[border=20pt]{standalone}
+\usepackage{tikz}
+\usepackage{amsmath}
+\usetikzlibrary{calc,arrows.meta,patterns}
+\begin{document}
+\begin{tikzpicture}[scale=0.9]
+  % Axes
+  \draw[->, gray!60, thin] (-5.5,0) -- (5.5,0) node[right] {$x$};
+  \draw[->, gray!60, thin] (0,-4.5) -- (0,4.5) node[above] {$y$};
+
+  % Ellipse x²/16 + y²/9 = 1
+  \draw[thick, blue!70!black] (0,0) ellipse (4 and 3);
+
+  % Line L through P(2,0) with slope m
+  % Line: y = m(x-2)
+  % Intersection with ellipse: for m=1.2
+  \coordinate (A) at (-1.2, -3.84);
+  \coordinate (B) at (3.5, 1.8);
+  \coordinate (M) at ({(-1.2+3.5)/2}, {(-3.84+1.8)/2});
+  \coordinate (P) at (2, 0);
+
+  % Chord AB
+  \draw[thick, blue!50!black] (A) -- (B);
+
+  % Fill area (very light)
+  \fill[blue!10] (A) -- (P) -- (B) -- cycle;
+
+  % Dashed height from P to chord
+  \draw[thick, orange!80!black, dashed] (P) -- (M);
+
+  % Right angle at M
+  \draw[gray!50] ($(M)+(-0.2,0)$) -- ($(M)+(-0.2,0.2)$) -- ($(M)+(0,0.2)$);
+
+  % Points
+  \fill[blue!70!black] (A) circle (2pt) node[below left]  {$A$};
+  \fill[blue!70!black] (B) circle (2pt) node[above right] {$B$};
+  \fill[blue!70!black] (P) circle (2pt) node[below]       {$P$};
+  \fill[orange!80!black] (M) circle (1.5pt) node[below right] {$M$};
+
+  % Labels
+  \node[blue!50!black] at (-0.5, -1.2) {$|AB|=\sqrt{1+k^2}|x_1-x_2|$};
+  \node[orange!80!black] at (2.8, -1.5) {$h$};
+
+  \node[text=gray, align=center] at (0, -4.2) {\small 弦长：$|AB|=\sqrt{1+k^2}\cdot\frac{\sqrt{\Delta}}{|a|}$\\\small 面积：$S=\frac12|AB|\cdot h$};
+\end{tikzpicture}
+\end{document}

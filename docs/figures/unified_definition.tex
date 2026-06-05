@@ -1,0 +1,56 @@
+\documentclass[border=20pt]{standalone}
+\usepackage{tikz}
+\usepackage{amsmath}
+\usetikzlibrary{calc,arrows.meta,decorations.pathmorphing}
+\begin{document}
+\begin{tikzpicture}[scale=1.0]
+  % Axes
+  \draw[->, gray!60, thin] (-4.5,0) -- (5.5,0) node[right] {$x$};
+  \draw[->, gray!60, thin] (0,-4.5) -- (0,5.5) node[above] {$y$};
+
+  % Directrix: x = -2
+  \draw[gray!50, dashed, thick] (-2,-4.3) -- (-2,5.3) node[above, gray] {$l$};
+
+  % Focus F(2,0)
+  \coordinate (F) at (2,0);
+
+  % Parabola with focus F(2,0) and directrix x=-2
+  % Vertex at (0,0), focal length p=2, equation: y² = 4*2*(x-0) = 8x
+  \draw[thick, blue!70!black, domain=-5.5:5.5, samples=200, variable=\y]
+    plot ({\y*\y/8}, {\y});
+
+  % Two sample points P₁ (upper) and P₂ (lower) on parabola
+  \coordinate (P1) at (2, 4);   % since 4²/8 = 16/8 = 2 ✓
+  \coordinate (D1) at (-2, 4); % foot of perpendicular to directrix
+  \coordinate (P2) at (0.5, 2); % 2²/8 = 4/8 = 0.5 ✓
+  \coordinate (D2) at (-2, 2);
+
+  % Segments for P₁
+  \draw[thick, blue!50!black, dashed] (P1) -- (F);
+  \draw[thick, blue!50!black, dashed] (P1) -- (D1);
+
+  % Points
+  \fill[red!70!black]  (F)  circle (2.5pt) node[below] {$F$};
+  \fill[blue!70!black] (0,0) circle (2pt) node[below left] {$V$};
+  \fill[blue]          (P1) circle (2pt) node[above right] {$P$};
+  \fill[gray]          (D1) circle (1.5pt) node[left] {$D$};
+
+  % Distance labels
+  \node[blue!50!black] at (1.8, 1.7) {$|PF|$};
+  \node[blue!50!black] at (-0.6, 3.8) {$|PD|$};
+
+  % The KEY formula
+  \node[text=gray, align=center] at (1, -4) {
+    \small $\dfrac{|PF|}{d(P,l)}=e$
+    \quad
+    \small $e=1$ (parabola)
+  };
+
+  % Annotations about e
+  \node[text=gray, align=left, font=\footnotesize] at (5.8, 3.5) {
+    $0<e<1$: ellipse\\
+    $e=1$: parabola\\
+    $e>1$: hyperbola
+  };
+\end{tikzpicture}
+\end{document}

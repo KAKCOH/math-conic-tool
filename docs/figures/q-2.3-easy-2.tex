@@ -1,0 +1,41 @@
+\documentclass[border=20pt]{standalone}
+\usepackage{tikz}
+\usepackage{amsmath}
+\usetikzlibrary{calc,arrows.meta}
+\begin{document}
+\begin{tikzpicture}[scale=0.8]
+  % Axes
+  \draw[->, gray!60, thin] (-4.5,0) -- (5.5,0) node[right] {$x$};
+  \draw[->, gray!60, thin] (0,-3.5) -- (0,4.5) node[above] {$y$};
+
+  % Ellipse: x^2/9 + y^2/4 = 1, a=3, b=2
+  \draw[thick, blue!70!black] (0,0) ellipse (3 and 2);
+
+  % External point P(3, 2)
+  \coordinate (P) at (3, 2);
+
+  % Tangent points: approximate
+  % For P(3,2): chord of contact equation: 3x/9 + 2y/4 = 1 → x/3 + y/2 = 1
+  % Intersection with ellipse: solve x^2/9 + y^2/4 = 1 and x/3 + y/2 = 1
+  % From QC: x = 3(1-y/2) = 3 - 3y/2
+  % (3-3y/2)^2/9 + y^2/4 = 1 → (9-9y+9y^2/4)/9 + y^2/4 = 1 → 1-y+y^2/4 + y^2/4 = 1 → y^2/2 - y = 0 → y(y/2-1)=0
+  % y=0 or y=2 → Q1: x=3-0=3, Q2: x=3-3=0
+  \coordinate (Q1) at (3, 0);
+  \coordinate (Q2) at (0, 2);
+
+  % Tangents
+  \draw[thick, green!60!black] (P) -- (Q1);
+  \draw[thick, green!60!black] (P) -- (Q2);
+
+  % Chord of contact Q1-Q2
+  \draw[thick, orange!80!black, dashed] (Q1) -- (Q2);
+
+  % Points
+  \fill[blue!70!black] (Q1) circle (2.5pt) node[below right] {$Q_1$};
+  \fill[blue!70!black] (Q2) circle (2.5pt) node[above left]  {$Q_2$};
+  \fill[red!70!black]  (P)  circle (2.5pt) node[right]       {$P$};
+
+  % Origin
+  \fill[black] (0,0) circle (1.5pt) node[below left] {$O$};
+\end{tikzpicture}
+\end{document}

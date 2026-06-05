@@ -1,0 +1,50 @@
+\documentclass[border=15pt]{standalone}
+\usepackage{tikz}
+\usepackage{amsmath}
+\usetikzlibrary{calc,arrows.meta}
+\begin{document}
+\begin{tikzpicture}[scale=0.65]
+  % ===== Subfigure 1: Point ON curve → tangent =====
+  \begin{scope}[local bounding box=fig1]
+    \draw[->, gray!60, thin] (-4.5,0) -- (4.5,0) node[right] {$x$};
+    \draw[->, gray!60, thin] (0,-3.5) -- (0,3.5) node[above] {$y$};
+    \draw[thick, blue!70!black] (0,0) ellipse (4 and 3);
+    \coordinate (P) at ({4*cos(40)}, {3*sin(40)});
+    % Tangent line at P: (x0*x)/a² + (y0*y)/b² = 1
+    % at P, the tangent direction is perpendicular to radius, slope = -(b²*x0)/(a²*y0)
+    \draw[thick, green!60!black] ({4*cos(40)-3.5}, {3*sin(40)-3.5*tan(40+90)}) -- ({4*cos(40)+3.5}, {3*sin(40)+3.5*tan(40+90)});
+    \fill[blue!70!black] (P) circle (2pt) node[above right] {$P$};
+    \node[text=gray] at (0,-3.2) {\small 点在曲线上：切线};
+  \end{scope}
+
+  % ===== Subfigure 2: Point OUTSIDE curve → chord of contact =====
+  \begin{scope}[xshift=10cm,local bounding box=fig2]
+    \draw[->, gray!60, thin] (-4.5,0) -- (4.5,0) node[right] {$x$};
+    \draw[->, gray!60, thin] (0,-3.5) -- (0,3.5) node[above] {$y$};
+    \draw[thick, blue!70!black] (0,0) ellipse (4 and 3);
+    \coordinate (P) at (6, 1);
+    % Two tangent points (approximate)
+    \coordinate (Q1) at (3.2, 1.8);
+    \coordinate (Q2) at (2.8, -2.2);
+    \draw[thick, green!60!black] (P) -- (Q1);
+    \draw[thick, green!60!black] (P) -- (Q2);
+    \draw[thick, orange!80!black, dashed] (Q1) -- (Q2);
+    \fill[blue!70!black] (Q1) circle (2pt) node[above] {$Q_1$};
+    \fill[blue!70!black] (Q2) circle (2pt) node[below] {$Q_2$};
+    \fill[red!70!black]  (P)  circle (2pt) node[right] {$P$};
+    \node[text=gray] at (0,-3.2) {\small 点在曲线外：切点弦};
+  \end{scope}
+
+  % ===== Subfigure 3: Point INSIDE curve → polar line =====
+  \begin{scope}[xshift=20cm,local bounding box=fig3]
+    \draw[->, gray!60, thin] (-4.5,0) -- (4.5,0) node[right] {$x$};
+    \draw[->, gray!60, thin] (0,-3.5) -- (0,3.5) node[above] {$y$};
+    \draw[thick, blue!70!black] (0,0) ellipse (4 and 3);
+    \coordinate (P) at (1.5, 0.5);
+    % Polar line (approximate)
+    \draw[thick, orange!80!black, dashed] (-3.5, 3.2) -- (4.2, -4.0);
+    \fill[red!70!black] (P) circle (2pt) node[above] {$P$};
+    \node[text=gray] at (0,-3.2) {\small 点在曲线内：极线};
+  \end{scope}
+\end{tikzpicture}
+\end{document}

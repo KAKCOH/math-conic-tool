@@ -1,0 +1,53 @@
+\documentclass[border=20pt]{standalone}
+\usepackage{tikz}
+\usepackage{amsmath}
+\usetikzlibrary{calc,arrows.meta}
+\begin{document}
+\begin{tikzpicture}[scale=1.0]
+  % Axes
+  \draw[->, gray!60, thin] (-3,0) -- (5,0) node[right] {$x$};
+  \draw[->, gray!60, thin] (0,-4) -- (0,4) node[above] {$y$};
+
+  % Parabola: y² = 4x (p=2, focus at (1,0))
+  \draw[thick, blue!70!black, domain=0:5, samples=200]
+    plot (\x, {2*sqrt(\x)});
+  \draw[thick, blue!70!black, domain=0:5, samples=200]
+    plot (\x, {-2*sqrt(\x)});
+
+  % Focus F(1,0)
+  \coordinate (F) at (1,0);
+
+  % Focal chord AB through F with slope ~1.5
+  % Line through F: y = k(x-1), k=1.2
+  % Intersection with y²=4x: (k(x-1))² = 4x
+  % k²(x-1)² = 4x → k²x² - 2k²x + k² = 4x → k²x² - (2k²+4)x + k² = 0
+  % For k=1.2: 1.44x² - (2.88+4)x + 1.44 = 0 → 1.44x² - 6.88x + 1.44 = 0
+  % x = (6.88 ± sqrt(47.33-8.29))/2.88 = (6.88 ± 6.25)/2.88
+  % x₁ = 4.56, x₂ = 0.22
+  % y₁ = 1.2*(4.56-1) = 4.27, y₂ = 1.2*(0.22-1) = -0.94
+  \coordinate (A) at (4.56, 4.27);
+  \coordinate (B) at (0.22, -0.94);
+  \coordinate (M) at ({(4.56+0.22)/2}, {(4.27-0.94)/2});
+  % Foot of perpendicular from A, B to directrix (x=-1)
+  \coordinate (A1) at (-1, 4.27);
+  \coordinate (B1) at (-1, -0.94);
+
+  % Chord AB
+  \draw[thick, blue!50!black] (A) -- (B);
+  % Dashed lines to directrix (not shown to keep clean)
+
+  % Points
+  \fill[red!70!black]  (F) circle (2pt) node[below left] {$F$};
+  \fill[blue!70!black] (A) circle (2pt) node[above right] {$A(x_1,y_1)$};
+  \fill[blue!70!black] (B) circle (2pt) node[below right] {$B(x_2,y_2)$};
+  \fill[gray]          (M) circle (1.5pt) node[right] {$M$};
+
+  % Labels for key formulas
+  \node[text=orange!80!black] at (1.5, 3.0)  {\small $x_1x_2=\frac{p^2}{4}$};
+  \node[text=orange!80!black] at (1.5, -2.8) {\small $y_1y_2=-p^2$};
+  \node[text=orange!80!black] at (5.5, 1.5)  {\small $|AB|=x_1+x_2+p$};
+
+  % Note
+  \node[text=gray] at (1, -3.8) {\small 抛物线 $y^2=2px$ 焦点弦五结论};
+\end{tikzpicture}
+\end{document}

@@ -1,0 +1,48 @@
+\documentclass[border=20pt]{standalone}
+\usepackage{tikz}
+\usepackage{amsmath}
+\usetikzlibrary{calc,arrows.meta}
+\begin{document}
+\begin{tikzpicture}[scale=0.6]
+  % ---- Ellipse panel (left) ----
+  \begin{scope}[local bounding box=ellipse]
+    \draw[->, gray!60, thin] (-5.5,0) -- (5.5,0) node[right] {$x$};
+    \draw[->, gray!60, thin] (0,-4.5) -- (0,4.5) node[above] {$y$};
+    \draw[thick, blue!70!black] (0,0) ellipse (4 and 3);
+    \fill[red!70!black] (-2.646,0) circle (2pt) node[below] {$F_1$};
+    \fill[red!70!black] (2.646,0)  circle (2pt) node[below] {$F_2$};
+    \fill[black] (0,0) circle (1.5pt) node[below left] {$O$};
+    \node[text=gray] at (0,-4) {\small 椭圆 $e=\frac{c}{a}<1$};
+    \node[blue!70!black] at (1.8,2.2) {\small $a=4,b=3$};
+  \end{scope}
+
+  % ---- Parabola panel (middle) ----
+  \begin{scope}[xshift=12cm,local bounding box=parabola]
+    \draw[->, gray!60, thin] (-5.5,0) -- (5.5,0) node[right] {$x$};
+    \draw[->, gray!60, thin] (0,-2.5) -- (0,5.5) node[above] {$y$};
+    \draw[thick, green!60!black, domain=-4.5:4.5, samples=100]
+      plot (\x, {\x*\x/4});
+    \draw[gray!50, dashed] (-5,-1) -- (5,-1);
+    \fill[red!70!black] (0,1) circle (2pt) node[above] {$F$};
+    \fill[black] (0,0) circle (1.5pt) node[below left] {$V$};
+    \node[text=gray] at (0,-2.2) {\small 抛物线 $e=1$};
+  \end{scope}
+
+  % ---- Hyperbola panel (right) ----
+  \begin{scope}[xshift=24cm,local bounding box=hyperbola]
+    \draw[->, gray!60, thin] (-6.5,0) -- (6.5,0) node[right] {$x$};
+    \draw[->, gray!60, thin] (0,-5.5) -- (0,5.5) node[above] {$y$};
+    \draw[gray!40, dashed, thin] (-6,-8) -- (6,8);
+    \draw[gray!40, dashed, thin] (-6,8) -- (6,-8);
+    \draw[thick, orange!70!black, domain=-1.5:1.5, samples=100, variable=\t]
+      plot ({3*cosh(\t)}, {4*sinh(\t)});
+    \draw[thick, orange!70!black, domain=-1.5:1.5, samples=100, variable=\t]
+      plot ({-3*cosh(\t)}, {4*sinh(\t)});
+    \fill[red!70!black] (-5,0) circle (2pt) node[below] {$F_1$};
+    \fill[red!70!black] (5,0)  circle (2pt) node[below] {$F_2$};
+    \fill[black] (0,0) circle (1.5pt) node[below left] {$O$};
+    \node[text=gray] at (0,-5.2) {\small 双曲线 $e=\frac{c}{a}>1$};
+    \node[orange!70!black] at (2.2,3.5) {\small $a=3,b=4$};
+  \end{scope}
+\end{tikzpicture}
+\end{document}

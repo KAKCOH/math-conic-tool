@@ -1,0 +1,46 @@
+\documentclass[border=20pt]{standalone}
+\usepackage{tikz}
+\usepackage{amsmath}
+\usetikzlibrary{calc,arrows.meta,angles,quotes}
+\begin{document}
+\begin{tikzpicture}[scale=0.75]
+  % ===== Left: Monge Circle =====
+  \begin{scope}[local bounding box=monge]
+    \draw[->, gray!60, thin] (-6,0) -- (6,0) node[right] {$x$};
+    \draw[->, gray!60, thin] (0,-5) -- (0,5) node[above] {$y$};
+    % Ellipse a=4, b=3
+    \draw[thick, blue!70!black] (0,0) ellipse (4 and 3);
+    % Monge circle: radius = sqrt(a²+b²) = 5
+    \draw[thick, orange!80!black, dashed] (0,0) circle (5);
+    % Two perpendicular tangents (approximate)
+    \coordinate (M) at ({5*cos(50)}, {5*sin(50)});
+    \draw[thick, green!60!black] ({4*cos(50)+3.5*cos(140)}, {3*sin(50)+3.5*sin(140)}) -- ({4*cos(50)-2*cos(50)}, {3*sin(50)-2*sin(50)});
+    \draw[thick, green!60!black, rotate around={90:(M)}] (M) -- ++(-3,0);
+    \draw[thick, green!60!black, rotate around={90:(M)}] (M) -- ++(3,0);
+    \fill[red!70!black] (M) circle (2pt) node[above right] {$M$};
+    \fill[black] (0,0) circle (1.5pt) node[below left] {$O$};
+    \node[orange!80!black] at (3.5,3.5) {\small $R=\sqrt{a^2+b^2}$};
+    \node[text=gray] at (0,-4.5) {\small 蒙日圆：相互垂直切线的交点轨迹};
+  \end{scope}
+
+  % ===== Right: Optical Property =====
+  \begin{scope}[xshift=14cm,local bounding box=optical]
+    \draw[->, gray!60, thin] (-5.5,0) -- (5.5,0) node[right] {$x$};
+    \draw[->, gray!60, thin] (0,-4.5) -- (0,4.5) node[above] {$y$};
+    \draw[thick, blue!70!black] (0,0) ellipse (4 and 3);
+    \coordinate (F1) at (-2.646, 0);
+    \coordinate (F2) at (2.646, 0);
+    \coordinate (P)  at ({4*cos(55)}, {3*sin(55)});
+    % Ray from F1 to P to F2
+    \draw[thick, red!60!black, ->] (F1) -- (P);
+    \draw[thick, red!60!black, ->] (P)  -- (F2);
+    % Tangent at P (approximate)
+    \draw[gray!40, thin] ({4*cos(55)-3.5}, {3*sin(55)-3.5*tan(145)}) -- ({4*cos(55)+3.5}, {3*sin(55)+3.5*tan(145)});
+    % Normal
+    \fill[red!70!black] (F1) circle (2pt) node[below] {$F_1$};
+    \fill[red!70!black] (F2) circle (2pt) node[below] {$F_2$};
+    \fill[blue!70!black] (P)  circle (2pt) node[above right] {$P$};
+    \node[text=gray] at (0,-4) {\small 光学性质：从一个焦点出发的光线反射到另一焦点};
+  \end{scope}
+\end{tikzpicture}
+\end{document}

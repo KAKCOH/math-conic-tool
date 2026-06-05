@@ -1,0 +1,48 @@
+\documentclass[border=20pt]{standalone}
+\usepackage{tikz}
+\usepackage{amsmath}
+\usetikzlibrary{calc,arrows.meta}
+\begin{document}
+\begin{tikzpicture}[scale=0.7]
+  % Axes
+  \draw[->, gray!60, thin] (-8,0) -- (8,0) node[right] {$x$};
+  \draw[->, gray!60, thin] (0,-6.5) -- (0,6.5) node[above] {$y$};
+
+  % Asymptotes: y = ±(4/3)x
+  \draw[gray!50, dashed, thin] (-6,-8) -- (6,8);
+  \draw[gray!50, dashed, thin] (-6,8) -- (6,-8);
+
+  % Hyperbola right branch: x = 3cosh(t), y = 4sinh(t), t ∈ [-1.8, 1.8]
+  \draw[thick, blue!70!black, domain=-1.8:1.8, samples=100, variable=\t]
+    plot ({3*cosh(\t)}, {4*sinh(\t)});
+  % Left branch
+  \draw[thick, blue!70!black, domain=-1.8:1.8, samples=100, variable=\t]
+    plot ({-3*cosh(\t)}, {4*sinh(\t)});
+
+  % Foci: F₁(-5,0), F₂(5,0)
+  \coordinate (F1) at (-5,0);
+  \coordinate (F2) at (5,0);
+  \coordinate (O)  at (0,0);
+
+  % Vertices: V₁(-3,0), V₂(3,0)
+  \coordinate (V1) at (-3,0);
+  \coordinate (V2) at (3,0);
+
+  % F₁─F₂ segment
+  \draw[gray!50, thin] (F1) -- (F2);
+
+  % Points
+  \fill[red!70!black]  (F1) circle (2pt) node[below] {$F_1$};
+  \fill[red!70!black]  (F2) circle (2pt) node[below] {$F_2$};
+  \fill[blue!70!black] (V1) circle (2pt) node[below left] {$V_1$};
+  \fill[blue!70!black] (V2) circle (2pt) node[below right] {$V_2$};
+  \fill[black]         (O)  circle (2pt) node[below left] {$O$};
+
+  % Labels for asymptotes
+  \node[gray] at (5.2, 7.2)  {$y=\frac{4}{3}x$};
+  \node[gray] at (5.2, -7.2) {$y=-\frac{4}{3}x$};
+
+  % Note at bottom
+  \node[text=gray] at (0, -6.2) {$\bigl||PF_1|-|PF_2|\bigr|=2a=6$};
+\end{tikzpicture}
+\end{document}
