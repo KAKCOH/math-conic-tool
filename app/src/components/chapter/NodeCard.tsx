@@ -109,16 +109,22 @@ export function NodeCard({ node, chapterId }: Props) {
         </span>
         {/* Stats toggle button */}
         {!isLocked && attemptCount > 0 && (
-          <div className="mt-1">
+          <div className="mt-1.5">
             <button
               onClick={(e) => { e.preventDefault(); setShowStats(!showStats); }}
-              className={`flex items-center gap-1.5 text-[10px] px-2 py-0.5 rounded-full border transition-colors ${
+              className={`inline-flex items-center gap-1 text-[11px] px-2.5 py-1 rounded-lg transition-colors cursor-pointer ${
                 showStats
-                  ? 'bg-primary/10 border-primary/20 text-primary-light'
-                  : 'bg-white/[0.02] border-white/[0.04] text-text-dim hover:text-text-muted hover:border-white/[0.08]'
+                  ? 'bg-primary/10 text-primary-light'
+                  : 'text-text-dim/60 hover:text-text-dim hover:bg-white/[0.03]'
               }`}
             >
-              <span className="font-mono">{attemptCount}次</span>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"
+                className="text-text-dim/40"
+              >
+                <path d="M18 20V10" /><path d="M12 20V4" /><path d="M6 20v-6" />
+              </svg>
+              <span className="font-mono tabular-nums">{attemptCount}轮</span>
               <svg
                 width="10" height="10" viewBox="0 0 24 24" fill="none"
                 stroke="currentColor" strokeWidth="2" strokeLinecap="round"

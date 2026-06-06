@@ -60,7 +60,7 @@ export const useProgressStore = create<ProgressStore>()(
         const current = nodeStates[nodeId] || { ...defaultNodeProgress };
 
         const newStatus: NodeStatus =
-          settlement === 'perfect' ? 'cleared' :
+          settlement === 'perfect' ? 'upgraded' :
           settlement === 'cleared' ? 'cleared' :
           current.status === 'upgraded' ? 'upgraded' : // 已升级的不降级
           current.status === 'cleared' ? 'cleared' :   // 已通关的不降级
