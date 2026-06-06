@@ -143,11 +143,6 @@ function ConicGeometryBackground() {
 
 const CHINESE_NUMBERS = ['一', '二', '三', '四', '五', '六'] as const;
 
-function chapterLabel(order: number): string {
-  const idx = order - 1;
-  return idx >= 0 && idx < CHINESE_NUMBERS.length ? `第${CHINESE_NUMBERS[idx]}章` : `第${order}章`;
-}
-
 /* ── SVG bezier connector ── */
 function ConnectorLines() {
   const prefersReduced = useReducedMotion();
@@ -228,7 +223,7 @@ function ChapterGrid({ chapters, startIndex }: { chapters: ChapterStat[]; startI
               />
               <div className="relative">
                 <div className="text-[11px] text-text-dim uppercase tracking-wider mb-1">
-                  {chapterLabel(ch.order)}
+                  第{CHINESE_NUMBERS[ci] || ci + 1}章
                 </div>
                 <div className="text-[15px] font-semibold text-text leading-snug">{ch.name}</div>
                 <div className="text-xs text-text-muted mt-1.5 font-mono tabular-nums">{ch.cleared}/{ch.total}</div>

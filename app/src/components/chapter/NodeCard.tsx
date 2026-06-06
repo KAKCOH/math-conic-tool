@@ -39,8 +39,12 @@ export function NodeCard({ node, chapterId }: Props) {
   const nodeState = nodeStates[node.id];
 
   const chapterIdx = allChapters.findIndex(c => c.id === chapterId);
+  // 不同学科的章节独立解锁：节点编号第一位不同即为新学科起点
+  const isFirstInSubject = chapterIdx === 0 ||
+    allChapters[chapterIdx].nodes[0].id.split('.')[0] !== allChapters[chapterIdx - 1].nodes[0].id.split('.')[0];
+
   let chapterUnlocked = true;
-  if (chapterIdx > 0) {
+  if (!isFirstInSubject) {
     const prevChapter = allChapters[chapterIdx - 1];
     chapterUnlocked = prevChapter.nodes.every(n => {
       const s = nodeStates[n.id]?.status;
@@ -49,7 +53,7 @@ export function NodeCard({ node, chapterId }: Props) {
   }
 
   const persistedStatus = nodeState?.status;
-  const isFirstChapter = chapterIdx === 0;
+  const isFirstChapter = isFirstInSubject;
 
   const status: 'locked' | 'available' | 'cleared' | 'upgraded' =
     !chapterUnlocked ? 'locked' :
