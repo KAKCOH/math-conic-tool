@@ -275,9 +275,10 @@ function computeChapterStats() {
 }
 
 /* ── Subject Tree ── */
-function SubjectTree({ icon, title, chapters, startIndex }: {
+function SubjectTree({ icon, title, en, chapters, startIndex }: {
   icon: string;
   title: string;
+  en: string;
   chapters: ChapterStat[];
   startIndex: number;
 }) {
@@ -315,6 +316,7 @@ function SubjectTree({ icon, title, chapters, startIndex }: {
           </div>
           <div>
             <div className="text-base font-semibold text-text">{title}</div>
+            <div className="text-[11px] text-text-dim tracking-[0.06em] uppercase mt-0.5 font-medium">{en}</div>
             <div className="text-sm text-text-muted mt-0.5">
               {totalCleared} / {totalNodes} 通关
               {totalUpgraded > 0 && (
@@ -333,8 +335,8 @@ function SubjectTree({ icon, title, chapters, startIndex }: {
 }
 
 const SUBJECTS = [
-  { id: 'conic', icon: 'A', title: '圆锥曲线' },
-  { id: 'derivative', icon: 'B', title: '导数' },
+  { id: 'conic', icon: 'A', title: '圆锥曲线', en: 'Conic Sections' },
+  { id: 'derivative', icon: 'B', title: '导数', en: 'Derivatives' },
 ] as const;
 
 /* ── Tree view (both subjects) ── */
@@ -352,6 +354,7 @@ function TreeView() {
             key={subject.id}
             icon={subject.icon}
             title={subject.title}
+            en={subject.en}
             chapters={chapters}
             startIndex={startIndex}
           />
