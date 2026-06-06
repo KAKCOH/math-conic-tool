@@ -333,8 +333,8 @@ function SubjectTree({ icon, title, chapters, startIndex }: {
 }
 
 const SUBJECTS = [
-  { id: 'conic', icon: '锥', title: '圆锥曲线' },
-  { id: 'derivative', icon: '导', title: '导数' },
+  { id: 'conic', icon: 'A', title: '圆锥曲线' },
+  { id: 'derivative', icon: 'B', title: '导数' },
 ] as const;
 
 /* ── Tree view (both subjects) ── */
