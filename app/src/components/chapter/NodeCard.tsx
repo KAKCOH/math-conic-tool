@@ -1,8 +1,10 @@
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { useState } from 'react';
 import type { NodeDef } from '../../types';
 import { useProgressStore } from '../../store/useProgress';
 import { allChapters } from '../../data/chapters';
+import { NodeStatsPanel } from './NodeStatsPanel';
 
 interface Props {
   node: NodeDef;
@@ -62,6 +64,7 @@ export function NodeCard({ node, chapterId }: Props) {
 
   const isLocked = status === 'locked';
   const attemptCount = nodeState?.attempts?.length || 0;
+  const [showStats, setShowStats] = useState(false);
 
   return (
     <Link
@@ -101,19 +104,35 @@ export function NodeCard({ node, chapterId }: Props) {
 
       {/* Name + mini progress */}
       <div className="flex-1 min-w-0">
-        <span className={`text-sm leading-snug block ${isLocked ? 'text-text-muted/25' : 'text-text/90'}`}>
+        <span className={`text-sm leading-snug block ${isLocked ? 'text-text-muted/25' : status === 'upgraded' ? 'text-gold-light' : 'text-text/90'}`}>
           {node.name}
         </span>
-        {/* Mini progress bar */}
-        {!isLocked && attemptCount > 0 && status !== 'upgraded' && (
-          <div className="flex items-center gap-1 mt-1">
-            <div className="flex-1 h-0.5 rounded-full bg-white/[0.06] overflow-hidden max-w-[60px]">
-              <div
-                className="h-full rounded-full bg-primary/40 transition-all"
-                style={{ width: `${Math.min(100, attemptCount * 33)}%` }}
-              />
-            </div>
-            <span className="text-[10px] text-text-dim">{attemptCount}次</span>
+        {/* Stats toggle button */}
+        {!isLocked && attemptCount > 0 && (
+          <div className="mt-1">
+            <button
+              onClick={(e) => { e.preventDefault(); setShowStats(!showStats); }}
+              className={`flex items-center gap-1.5 text-[10px] px-2 py-0.5 rounded-full border transition-colors ${
+                showStats
+                  ? 'bg-primary/10 border-primary/20 text-primary-light'
+                  : 'bg-white/[0.02] border-white/[0.04] text-text-dim hover:text-text-muted hover:border-white/[0.08]'
+              }`}
+            >
+              <span className="font-mono">{attemptCount}次</span>
+              <svg
+                width="10" height="10" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" strokeWidth="2" strokeLinecap="round"
+                className={`transition-transform ${showStats ? 'rotate-180' : ''}`}
+              >
+                <polyline points="6 9 12 15 18 9" />
+              </svg>
+            </button>
+          </div>
+        )}
+        {/* Stats panel */}
+        {!isLocked && showStats && (
+          <div onClick={(e) => e.stopPropagation()}>
+            <NodeStatsPanel nodeId={node.id} />
           </div>
         )}
       </div>

@@ -234,8 +234,13 @@ function ChapterGrid({ chapters, startIndex }: { chapters: ChapterStat[]; startI
               {ch.nodes.map((node) => {
                 const s = nodeStates[node.id]?.status;
                 const nameClass = s === 'locked' ? 'text-text-muted/25' :
-                  (s === 'cleared' || s === 'upgraded') ? 'text-text/90' : 'text-text-muted';
-                const itemClass = s === 'upgraded' ? 'node-item upgraded' : s === 'cleared' ? 'node-item cleared' : '';
+                  s === 'upgraded' ? 'text-gold-light' :
+                  s === 'cleared' ? 'text-text/90' : 'text-text-muted';
+                const itemClass = s === 'upgraded'
+                  ? 'hover:bg-gold/[0.04]'
+                  : s === 'cleared'
+                    ? 'hover:bg-white/[0.04]'
+                    : '';
                 return (
                   <Link
                     key={node.id}
