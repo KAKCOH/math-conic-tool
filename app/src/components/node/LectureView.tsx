@@ -153,6 +153,8 @@ function lectureMarkdown(text: string): string {
       result.push(`<div class="lecture-section-header mt-10 mb-4 pb-2 border-b border-white/6"><h2 class="text-lg font-bold text-text">${rendered.slice(3)}</h2></div>`);
     } else if (trimmed.startsWith('### ')) {
       result.push(`<div class="lecture-section-header mt-8 mb-2"><h3 class="text-base font-semibold text-text flex items-center gap-2"><span class="w-1 h-4 rounded-full bg-primary/60 inline-block shrink-0"></span>${rendered.slice(4)}</h3></div>`);
+    } else if (trimmed.startsWith('#### ')) {
+      result.push(`<h4 class="text-sm font-semibold text-text/85 mt-6 mb-1.5 ml-1">${rendered.slice(5)}</h4>`);
     } else if (trimmed.startsWith('> ')) {
       result.push(`<blockquote class="border-l-2 border-primary/30 bg-primary/[0.03] rounded-r-lg pl-3 pr-3 py-1.5 my-2 text-text-muted">${rendered.slice(2)}</blockquote>`);
     } else if (/^[\d一二三四五六七八九十]+[\.\、]/.test(trimmed)) {
