@@ -304,7 +304,7 @@ function SubjectTree({ icon, title, en, chapters, startIndex }: {
     <div className="space-y-0">
       {/* Root node + magic circle container */}
       <motion.div
-        className="relative flex flex-col items-center mb-0"
+        className="relative w-full flex flex-col items-center mb-0"
         initial={prefersReduced ? { opacity: 1 } : { opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 0.5 }}
