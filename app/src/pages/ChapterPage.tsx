@@ -44,9 +44,8 @@ function ChapterBgShape({ order }: { order: number }) {
   return (
     <div className="absolute pointer-events-none opacity-[0.035] -top-32 -right-24 w-[500px] h-[500px]" aria-hidden="true">
       <svg viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg" style={anim}>
-        {order === 1 && (
+        {order % 3 === 1 && (
           <>
-            {/* Ellipse chapter: concentric ellipses + foci */}
             <ellipse cx="200" cy="200" rx="185" ry="125" stroke="oklch(0.62 0.20 250)" strokeWidth="1" />
             <ellipse cx="200" cy="200" rx="160" ry="95" stroke="oklch(0.62 0.20 250)" strokeWidth="0.5" strokeDasharray="8 6" />
             <ellipse cx="200" cy="200" rx="120" ry="55" stroke="oklch(0.62 0.20 250)" strokeWidth="0.4" opacity="0.6" />
@@ -55,9 +54,8 @@ function ChapterBgShape({ order }: { order: number }) {
             <line x1="140" y1="200" x2="260" y2="200" stroke="oklch(0.52 0.22 20)" strokeWidth="0.5" opacity="0.15" />
           </>
         )}
-        {order === 2 && (
+        {order % 3 === 2 && (
           <>
-            {/* Hyperbola chapter: two-branch + asymptotes */}
             <path d="M200 200 Q280 100 380 60" stroke="oklch(0.62 0.20 250)" strokeWidth="1" fill="none" />
             <path d="M200 200 Q280 300 380 340" stroke="oklch(0.62 0.20 250)" strokeWidth="1" fill="none" />
             <path d="M200 200 Q120 100 20 60" stroke="oklch(0.62 0.20 250)" strokeWidth="1" fill="none" />
@@ -70,9 +68,8 @@ function ChapterBgShape({ order }: { order: number }) {
             <circle cx="260" cy="200" r="3.5" fill="oklch(0.52 0.22 20)" opacity="0.4" />
           </>
         )}
-        {order === 3 && (
+        {order % 3 === 0 && (
           <>
-            {/* Parabola chapter: parabola + directrix + focus */}
             <path d="M20 380 Q200 0 380 380" stroke="oklch(0.62 0.20 250)" strokeWidth="1.2" fill="none" />
             <line x1="0" y1="300" x2="400" y2="300" stroke="oklch(0.62 0.20 250)" strokeWidth="0.5" strokeDasharray="6 4" opacity="0.6" />
             <line x1="0" y1="200" x2="400" y2="200" stroke="oklch(0.62 0.20 250)" strokeWidth="0.3" strokeDasharray="3 5" opacity="0.3" />
@@ -108,7 +105,8 @@ export function ChapterPage() {
     if (s === 'upgraded') upgraded++;
   });
 
-  const orderLabel = chapter.order === 1 ? '一' : chapter.order === 2 ? '二' : '三';
+  const CH_NUM = ['一', '二', '三', '四', '五', '六'] as const;
+  const orderLabel = CH_NUM[chapter.order - 1] || String(chapter.order);
 
   const fadeUp = (delay: number) => prefersReduced
     ? {}

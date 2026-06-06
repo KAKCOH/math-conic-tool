@@ -57,12 +57,14 @@ export function NodePage() {
     if (nodeId) initNode(nodeId);
   }, [nodeId, initNode]);
 
-  // 判断前序章节是否全部通关
+  // 判断前序章节是否全部通关（不同学科独立解锁）
   const isUnlocked = useCallback(() => {
     if (!chapterDef || !nodeId) return false;
-    if (chapterDef.order === 1) return true;
-    const prevChapter = allChapters[chapterDef.order - 2];
-    if (!prevChapter) return true;
+    const chapterIdx = allChapters.findIndex(c => c.id === chapterDef.id);
+    const isFirstInSubject = chapterIdx === 0 ||
+      allChapters[chapterIdx].nodes[0].id.split('.')[0] !== allChapters[chapterIdx - 1].nodes[0].id.split('.')[0];
+    if (isFirstInSubject) return true;
+    const prevChapter = allChapters[chapterIdx - 1];
     return prevChapter.nodes.every(n => {
       const s = nodeStates[n.id]?.status;
       return s === 'cleared' || s === 'upgraded';
