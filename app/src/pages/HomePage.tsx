@@ -403,7 +403,7 @@ export function HomePage() {
             致力消除高中数学学习的信息差
           </p>
           <p className="mt-3 text-[18px] text-text-muted tracking-[0.06em] font-display">
-            artofmath.cn
+            https://artofmath.cn
           </p>
         </motion.header>
 
