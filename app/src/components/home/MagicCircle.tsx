@@ -1,152 +1,170 @@
+import { useId } from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
 
 export function MagicCircle() {
   const prefersReduced = useReducedMotion();
+  const id = useId();
+  const gid = (s: string) => `${id}-${s}`;
 
-  const r = 96;
-  const cx = 120;
-  const cy = 136;
+  const cx = 140;
+  const cy = 160;
+  const r = 120;
 
-  // Octagram vertices
-  const starPoints: string[] = [];
+  // Octagram star
+  const starPts: string[] = [];
   for (let i = 0; i < 8; i++) {
     const a = (i * Math.PI) / 4 - Math.PI / 2;
-    const outerR = i % 2 === 0 ? 32 : 18;
-    starPoints.push(`${(cx + outerR * Math.cos(a)).toFixed(1)},${(cy + outerR * Math.sin(a)).toFixed(1)}`);
+    const d = i % 2 === 0 ? 44 : 24;
+    starPts.push(`${(cx + d * Math.cos(a)).toFixed(1)},${(cy + d * Math.sin(a)).toFixed(1)}`);
   }
 
-  // Small orbiting dots
-  const dots: { x: number; y: number; r: number }[] = [];
+  // 12 orbiting dots on a ring
+  const dots: { x: number; y: number }[] = [];
   for (let i = 0; i < 12; i++) {
     const a = (i * Math.PI * 2) / 12;
-    const dist = 68;
-    dots.push({ x: cx + dist * Math.cos(a), y: cy + dist * Math.sin(a), r: 1.6 });
+    dots.push({ x: cx + 90 * Math.cos(a), y: cy + 90 * Math.sin(a) });
   }
 
-  // Rune-like marks around outer ring
+  // Outer rune marks
   const runes: { x: number; y: number; rot: number }[] = [];
-  for (let i = 0; i < 24; i++) {
-    const a = (i * Math.PI * 2) / 24;
-    const dist = 90;
-    runes.push({ x: cx + dist * Math.cos(a), y: cy + dist * Math.sin(a), rot: (a * 180) / Math.PI + 90 });
+  for (let i = 0; i < 36; i++) {
+    const a = (i * Math.PI * 2) / 36;
+    runes.push({ x: cx + 114 * Math.cos(a), y: cy + 114 * Math.sin(a), rot: (a * 180) / Math.PI + 90 });
   }
 
   return (
     <motion.div
-      className="absolute left-1/2 -translate-x-1/2 pointer-events-none z-0"
-      style={{ bottom: -20, width: 240, height: 240 }}
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.8, ease: 'easeOut' }}
+      className="absolute left-1/2 -translate-x-1/2 pointer-events-none"
+      style={{ width: 320, height: 320, top: 'calc(100% - 60px)' }}
+      initial={{ opacity: 0, scale: 0.85 }}
+      animate={{ opacity: 1, scale: 1 }}
+      exit={{ opacity: 0, scale: 0.85 }}
+      transition={{ duration: 0.6, ease: 'easeOut' }}
     >
-      <svg viewBox="0 0 240 240" className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+      <svg viewBox="0 0 280 280" className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
         <defs>
-          {/* Outer glow */}
-          <filter id="magic-glow-outer">
-            <feGaussianBlur stdDeviation="3" result="blur" />
-            <feMerge>
-              <feMergeNode in="blur" />
-              <feMergeNode in="SourceGraphic" />
-            </feMerge>
-          </filter>
-          {/* Soft diffuse glow */}
-          <filter id="magic-glow-soft">
-            <feGaussianBlur stdDeviation="5" result="blur" />
+          <filter id={gid('glow-outer')}>
+            <feGaussianBlur stdDeviation="4" result="blur" />
             <feMerge>
               <feMergeNode in="blur" />
               <feMergeNode in="blur" />
               <feMergeNode in="SourceGraphic" />
             </feMerge>
           </filter>
-          {/* Radial gradient */}
-          <radialGradient id="magic-grad" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stopColor="rgba(59,130,246,0.18)" />
-            <stop offset="60%" stopColor="rgba(59,130,246,0.04)" />
-            <stop offset="100%" stopColor="rgba(59,130,246,0.0)" />
+          <filter id={gid('glow-inner')}>
+            <feGaussianBlur stdDeviation="6" result="blur" />
+            <feMerge>
+              <feMergeNode in="blur" />
+              <feMergeNode in="blur" />
+              <feMergeNode in="blur" />
+              <feMergeNode in="SourceGraphic" />
+            </feMerge>
+          </filter>
+          <radialGradient id={gid('grad')} cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stopColor="rgba(59,130,246,0.35)" />
+            <stop offset="40%" stopColor="rgba(59,130,246,0.12)" />
+            <stop offset="75%" stopColor="rgba(59,130,246,0.03)" />
+            <stop offset="100%" stopColor="rgba(59,130,246,0)" />
           </radialGradient>
         </defs>
 
-        {/* Ambient glow circle */}
-        <circle cx={cx} cy={cy} r={100} fill="url(#magic-grad)" />
+        {/* Ambient glow */}
+        <circle cx={cx} cy={cy} r={130} fill={`url(#${gid('grad')})`} />
 
+        {/* Outer rotating group */}
         <g
-          filter="url(#magic-glow-outer)"
+          filter={`url(#${gid('glow-outer')})`}
           style={
             prefersReduced
               ? undefined
-              : { animation: 'spin 30s linear infinite', transformOrigin: `${cx}px ${cy}px` }
+              : { animation: 'spin 25s linear infinite', transformOrigin: `${cx}px ${cy}px` }
           }
         >
-          {/* Outer ring — dashed */}
-          <circle cx={cx} cy={cy} r={r} fill="none" stroke="rgba(59,130,246,0.15)" strokeWidth="0.6"
-            strokeDasharray="3 5" />
+          {/* Outermost ring */}
+          <circle cx={cx} cy={cy} r={r} fill="none" stroke="rgba(59,130,246,0.5)" strokeWidth="1.2"
+            strokeDasharray="2 6" />
+          <circle cx={cx} cy={cy} r={r - 2} fill="none" stroke="rgba(59,130,246,0.25)" strokeWidth="0.5" />
 
-          {/* Outer ring — solid thin */}
-          <circle cx={cx} cy={cy} r={r - 4} fill="none" stroke="rgba(59,130,246,0.06)" strokeWidth="1" />
+          {/* Main geometric ring */}
+          <circle cx={cx} cy={cy} r={110} fill="none" stroke="rgba(59,130,246,0.35)" strokeWidth="0.8"
+            strokeDasharray="10 4 3 4" />
 
           {/* Middle ring */}
-          <circle cx={cx} cy={cy} r={72} fill="none" stroke="rgba(59,130,246,0.10)" strokeWidth="0.5"
-            strokeDasharray="8 6 2 6" />
+          <circle cx={cx} cy={cy} r={78} fill="none" stroke="rgba(59,130,246,0.3)" strokeWidth="0.6" />
+
+          {/* Braided ring */}
+          <circle cx={cx} cy={cy} r={82} fill="none" stroke="rgba(59,130,246,0.18)" strokeWidth="3"
+            strokeDasharray="1 4" />
 
           {/* Inner ring */}
-          <circle cx={cx} cy={cy} r={48} fill="none" stroke="rgba(59,130,246,0.12)" strokeWidth="0.7" />
+          <circle cx={cx} cy={cy} r={54} fill="none" stroke="rgba(59,130,246,0.35)" strokeWidth="0.8" />
 
           {/* Radial spokes */}
-          {Array.from({ length: 16 }, (_, i) => {
-            const a = (i * Math.PI * 2) / 16;
-            const x1 = cx + 48 * Math.cos(a);
-            const y1 = cy + 48 * Math.sin(a);
+          {Array.from({ length: 24 }, (_, i) => {
+            const a = (i * Math.PI * 2) / 24;
+            const x1 = cx + 54 * Math.cos(a);
+            const y1 = cy + 54 * Math.sin(a);
             const x2 = cx + r * Math.cos(a);
             const y2 = cy + r * Math.sin(a);
             return (
               <line key={i} x1={x1} y1={y1} x2={x2} y2={y2}
-                stroke="rgba(59,130,246,0.04)" strokeWidth="0.4" />
+                stroke="rgba(59,130,246,0.12)" strokeWidth="0.5" />
             );
           })}
 
-          {/* Secondary ring with dots */}
-          <circle cx={cx} cy={cy} r={68} fill="none" stroke="rgba(59,130,246,0.08)" strokeWidth="0.5" />
+          {/* Darker offset spokes */}
+          {Array.from({ length: 8 }, (_, i) => {
+            const a = (i * Math.PI * 2) / 8 + Math.PI / 16;
+            const x1 = cx + 54 * Math.cos(a);
+            const y1 = cy + 54 * Math.sin(a);
+            const x2 = cx + r * Math.cos(a);
+            const y2 = cy + r * Math.sin(a);
+            return (
+              <line key={i} x1={x1} y1={y1} x2={x2} y2={y2}
+                stroke="rgba(59,130,246,0.25)" strokeWidth="0.8" />
+            );
+          })}
+
+          {/* Orbiting dots ring */}
+          <circle cx={cx} cy={cy} r={90} fill="none" stroke="rgba(59,130,246,0.2)" strokeWidth="0.5" />
           {dots.map((d, i) => (
-            <circle key={i} cx={d.x} cy={d.y} r={d.r} fill="rgba(59,130,246,0.2)" />
+            <circle key={i} cx={d.x} cy={d.y} r={2.2} fill="rgba(59,130,246,0.6)" />
           ))}
 
           {/* Rune marks */}
           {runes.map((rune, i) => (
-            <line
-              key={i}
-              x1={rune.x - 3} y1={rune.y}
-              x2={rune.x + 3} y2={rune.y}
-              stroke="rgba(59,130,246,0.12)"
-              strokeWidth="0.5"
-              transform={`rotate(${rune.rot} ${rune.x} ${rune.y})`}
-            />
+            i % 3 === 0 ? (
+              <line key={i} x1={rune.x - 4} y1={rune.y} x2={rune.x + 4} y2={rune.y}
+                stroke="rgba(59,130,246,0.4)" strokeWidth="0.8"
+                transform={`rotate(${rune.rot} ${rune.x} ${rune.y})`} />
+            ) : null
           ))}
         </g>
 
-        {/* Counter-rotating inner sigil */}
+        {/* Inner counter-rotating sigil */}
         <g
-          filter="url(#magic-glow-soft)"
+          filter={`url(#${gid('glow-inner')})`}
           style={
             prefersReduced
               ? undefined
-              : { animation: 'spin-reverse 45s linear infinite', transformOrigin: `${cx}px ${cy}px` }
+              : { animation: 'spin-reverse 35s linear infinite', transformOrigin: `${cx}px ${cy}px` }
           }
         >
-          {/* Octagram star */}
-          <polygon
-            points={starPoints.join(' ')}
-            fill="none"
-            stroke="rgba(59,130,246,0.25)"
-            strokeWidth="0.8"
-          />
-          {/* Inner diamond */}
-          <rect x={cx - 16} y={cy - 16} width={32} height={32}
-            fill="none" stroke="rgba(59,130,246,0.15)" strokeWidth="0.6"
+          {/* Octagram */}
+          <polygon points={starPts.join(' ')} fill="none"
+            stroke="rgba(59,130,246,0.55)" strokeWidth="1.2" />
+          {/* Outer diamond */}
+          <rect x={cx - 28} y={cy - 28} width={56} height={56}
+            fill="none" stroke="rgba(59,130,246,0.3)" strokeWidth="0.8"
             transform={`rotate(45 ${cx} ${cy})`} />
-          {/* Center dot */}
-          <circle cx={cx} cy={cy} r="3" fill="rgba(59,130,246,0.3)" />
-          <circle cx={cx} cy={cy} r="1.2" fill="rgba(59,130,246,0.6)" />
+          {/* Inner diamond */}
+          <rect x={cx - 14} y={cy - 14} width={28} height={28}
+            fill="none" stroke="rgba(59,130,246,0.4)" strokeWidth="0.7"
+            transform={`rotate(22.5 ${cx} ${cy})`} />
+          {/* Center glow */}
+          <circle cx={cx} cy={cy} r="14" fill="rgba(59,130,246,0.08)" />
+          <circle cx={cx} cy={cy} r="4" fill="rgba(59,130,246,0.5)" />
+          <circle cx={cx} cy={cy} r="2" fill="rgba(147,197,253,0.8)" />
         </g>
       </svg>
     </motion.div>

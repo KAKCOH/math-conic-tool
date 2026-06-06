@@ -302,15 +302,15 @@ function SubjectTree({ icon, title, en, chapters, startIndex }: {
 
   return (
     <div className="space-y-0">
-      {/* Root node */}
+      {/* Root node + magic circle container */}
       <motion.div
-        className="flex justify-center mb-0"
+        className="relative flex flex-col items-center mb-0"
         initial={prefersReduced ? { opacity: 1 } : { opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 0.5 }}
       >
         <div
-          className="group relative inline-flex items-center gap-3.5 px-6 py-4 rounded-2xl bg-surface-card border border-primary/20 hover:border-primary/40 transition-all duration-300 hover:shadow-[0_0_40px_rgba(59,130,246,0.08)]"
+          className="group relative inline-flex items-center gap-3.5 px-6 py-4 rounded-2xl bg-surface-card border border-primary/20 hover:border-primary/40 transition-all duration-300 hover:shadow-[0_0_40px_rgba(59,130,246,0.08)] z-10"
           onMouseEnter={() => setHovered(true)}
           onMouseLeave={() => setHovered(false)}
         >
@@ -337,12 +337,12 @@ function SubjectTree({ icon, title, en, chapters, startIndex }: {
             </div>
           </div>
         </div>
-      </motion.div>
 
-      {/* Magic Circle */}
-      <AnimatePresence>
-        {hovered && <MagicCircle />}
-      </AnimatePresence>
+        {/* Magic Circle */}
+        <AnimatePresence>
+          {hovered && <MagicCircle />}
+        </AnimatePresence>
+      </motion.div>
 
       <ConnectorLines />
 
