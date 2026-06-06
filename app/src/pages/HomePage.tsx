@@ -291,6 +291,7 @@ function SubjectTree({ icon, title, en, chapters, startIndex }: {
 }) {
   const prefersReduced = useReducedMotion();
   const [hovered, setHovered] = useState(false);
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
 
   let totalCleared = 0;
   let totalUpgraded = 0;
@@ -311,7 +312,8 @@ function SubjectTree({ icon, title, en, chapters, startIndex }: {
       >
         <div
           className="group relative inline-flex items-center gap-3.5 px-6 py-4 rounded-2xl bg-surface-card border border-primary/20 hover:border-primary/40 transition-all duration-300 hover:shadow-[0_0_40px_rgba(59,130,246,0.08)] z-10"
-          onMouseEnter={() => setHovered(true)}
+          onMouseEnter={(e) => { setHovered(true); setMousePos({ x: e.clientX, y: e.clientY }); }}
+          onMouseMove={(e) => setMousePos({ x: e.clientX, y: e.clientY })}
           onMouseLeave={() => setHovered(false)}
         >
           <div className="absolute inset-[-2px] rounded-[22px] opacity-0 group-hover:opacity-100 transition-opacity duration-500"
@@ -340,7 +342,7 @@ function SubjectTree({ icon, title, en, chapters, startIndex }: {
 
         {/* Magic Circle */}
         <AnimatePresence>
-          {hovered && <MagicCircle />}
+          {hovered && <MagicCircle mouseX={mousePos.x} mouseY={mousePos.y} />}
         </AnimatePresence>
       </motion.div>
 

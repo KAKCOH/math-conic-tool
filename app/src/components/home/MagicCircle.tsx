@@ -1,7 +1,12 @@
 import { useId } from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
 
-export function MagicCircle() {
+interface Props {
+  mouseX: number;
+  mouseY: number;
+}
+
+export function MagicCircle({ mouseX, mouseY }: Props) {
   const prefersReduced = useReducedMotion();
   const id = useId();
   const gid = (s: string) => `${id}-${s}`;
@@ -34,8 +39,8 @@ export function MagicCircle() {
 
   return (
     <motion.div
-      className="absolute left-1/2 -translate-x-1/2 pointer-events-none"
-      style={{ width: 320, height: 320, top: 'calc(100% - 60px)' }}
+      className="fixed pointer-events-none z-30"
+      style={{ width: 320, height: 320, left: mouseX - 160, top: mouseY - 160 }}
       initial={{ opacity: 0, scale: 0.85 }}
       animate={{ opacity: 1, scale: 1 }}
       exit={{ opacity: 0, scale: 0.85 }}
