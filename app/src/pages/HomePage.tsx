@@ -390,7 +390,7 @@ export function HomePage() {
           <p className="inline-block text-[15px] text-text-muted tracking-[0.03em] mt-2.5 font-body px-4 py-1 rounded-full bg-white/[0.03] border border-white/[0.06]">
             致力消除高中数学学习的信息差
           </p>
-          <p className="mt-3 text-[13px] text-text-dim/50 tracking-[0.08em] font-display italic">
+          <p className="mt-3 text-[18px] text-text-muted tracking-[0.06em] font-display">
             artofmath.cn
           </p>
         </motion.header>
