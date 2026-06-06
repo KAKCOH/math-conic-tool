@@ -1,10 +1,13 @@
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { allChapters } from '../data/chapters';
 import { useProgressStore } from '../store/useProgress';
 import { CornerFold } from '../components/home/CornerFold';
 import { MagicCircle } from '../components/home/MagicCircle';
+import { LetterModal } from '../components/home/LetterModal';
+
+const LETTER_KEY = 'artofmath-letter-seen';
 
 
 function statusDotClass(status: string | undefined) {
@@ -387,6 +390,31 @@ function TreeView() {
 export function HomePage() {
   const prefersReduced = useReducedMotion();
 
+  const [letterOpen, setLetterOpen] = useState(false);
+
+  // First visit: auto-open letter
+  useEffect(() => {
+    const seen = localStorage.getItem(LETTER_KEY);
+    if (!seen) {
+      const timer = setTimeout(() => setLetterOpen(true), 600);
+      return () => clearTimeout(timer);
+    }
+  }, []);
+
+  const openLetter = () => {
+    if (!localStorage.getItem(LETTER_KEY)) {
+      localStorage.setItem(LETTER_KEY, '1');
+    }
+    setLetterOpen(true);
+  };
+
+  const closeLetter = () => {
+    if (!localStorage.getItem(LETTER_KEY)) {
+      localStorage.setItem(LETTER_KEY, '1');
+    }
+    setLetterOpen(false);
+  };
+
   const fadeUp = (delay: number) => prefersReduced
     ? {}
     : { initial: { opacity: 0, y: 16 }, animate: { opacity: 1, y: 0 }, transition: { duration: 0.6, delay } };
@@ -394,6 +422,24 @@ export function HomePage() {
   return (
     <>
       <ConicGeometryBackground />
+
+      {/* Envelope icon — top left */}
+      <button
+        onClick={openLetter}
+        className="fixed top-4 left-4 z-40 w-10 h-10 flex items-center justify-center rounded-xl bg-surface-card/80 backdrop-blur-sm border border-white/10 hover:border-primary/30 hover:bg-surface-card transition-all duration-200 group"
+        aria-label="查看致你的一封信"
+      >
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"
+          className="text-text-dim group-hover:text-primary-light transition-colors"
+        >
+          <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+          <polyline points="22,6 12,13 2,6" />
+        </svg>
+      </button>
+
+      {/* Letter modal */}
+      <LetterModal open={letterOpen} onClose={closeLetter} />
 
       <div className="relative z-10 max-w-3xl mx-auto px-4 py-12 pb-24">
         {/* Header */}
