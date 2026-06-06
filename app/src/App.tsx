@@ -1,5 +1,5 @@
 import { useLocation } from 'react-router-dom';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { HashRouter, Routes, Route } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import { HomePage } from './pages/HomePage';
 import { ChapterPage } from './pages/ChapterPage';
@@ -66,13 +66,13 @@ function AnimatedRoutes() {
 
 export default function App() {
   return (
-    <BrowserRouter basename="/art-of-math">
+    <HashRouter>
       <div className="min-h-screen bg-surface relative">
         <AmbientParticles />
         <div className="relative z-10">
           <AnimatedRoutes />
         </div>
       </div>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
