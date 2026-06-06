@@ -1,8 +1,10 @@
-import { motion, useReducedMotion } from 'framer-motion';
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import { useState } from 'react';
 import { allChapters } from '../data/chapters';
 import { useProgressStore } from '../store/useProgress';
 import { CornerFold } from '../components/home/CornerFold';
+import { MagicCircle } from '../components/home/MagicCircle';
 
 
 function statusDotClass(status: string | undefined) {
@@ -288,6 +290,7 @@ function SubjectTree({ icon, title, en, chapters, startIndex }: {
   startIndex: number;
 }) {
   const prefersReduced = useReducedMotion();
+  const [hovered, setHovered] = useState(false);
 
   let totalCleared = 0;
   let totalUpgraded = 0;
@@ -306,7 +309,11 @@ function SubjectTree({ icon, title, en, chapters, startIndex }: {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 0.5 }}
       >
-        <div className="group relative inline-flex items-center gap-3.5 px-6 py-4 rounded-2xl bg-surface-card border border-primary/20 hover:border-primary/40 transition-all duration-300 hover:shadow-[0_0_40px_rgba(59,130,246,0.08)]">
+        <div
+          className="group relative inline-flex items-center gap-3.5 px-6 py-4 rounded-2xl bg-surface-card border border-primary/20 hover:border-primary/40 transition-all duration-300 hover:shadow-[0_0_40px_rgba(59,130,246,0.08)]"
+          onMouseEnter={() => setHovered(true)}
+          onMouseLeave={() => setHovered(false)}
+        >
           <div className="absolute inset-[-2px] rounded-[22px] opacity-0 group-hover:opacity-100 transition-opacity duration-500"
             style={{
               background: 'conic-gradient(from 0deg, transparent, rgba(59,130,246,0.3), transparent, rgba(59,130,246,0.1), transparent)',
@@ -331,6 +338,11 @@ function SubjectTree({ icon, title, en, chapters, startIndex }: {
           </div>
         </div>
       </motion.div>
+
+      {/* Magic Circle */}
+      <AnimatePresence>
+        {hovered && <MagicCircle />}
+      </AnimatePresence>
 
       <ConnectorLines />
 
