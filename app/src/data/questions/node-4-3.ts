@@ -104,6 +104,17 @@ const questions4_3: (Question | ChoiceQuestion)[] = [
     tags: ['含参讨论', '构造辅助函数', '证明不等式'],
     source: '2023·新高考Ⅰ卷·T19改编',
   },
+  {
+    id: '4.3-hard-4',
+    nodeId: '4.3',
+    difficulty: 3,
+    type: 'calculation',
+    content: '已知函数 $f(x) = x^{3} + 3ax^{2} + 3(a+2)x + 1$（$a \\in \\mathbb{R}$），试讨论 $f(x)$ 的单调性。',
+    answer: '见解答。',
+    solution: '$f\'(x) = 3x^{2} + 6ax + 3(a+2) = 3(x^{2} + 2ax + a + 2)$。\n\n方程 $x^{2} + 2ax + a + 2 = 0$ 的判别式 $\\Delta = 4a^{2} - 4(a+2) = 4(a^{2} - a - 2) = 4(a-2)(a+1)$。\n\n(1) 当 $\\Delta \\le 0$，即 $-1 \\le a \\le 2$ 时，$f\'(x) \\ge 0$ 恒成立，故 $f(x)$ 在 $\\mathbb{R}$ 上单调递增。\n\n(2) 当 $\\Delta > 0$，即 $a < -1$ 或 $a > 2$ 时，$f\'(x) = 0$ 有两个实根：$x_{1} = -a - \\sqrt{a^{2} - a - 2}$，$x_{2} = -a + \\sqrt{a^{2} - a - 2}$（$x_{1} < x_{2}$）。\n此时 $f(x)$ 在 $(-\\infty, x_{1})$ 上递增，在 $(x_{1}, x_{2})$ 上递减，在 $(x_{2}, +\\infty)$ 上递增。',
+    tags: ['含参讨论', '三次函数', '单调性', '分类讨论'],
+    source: '自主命题',
+  },
 ];
 
 export default questions4_3;

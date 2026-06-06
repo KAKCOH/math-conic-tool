@@ -75,6 +75,47 @@ $$a \\ge g(x) \\text{ 恒成立} \\iff a \\ge g(x)_{\\max}$$
 - 端点效应得出的是必要条件，必须检验充分性
 - 含参讨论时，参数的每个分段都需要完整分析
 - 最后结果取各分段结果的并集
+
+### 六、任意与存在的混合模型
+
+当题目中同时出现 $\\forall$（任意）和 $\\exists$（存在）时，需要精确理解量词逻辑。以下归纳 7 种典型模型：
+
+设 $f(x)$、$g(x)$ 的定义域分别为 $D_f$、$D_g$，值域分别为 $R_f = \\{f(x) \\mid x \\in D_f\\}$、$R_g = \\{g(x) \\mid x \\in D_g\\}$。
+
+**模型 ①：单一函数 + 单个「任意」**
+$$\\forall x \\in D: f(x) \\ge a \\iff a \\le f_{\\min}$$
+
+**模型 ②：单一函数 + 单个「存在」**
+$$\\exists x \\in D: f(x) \\ge a \\iff a \\le f_{\\max}$$
+
+**模型 ③：双函数 +「任意 $x_1$，存在 $x_2$」**（最常见压轴型）
+$$\\forall x_1 \\in D_f,\\ \\exists x_2 \\in D_g: f(x_1) = g(x_2) \\iff R_f \\subseteq R_g$$
+
+> 即 $f$ 的每一个值，$g$ 都能取到。等价于 $f_{\\min} \\ge g_{\\min}$ 且 $f_{\\max} \\le g_{\\max}$（当值域连通时）。
+
+**模型 ④：双函数 +「存在 $x_1$，存在 $x_2$」**
+$$\\exists x_1 \\in D_f,\\ \\exists x_2 \\in D_g: f(x_1) = g(x_2) \\iff R_f \\cap R_g \\neq \\varnothing$$
+
+> 即 $f$ 和 $g$ 的值域有交集。等价于 $f_{\\min} \\le g_{\\max}$ 且 $f_{\\max} \\ge g_{\\min}$。
+
+**模型 ⑤：双函数 +「任意 $x_1$，任意 $x_2$」**
+$$\\forall x_1 \\in D_f,\\ \\forall x_2 \\in D_g: f(x_1) \\ge g(x_2) \\iff f_{\\min} \\ge g_{\\max}$$
+
+**模型 ⑥：双函数 +「存在 $x_1$，任意 $x_2$」**（最难）
+$$\\exists x_1 \\in D_f,\\ \\forall x_2 \\in D_g: f(x_1) \\ge g(x_2) \\iff f_{\\max} \\ge g_{\\max}$$
+
+> 即存在 $f$ 的一个值「碾压」$g$ 的所有值。
+
+**模型 ⑦：双函数 +「任意 $x_1$，存在 $x_2$，满足不等式」**
+$$\\forall x_1 \\in D_f,\\ \\exists x_2 \\in D_g: f(x_1) \\ge g(x_2) \\iff f_{\\min} \\ge g_{\\min}$$
+
+> 注意与模型 ⑤ 的区别：这里 $x_2$ 可以依赖 $x_1$ 变化，门槛低得多。
+
+**解题口诀**：
+- 量词「任意→任意」：最值交叉取（$f_{\\min} \\ge g_{\\max}$）
+- 量词「任意→存在」：值域包含取（$R_f \\subseteq R_g$）
+- 量词「存在→任意」：最值同向取（$f_{\\max} \\ge g_{\\max}$）
+- 先翻译量词为最值关系，再求导处理最值
 `;
 
 export default lecture6_1;

@@ -58,7 +58,7 @@ const questions5_2: (Question | ChoiceQuestion)[] = [
     content: '已知函数 $f(x) = e^x - a\\ln x$（$a > 0$），$f\'(x_0) = 0$。\n\n(1) 用 $x_0$ 表示 $a$；\n(2) 求证：$f(x_0) \\ge 2a - a\\ln a$。',
     answer: '$a = x_0 e^{x_0}$; 证明见解答。',
     solution: '(1) $f\'(x) = e^x - \\frac{a}{x}$。$f\'(x_0) = 0 \\Rightarrow e^{x_0} = \\frac{a}{x_0} \\Rightarrow a = x_0 e^{x_0}$。\n\n(2) 由 $e^{x_0} = \\frac{a}{x_0}$ 得 $f(x_0) = e^{x_0} - a\\ln x_0 = \\frac{a}{x_0} - a\\ln x_0$。\n要证 $f(x_0) \\ge 2a - a\\ln a$，等价于：\n$\\frac{a}{x_0} - a\\ln x_0 \\ge 2a - a\\ln a$\n$\\iff \\frac{1}{x_0} - \\ln x_0 \\ge 2 - \\ln a$\n代入 $a = x_0 e^{x_0}$：$\\ln a = \\ln x_0 + x_0$。\n$\\iff \\frac{1}{x_0} - \\ln x_0 \\ge 2 - \\ln x_0 - x_0$\n$\\iff \\frac{1}{x_0} \\ge 2 - x_0$\n$\\iff x_0 + \\frac{1}{x_0} \\ge 2$\n由均值不等式，$x_0 > 0$ 时 $x_0 + \\frac{1}{x_0} \\ge 2$ 恒成立（等号仅当 $x_0 = 1$）。故原不等式得证。',
-	    tags: ['隐零点', '隐零点代换', '均值不等式'],
+    tags: ['隐零点', '隐零点代换', '均值不等式'],
   },
   {
     id: '5.2-mid-3',
@@ -80,7 +80,7 @@ const questions5_2: (Question | ChoiceQuestion)[] = [
     content: '已知函数 $f(x) = e^x - \\ln(x + m)$。\n\n(1) 若 $x = 0$ 是 $f(x)$ 的极值点，求 $m$，并讨论 $f(x)$ 的单调性；\n(2) 当 $m \\le 2$ 时，证明 $f(x) > 0$。',
     answer: '$m = 1$; 证明见解答。',
     solution: '(1) $f\'(x) = e^x - \\frac{1}{x+m}$。$f\'(0) = 0 \\Rightarrow 1 - \\frac{1}{m} = 0 \\Rightarrow m = 1$。\n当 $m = 1$ 时，$f\'(x) = e^x - \\frac{1}{x+1}$。令 $g(x) = (x+1)e^x - 1$，$g\'(x) = (x+2)e^x > 0$（$x > -1$）。$g(0) = 0$，故 $x \\in (-1, 0)$ 时 $g(x) < 0$ 即 $f\'(x) < 0$（$f$ 递减），$x > 0$ 时 $f\'(x) > 0$（$f$ 递增）。$f_{\\min} = f(0) = 1 - 0 = 1 > 0$。\n\n(2) $m \\le 2 \\Rightarrow x + m \\le x + 2 \\Rightarrow \\ln(x+m) \\le \\ln(x+2)$。\n故 $f(x) = e^x - \\ln(x+m) \\ge e^x - \\ln(x+2)$。\n令 $h(x) = e^x - \\ln(x+2)$（$x > -2$），$h\'(x) = e^x - \\frac{1}{x+2}$。\n类似 (1) 分析，$h\'(x)$ 有唯一隐零点 $x_0 \\in (-1, 0)$，且 $h_{\\min} = h(x_0)$。\n由 $h\'(x_0) = 0$ 得 $e^{x_0} = \\frac{1}{x_0+2}$。\n$h(x_0) = e^{x_0} - \\ln(x_0+2) = \\frac{1}{x_0+2} + \\ln\\frac{1}{x_0+2}$。\n令 $t = \\frac{1}{x_0+2}$，$x_0 \\in (-1, 0) \\Rightarrow t \\in (\\frac{1}{2}, 1)$。\n$h(x_0) = t - \\ln t$。由 $t - \\ln t \\ge 1$（$t = 1$ 时等号），$t < 1$ 时 $h(x_0) > 1 > 0$。\n故 $f(x) \\ge h(x) \\ge h(x_0) > 0$。',
-	    tags: ['隐零点', '不等式证明', '放缩'],
+    tags: ['隐零点', '不等式证明', '放缩'],
     source: '2013·新课标Ⅰ卷·理T21改编',
   },
   {
@@ -101,9 +101,20 @@ const questions5_2: (Question | ChoiceQuestion)[] = [
     type: 'calculation',
     content: '已知函数 $f(x) = e^x - ax$（$a > 0$）有两个零点 $x_1 < x_2$。\n\n(1) 求 $a$ 的取值范围；\n(2) 证明：$x_1 + x_2 > 2$。',
     answer: '$a > e$; 证明见解答。',
-    solution: '(1) $f\'(x) = e^x - a$，令 $f\'(x) = 0$ 得 $x = \\ln a$。\n$x < \\ln a$ 时 $f\'(x) < 0$，$x > \\ln a$ 时 $f\'(x) > 0$。$f_{\\min} = f(\\ln a) = a - a\\ln a$。\n有两个零点条件：$f_{\\min} < 0$ 且 $\\lim_{x \\to \\pm\\infty} f(x) = +\\infty$（或 > 0）。\n$a - a\\ln a < 0 \\Rightarrow a(1 - \\ln a) < 0 \\Rightarrow 1 - \\ln a < 0 \\Rightarrow \\ln a > 1 \\Rightarrow a > e$。\n\n(2) 不妨设 $x_1 < \\ln a < x_2$。由 $f(x_1) = f(x_2) = 0$ 得 $e^{x_1} = ax_1$，$e^{x_2} = ax_2$。\n相除：$e^{x_2 - x_1} = \\frac{x_2}{x_1}$。令 $t = x_2 - x_1 > 0$，则 $e^t = \\frac{x_1 + t}{x_1} = 1 + \\frac{t}{x_1}$。\n$x_1 = \\frac{t}{e^t - 1}$，$x_2 = x_1 + t = \\frac{t e^t}{e^t - 1}$。\n$x_1 + x_2 = \\frac{t(1 + e^t)}{e^t - 1} > 2 \\iff t(1 + e^t) > 2(e^t - 1)$。\n令 $h(t) = t(1 + e^t) - 2(e^t - 1) = t + te^t - 2e^t + 2$（$t > 0$）。\n$h\'(t) = 1 + e^t + te^t - 2e^t = 1 + te^t - e^t = 1 + (t - 1)e^t$。\n$h\'\'(t) = e^t + (t-1)e^t = te^t > 0$（$t > 0$），$h\'$ 递增。$h\'(0) = 1 - 1 = 0$。\n故 $t > 0$ 时 $h\'(t) > 0$，$h$ 递增。$h(0) = 0$。故 $h(t) > 0$ 对所有 $t > 0$ 成立。\n从而 $x_1 + x_2 > 2$ 得证。',
+    solution: '(1) $f\'(x) = e^x - a$，令 $f\'(x) = 0$ 得 $x = \\ln a$。\n$x < \\ln a$ 时 $f\'(x) < 0$，$x > \\ln a$ 时 $f\'(x) > 0$。$f_{\\min} = f(\\ln a) = a - a\\ln a$。\n有两个零点条件：$f_{\\min} < 0$ 且 $\\lim_{x \\to \\pm\\infty} f(x) = +\\infty$（或 > 0）。\n$a - a\\ln a < 0 \\Rightarrow a(1 - \\ln a) < 0 \\Rightarrow 1 - \\ln a < 0 \\Rightarrow \\ln a > 1 \\Rightarrow a > e$。\n\n(2) 不妨设 $x_1 < \\ln a < x_2$。由 $f(x_1) = f(x_2) = 0$ 得 $e^{x_1} = ax_1$，$e^{x_2} = ax_2$。\n相除：$e^{x_2 - x_1} = \\frac{x_2}{x_1}$。令 $t = x_2 - x_1 > 0$，则 $e^t = \\frac{x_1 + t}{x_1} = 1 + \\frac{t}{x_1}$。\n$x_1 = \\frac{t}{e^t - 1}$，$x_2 = x_1 + t = \\frac{t e^t}{e^t - 1}$。\n$x_1 + x_2 = \\frac{t(1 + e^t)}{e^t - 1} > 2 \\iff t(1 + e^t) > 2(e^t - 1)$。\n令 $h(t) = t(1 + e^t) - 2(e^t - 1) = t + te^t - 2e^t + 2$（$t > 0$）。\n$h\'(t) = 1 + e^t + te^t - 2e^t = 1 + (t - 1)e^t$。\n$h\'\'(t) = e^t + (t-1)e^t = te^t > 0$（$t > 0$），$h\'$ 递增。$h\'(0) = 1 - 1 = 0$。\n故 $t > 0$ 时 $h\'(t) > 0$，$h$ 递增。$h(0) = 0$。故 $h(t) > 0$ 对所有 $t > 0$ 成立。\n从而 $x_1 + x_2 > 2$ 得证。',
     tags: ['隐零点', '双零点', '对称分析'],
     source: '2013·新课标Ⅰ卷·理T21改编',
+  },
+  {
+    id: '5.2-hard-4',
+    nodeId: '5.2',
+    difficulty: 3,
+    type: 'calculation',
+    content: '已知函数 $f(x) = e^{x} - a\\ln x - a$，其中 $a > 0$。\\n\\n(1) 求 $f(x)$ 的导函数 $f\'(x)$，并证明 $f\'(x)$ 在 $(0, +\\infty)$ 上有唯一零点 $x_0$；\\n(2) 利用 $f\'(x_0) = 0$ 消去 $f(x_0)$ 中的指数项，将 $f(x_0)$ 用 $x_0$ 和 $a$ 表示；\\n(3) 若 $f(x) \\ge 0$ 对任意 $x > 0$ 恒成立，利用隐零点代换求 $a$ 的取值范围。',
+    answer: '见解答; $f(x_0) = a(\\frac{1}{x_0} - \\ln x_0 - 1)$; $0 < a \\le e$',
+    solution: '(1) $x > 0$ 时，$f\'(x) = e^{x} - \\frac{a}{x}$。\\n$f\'\'(x) = e^{x} + \\frac{a}{x^{2}} > 0$（$x > 0$），故 $f\'(x)$ 在 $(0, +\\infty)$ 上严格递增。\\n当 $x \\to 0^{+}$ 时，$e^{x} \\to 1$，$\\frac{a}{x} \\to +\\infty$，故 $f\'(x) \\to -\\infty$。\\n当 $x \\to +\\infty$ 时，$e^{x} \\to +\\infty$，$\\frac{a}{x} \\to 0$，故 $f\'(x) \\to +\\infty$。\\n由连续函数的介值定理和严格单调性，存在唯一的 $x_0 > 0$ 使 $f\'(x_0) = 0$。\\n\\n(2) 由 $f\'(x_0) = 0$ 得 $e^{x_0} = \\frac{a}{x_0}$，即 $a = x_0 e^{x_0}$。\\n代入 $f(x_0)$：\\n$f(x_0) = e^{x_0} - a\\ln x_0 - a = \\frac{a}{x_0} - a\\ln x_0 - a = a\\bigl(\\frac{1}{x_0} - \\ln x_0 - 1\\bigr)$。\\n这就是隐零点代换：利用 $f\'(x_0)=0$ 的关系式将指数项 $e^{x_0}$ 替换为代数式 $\\frac{a}{x_0}$，使 $f(x_0)$ 的表达式中不含超越函数。\\n\\n(3) 由 $f\'(x)$ 在 $(0, x_0)$ 上为负、在 $(x_0, +\\infty)$ 上为正知，$x_0$ 是 $f(x)$ 在 $(0, +\\infty)$ 上的唯一极小值点，也是最小值点。\\n故 $f(x) \\ge 0$ 对任意 $x > 0$ 恒成立 $\\iff f(x_0) \\ge 0$。\\n\\n由 (2)，$f(x_0) = a\\bigl(\\frac{1}{x_0} - \\ln x_0 - 1\\bigr)$，而 $a > 0$，故\\n$f(x_0) \\ge 0 \\iff \\frac{1}{x_0} - \\ln x_0 - 1 \\ge 0 \\iff \\frac{1}{x_0} - \\ln x_0 \\ge 1$。\\n\\n令 $h(x) = \\frac{1}{x} - \\ln x$（$x > 0$）。$h\'(x) = -\\frac{1}{x^{2}} - \\frac{1}{x} < 0$，$h(x)$ 严格递减。\\n$h(1) = 1 - 0 = 1$，故 $h(x) \\ge 1 \\iff 0 < x \\le 1$。\\n\\n因此 $0 < x_0 \\le 1$。\\n\\n又 $a = x_0 e^{x_0}$。令 $\\varphi(x) = x e^{x}$（$x > 0$），$\\varphi\'(x) = e^{x}(1 + x) > 0$，$\\varphi$ 严格递增。\\n$\\varphi(0^{+}) = 0$，$\\varphi(1) = e$。故 $x_0 \\in (0, 1] \\iff a = \\varphi(x_0) \\in (0, e]$。\\n\\n反之，若 $a \\in (0, e]$，则存在唯一的 $x_0 \\in (0, 1]$ 满足 $a = x_0 e^{x_0}$ 且 $f\'(x_0) = 0$，此时 $f(x_0) \\ge 0$，从而 $f(x) \\ge f(x_0) \\ge 0$ 恒成立。\\n\\n综上，$a$ 的取值范围是 $(0, e]$。\\n\\n本题完整展示了隐零点代换求参数范围的典型流程：先证隐零点 $x_0$ 存在并唯一（利用 $f\'\'$ 的定号保证 $f\'$ 单调），再利用 $f\'(x_0) = 0$ 消去 $f(x_0)$ 中的超越项，最后利用 $x_0$ 满足的不等式反解出 $a$ 的范围。',
+    tags: ['隐零点', '隐零点代换', '恒成立', '参数范围'],
+    source: '自主命题',
   },
 ];
 

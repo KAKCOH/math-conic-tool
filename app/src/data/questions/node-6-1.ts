@@ -104,6 +104,32 @@ const questions6_1: (Question | ChoiceQuestion)[] = [
     tags: ['恒成立', '含参讨论', '最值转化'],
     source: '2014·全国大纲卷·理T21改编',
   },
+
+  // ===== 难度 2：任意/存在混合量词 =====
+  {
+    id: '6.1-mid-4',
+    nodeId: '6.1',
+    difficulty: 2,
+    type: 'calculation',
+    content: '已知函数 $f(x) = x + \\frac{1}{x}$（$x \\in [1, 2]$），$g(x) = 2x + a$（$x \\in [-1, 1]$）。若对任意 $x_1 \\in [1, 2]$，总存在 $x_2 \\in [-1, 1]$ 使得 $f(x_1) = g(x_2)$，求实数 $a$ 的取值范围。',
+    answer: '$a \\in [\\frac{1}{2}, 4]$',
+    solution: '条件"$\\forall x_1 \\in [1,2], \\exists x_2 \\in [-1,1]: f(x_1) = g(x_2)$"等价于：对任意 $x_1$，$f(x_1)$ 都在 $g$ 的值域中，即 $R_f \\subseteq R_g$。\n\n先求 $R_f$：$f(x) = x + \\frac{1}{x}$，$f\'(x) = 1 - \\frac{1}{x^2} \\ge 0$（$x \\in [1, 2]$），$f$ 单调递增。$f_{\\min} = f(1) = 2$，$f_{\\max} = f(2) = \\frac{5}{2}$，故 $R_f = [2, \\frac{5}{2}]$。\n\n再求 $R_g$：$g(x) = 2x + a$ 在 $[-1, 1]$ 上单调递增，$R_g = [a - 2, a + 2]$。\n\n由 $R_f \\subseteq R_g$ 得 $\\begin{cases} a - 2 \\le 2 \\\\ a + 2 \\ge \\frac{5}{2} \\end{cases}$，解得 $\\begin{cases} a \\le 4 \\\\ a \\ge \\frac{1}{2} \\end{cases}$。\n故 $a \\in [\\frac{1}{2}, 4]$。',
+    tags: ['任意存在混合', '值域包含', '量词转化'],
+    source: '自主命题',
+  },
+
+  // ===== 难度 3：任意/存在混合量词（复杂） =====
+  {
+    id: '6.1-hard-4',
+    nodeId: '6.1',
+    difficulty: 3,
+    type: 'calculation',
+    content: '已知函数 $f(x) = ae^x - x$（$x \\in [0, 1]$），$g(x) = x - \\ln x$（$x \\in [1, e]$）。若存在 $x_1 \\in [0, 1]$，使得对任意 $x_2 \\in [1, e]$ 都有 $f(x_1) \\ge g(x_2)$，求实数 $a$ 的取值范围。',
+    answer: '$a \\ge 1$',
+    solution: '条件"$\\exists x_1 \\in [0,1], \\forall x_2 \\in [1,e]: f(x_1) \\ge g(x_2)$"的含义是：存在某个 $x_1$，其函数值 $f(x_1)$ 不小于 $g$ 的所有函数值。这等价于 $f$ 的最大值不小于 $g$ 的最大值，即 $\\max_{[0,1]} f \\ge \\max_{[1,e]} g$。\n\n先求 $\\max g$：$g\'(x) = 1 - \\frac{1}{x}$，在 $[1, e]$ 上 $g\'(x) \\ge 0$（等号仅当 $x = 1$），$g$ 单调递增，$\\max g = g(e) = e - 1$。\n\n再求 $\\max f$：$f\'(x) = ae^x - 1$。分情况讨论：\n\n① 若 $a \\le 0$：$f\'(x) < 0$，$f$ 在 $[0, 1]$ 上严格递减，$\\max f = f(0) = a$。需 $a \\ge e - 1$，这与 $a \\le 0$ 矛盾（$e - 1 \\approx 1.718 > 0$），舍去。\n\n② 若 $a > 0$：令 $f\'(x) = 0$ 得临界点 $x = -\\ln a$。\n  \\quad (i) 当 $-\\ln a \\le 0$ 即 $a \\ge 1$ 时：在 $[0, 1]$ 上 $f\'(x) \\ge 0$ 恒成立，$f$ 单调递增，$\\max f = f(1) = ae - 1$。由 $\\max f \\ge \\max g$ 得 $ae - 1 \\ge e - 1 \\Rightarrow a \\ge 1$，符合前提。\n  \\quad (ii) 当 $0 < -\\ln a < 1$ 即 $\\frac{1}{e} < a < 1$ 时：$f$ 在 $[0, -\\ln a]$ 上递减，在 $[-\\ln a, 1]$ 上递增，$\\max f = \\max\\{f(0), f(1)\\} = \\max\\{a, ae - 1\\}$。比较两者：$a - (ae - 1) = 1 - a(e - 1)$。当 $a \\le \\frac{1}{e-1}$ 时 $\\max f = a$，此时需 $a \\ge e-1$，不可能；当 $a > \\frac{1}{e-1}$ 时 $\\max f = ae - 1$，需 $ae - 1 \\ge e - 1 \\Rightarrow a \\ge 1$，与 $a < 1$ 矛盾。\n  \\quad (iii) 当 $-\\ln a \\ge 1$ 即 $0 < a \\le \\frac{1}{e}$ 时：在 $[0, 1]$ 上 $f\'(x) \\le 0$，$f$ 递减，$\\max f = f(0) = a$。需 $a \\ge e - 1$，不可能。\n\n综合所有情况，$a \\ge 1$。',
+    tags: ['任意存在混合', '量词转化', '最大值比较', '含参分类讨论'],
+    source: '自主命题',
+  },
 ];
 
 export default questions6_1;

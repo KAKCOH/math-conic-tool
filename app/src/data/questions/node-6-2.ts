@@ -103,6 +103,19 @@ const questions6_2: (Question | ChoiceQuestion)[] = [
 	    tags: ['极值点偏移', '双变量', '对称化构造'],
     source: '2020·新高考Ⅰ卷·T21改编',
   },
+
+  // ===== 难度 3：双参数消元（主元法） =====
+  {
+    id: '6.2-hard-4',
+    nodeId: '6.2',
+    difficulty: 3,
+    type: 'calculation',
+    content: '已知函数 $f(x) = ae^x + be^{-x} - 2$（$x \\in \\mathbb{R}$），其中 $a > 0, b > 0$。若对任意实数 $x$ 都有 $f(x) \\ge 0$ 恒成立。\n\n(1) 证明：$ab \\ge 1$；\n(2) 求 $a + b$ 的最小值。',
+    answer: '证明见解答; $2$（当且仅当 $a = b = 1$ 时取得）',
+    solution: '(1) 由基本不等式（均值不等式）：对任意实数 $x$，$ae^x + be^{-x} \\ge 2\\sqrt{ae^x \\cdot be^{-x}} = 2\\sqrt{ab}$，等号当且仅当 $ae^x = be^{-x}$ 时成立。由题意 $f(x) \\ge 0$ 对一切 $x$ 成立，特别地取等号成立点 $x = \\frac{1}{2}\\ln\\frac{b}{a}$，此时 $f(x)_{\\min} = 2\\sqrt{ab} - 2$。恒成立要求 $f(x)_{\\min} \\ge 0$，即 $2\\sqrt{ab} - 2 \\ge 0$，解得 $ab \\ge 1$。\n\n也可以从判别式角度：$f(x) \\ge 0 \\iff ae^x + be^{-x} \\ge 2$。令 $t = e^x > 0$，则条件化为 $at + \\frac{b}{t} \\ge 2$ 对一切 $t > 0$ 成立。由均值不等式 $at + \\frac{b}{t} \\ge 2\\sqrt{ab}$，只需 $2\\sqrt{ab} \\ge 2$ 即 $ab \\ge 1$。\n\n(2) 由均值不等式：$a + b \\ge 2\\sqrt{ab} \\ge 2\\sqrt{1} = 2$。第一个等号成立当 $a = b$，第二个等号成立当 $ab = 1$。联立得 $a = b = 1$。此时 $f(x) = e^x + e^{-x} - 2$，由 (1) 的推导知 $f(x) \\ge 2\\sqrt{1} - 2 = 0$，确实恒成立。\n故 $a + b$ 的最小值为 $2$。',
+    tags: ['双参数', '主元法', '均值不等式', '恒成立'],
+    source: '自主命题',
+  },
 ];
 
 export default questions6_2;

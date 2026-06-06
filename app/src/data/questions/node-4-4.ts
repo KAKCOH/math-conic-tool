@@ -103,6 +103,17 @@ const questions4_4: (Question | ChoiceQuestion)[] = [
     solution: '(1) $f\'(x) = \\frac{1 - \\ln x}{x^2}$。$x \\in (0, e)$: $f\'(x) > 0$（增）；$x \\in (e, +\\infty)$: $f\'(x) < 0$（减）。\n最大值 $f(e) = \\frac{1}{e}$。\n\n(2) $e^{\\pi}$ 与 $\\pi^{e}$ 均为正数，取对数后比较 $\\pi$ 与 $e\\ln\\pi$，即比较 $\\frac{\\pi}{e}$ 与 $\\ln\\pi$。\n$\\ln\\pi = \\frac{\\ln\\pi}{\\pi} \\cdot \\pi = f(\\pi) \\cdot \\pi$。由 (1)，$\\pi > e$ 故 $f(\\pi) < f(e) = \\frac{1}{e}$，即 $\\frac{\\ln\\pi}{\\pi} < \\frac{1}{e}$。\n$\\ln\\pi < \\frac{\\pi}{e} \\Rightarrow e\\ln\\pi < \\pi \\Rightarrow \\ln(\\pi^{e}) < \\ln(e^{\\pi})$。\n由对数函数单调递增，得 $\\pi^{e} < e^{\\pi}$。',
     tags: ['极值', '单调性应用', '数值比较', '对数'],
   },
+  {
+    id: '4.4-hard-4',
+    nodeId: '4.4',
+    difficulty: 3,
+    type: 'calculation',
+    content: '已知函数 $f(x) = x^{3} + ax^{2} + bx + 1$（$a, b \\in \\mathbb{R}$）在 $x = 1$ 处取得极大值 $3$。\n\n(1) 求实数 $a, b$ 的值；\n(2) 求 $f(x)$ 的极小值。',
+    answer: '$a = -4, b = 5$; 极小值为 $\\dfrac{77}{27}$',
+    solution: '(1) $f\'(x) = 3x^{2} + 2ax + b$。\n\n由 $x = 1$ 为极大值点，得 $f\'(1) = 0$：\n$3 + 2a + b = 0$ …… ①\n\n又 $f(1) = 3$，即 $1 + a + b + 1 = 3$，得 $a + b = 1$ …… ②\n\n联立 ①②：由 ① 得 $b = -2a - 3$，代入 ②：\n$a + (-2a - 3) = 1 \\Rightarrow -a = 4 \\Rightarrow a = -4$，代回得 $b = 5$。\n\n验证：$f\'\'(x) = 6x + 2a = 6x - 8$，$f\'\'(1) = -2 < 0$，符合极大值条件。\n\n(2) 此时 $f\'(x) = 3x^{2} - 8x + 5 = (3x-5)(x-1)$。\n令 $f\'(x) = 0$ 得 $x = 1$ 或 $x = \\frac{5}{3}$。\n\n$f\'\'(\\frac{5}{3}) = 6 \\cdot \\frac{5}{3} - 8 = 2 > 0$，故 $x = \\frac{5}{3}$ 为极小值点。\n\n极小值 $f(\\frac{5}{3}) = (\\frac{5}{3})^{3} - 4 \\times (\\frac{5}{3})^{2} + 5 \\times \\frac{5}{3} + 1 = \\frac{125}{27} - \\frac{100}{9} + \\frac{25}{3} + 1 = \\frac{125 - 300 + 225 + 27}{27} = \\frac{77}{27}$。',
+    tags: ['极值条件', '反求参数', '极大值极小值判断'],
+    source: '自主命题',
+  },
 ];
 
 export default questions4_4;
