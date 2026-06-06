@@ -1,0 +1,115 @@
+import type { Question, ChoiceQuestion } from '../../types';
+
+const questions4_2: (Question | ChoiceQuestion)[] = [
+  // ===== 难度 1：基础巩固 =====
+  {
+    id: '4.2-easy-1',
+    nodeId: '4.2',
+    difficulty: 1,
+    type: 'fill',
+    content: '函数 $f(x) = 3x^4 - 2x^3 + 5x - 1$ 的导函数 $f\'(x) = \\underline{\\qquad}$。',
+    answer: '$12x^3 - 6x^2 + 5$',
+    solution: '逐项求导：$(3x^4)\' = 12x^3$，$(-2x^3)\' = -6x^2$，$(5x)\' = 5$，$(-1)\' = 0$。$f\'(x) = 12x^3 - 6x^2 + 5$。',
+    tags: ['导数运算', '多项式求导'],
+  },
+  {
+    id: '4.2-easy-2',
+    nodeId: '4.2',
+    difficulty: 1,
+    type: 'choice',
+    content: '已知 $f(x) = x^2\\ln x$，则 $f\'(x) =$',
+    options: ['$2x\\ln x + x$', '$2x\\ln x$', '$2x\\ln x + \\frac{1}{x}$', '$x + \\frac{2}{x}$'],
+    answer: 'A',
+    solution: '乘积法则：$(uv)\' = u\'v + uv\'$。$u = x^2, v = \\ln x$。$u\' = 2x, v\' = \\frac{1}{x}$。$f\'(x) = 2x\\ln x + x^2 \\cdot \\frac{1}{x} = 2x\\ln x + x$。',
+    tags: ['乘积法则', '对数函数'],
+  } as ChoiceQuestion,
+  {
+    id: '4.2-easy-3',
+    nodeId: '4.2',
+    difficulty: 1,
+    type: 'fill',
+    content: '函数 $f(x) = e^x\\sin x$ 的导函数 $f\'(x) = \\underline{\\qquad}$。',
+    answer: '$e^x(\\sin x + \\cos x)$',
+    solution: '乘积法则：$f\'(x) = (e^x)\'\\sin x + e^x(\\sin x)\' = e^x\\sin x + e^x\\cos x = e^x(\\sin x + \\cos x)$。',
+    tags: ['乘积法则', '指数函数', '三角函数'],
+  },
+
+  // ===== 难度 2：综合 =====
+  {
+    id: '4.2-mid-1',
+    nodeId: '4.2',
+    difficulty: 2,
+    type: 'calculation',
+    content: '已知 $f(x) = \\frac{x}{x^2 + 1}$。\n\n(1) 求 $f\'(x)$；\n(2) 求曲线 $y = f(x)$ 在点 $(0, 0)$ 处的切线方程。',
+    answer: '$f\'(x) = \\frac{1 - x^2}{(x^2 + 1)^2}$; $y = x$',
+    solution: '(1) 商法则：$f\'(x) = \\frac{1 \\cdot (x^2+1) - x \\cdot 2x}{(x^2+1)^2} = \\frac{1 - x^2}{(x^2+1)^2}$。\n\n(2) $f\'(0) = \\frac{1 - 0}{(0+1)^2} = 1$。$f(0) = 0$。切线：$y = x$。',
+    tags: ['商法则', '切线方程'],
+  },
+  {
+    id: '4.2-mid-2',
+    nodeId: '4.2',
+    difficulty: 2,
+    type: 'calculation',
+    content: '设 $f(x) = \\ln(2x + 1)$。\n\n(1) 求 $f\'(x)$；\n(2) 求曲线 $y = f(x)$ 在 $x = 0$ 处的切线方程。',
+    answer: '$f\'(x) = \\frac{2}{2x + 1}$; $y = 2x$',
+    solution: '(1) 链式法则：$f\'(x) = \\frac{1}{2x+1} \\cdot 2 = \\frac{2}{2x+1}$。\n\n(2) $f(0) = \\ln 1 = 0$，$f\'(0) = 2$。切线：$y = 2x$。',
+    tags: ['链式法则', '复合函数', '切线'],
+  },
+  {
+    id: '4.2-mid-3',
+    nodeId: '4.2',
+    difficulty: 2,
+    type: 'calculation',
+    content: '已知曲线 $y = e^{2x} + 1$。\n\n(1) 求曲线在点 $(0, 2)$ 处的切线方程；\n(2) 求曲线斜率为 $4$ 的切线方程。',
+    answer: '$y = 2x + 2$; $y = 4x + 3 - 2\\ln 2$',
+    solution: '(1) $y\' = 2e^{2x}$，$y\'(0) = 2$。又 $y(0) = 2$，切线：$y - 2 = 2(x - 0)$，即 $y = 2x + 2$。\n\n(2) 设切点 $(x_0, e^{2x_0} + 1)$。令 $2e^{2x_0} = 4$，得 $e^{2x_0} = 2$，$x_0 = \\frac{1}{2}\\ln 2$。$y_0 = e^{\\ln 2} + 1 = 3$。切线：$y - 3 = 4(x - \\frac{1}{2}\\ln 2)$，即 $y = 4x + 3 - 2\\ln 2$。',
+    tags: ['链式法则', '切线', '指数函数'],
+  },
+
+  {
+    id: '4.2-mid-4',
+    nodeId: '4.2',
+    difficulty: 2,
+    type: 'calculation',
+    content: '$f(x) = 2\\sin(3x + \\frac{\\pi}{6})$。\n\n(1) 求 $f\'(x)$ 和 $f\'\'(x)$；\n(2) 求曲线 $y = f(x)$ 在 $x = 0$ 处的切线方程。',
+    answer: '$f\'(x) = 6\\cos(3x + \\frac{\\pi}{6})$, $f\'\'(x) = -18\\sin(3x + \\frac{\\pi}{6})$; $y = 3\\sqrt{3}x + 1$',
+    solution: '(1) $f\'(x) = 2\\cos(3x + \\frac{\\pi}{6}) \\cdot 3 = 6\\cos(3x + \\frac{\\pi}{6})$。\n$f\'\'(x) = -6\\sin(3x + \\frac{\\pi}{6}) \\cdot 3 = -18\\sin(3x + \\frac{\\pi}{6})$。\n\n(2) $f(0) = 2\\sin\\frac{\\pi}{6} = 1$，$f\'(0) = 6\\cos\\frac{\\pi}{6} = 3\\sqrt{3}$。切线：$y - 1 = 3\\sqrt{3}x$，即 $y = 3\\sqrt{3}x + 1$。',
+    tags: ['链式法则', '复合函数', '高阶导数', '切线'],
+  },
+
+  // ===== 难度 3：压轴 =====
+  {
+    id: '4.2-hard-1',
+    nodeId: '4.2',
+    difficulty: 3,
+    type: 'calculation',
+    content: '已知函数 $f(x) = (x^2 + ax + 1)e^x$。\n\n(1) 若 $f\'(0) = 2$，求实数 $a$ 的值；\n(2) 若曲线 $y = f(x)$ 在 $x = 0$ 处的切线与 $x$ 轴平行，求 $a$ 的值并写出切线方程。',
+    answer: '$a = 1$; $a = -1$, $y = 1$',
+    solution: '(1) $f\'(x) = (2x + a)e^x + (x^2 + ax + 1)e^x = (x^2 + (a+2)x + a + 1)e^x$。\n$f\'(0) = (a + 1)e^0 = a + 1 = 2 \\Rightarrow a = 1$。\n\n(2) 切线与 $x$ 轴平行 $\\iff f\'(0) = 0$。$a + 1 = 0 \\Rightarrow a = -1$。\n$f(0) = 1 \\cdot e^0 = 1$。切线：$y = 1$。',
+    tags: ['乘积法则', '切线', '参数求解'],
+    source: '2023·全国甲卷·文T20改编',
+  },
+  {
+    id: '4.2-hard-2',
+    nodeId: '4.2',
+    difficulty: 3,
+    type: 'calculation',
+    content: '已知 $f(x) = \\frac{\\ln x}{x}$。\n\n(1) 求 $f\'(x)$；\n(2) 求 $f\'\'(x)$，并判断 $f(x)$ 的凹凸性；\n(3) 求曲线 $y = f(x)$ 在 $x = 1$ 处的切线方程和法线方程。',
+    answer: '$f\'(x) = \\frac{1 - \\ln x}{x^2}$; $f\'\'(x) = \\frac{2\\ln x - 3}{x^3}$; $y = x - 1$（切线），$y = -x + 1$（法线）',
+    solution: '(1) 商法则：$f\'(x) = \\frac{\\frac{1}{x} \\cdot x - \\ln x \\cdot 1}{x^2} = \\frac{1 - \\ln x}{x^2}$。\n\n(2) $f\'\'(x) = \\frac{-\\frac{1}{x} \\cdot x^2 - (1 - \\ln x) \\cdot 2x}{x^4} = \\frac{-x - 2x(1 - \\ln x)}{x^4} = \\frac{-x - 2x + 2x\\ln x}{x^4} = \\frac{2\\ln x - 3}{x^3}$。\n\n当 $x < e^{3/2}$ 时 $f\'\'(x) < 0$（凹函数），$x > e^{3/2}$ 时 $f\'\'(x) > 0$（凸函数）。$x = e^{3/2}$ 为拐点。\n\n(3) $f(1) = 0$，$f\'(1) = \\frac{1 - 0}{1} = 1$。\n切线：$y = x - 1$。法线斜率 $k = -1$：$y = -(x - 1) = -x + 1$。',
+    tags: ['商法则', '二阶导数', '凹凸性', '法线'],
+  },
+  {
+    id: '4.2-hard-3',
+    nodeId: '4.2',
+    difficulty: 3,
+    type: 'calculation',
+    content: '已知函数 $f(x) = x^x$（$x > 0$）。\n\n(1) 利用对数求导法求 $f\'(x)$；\n(2) 求曲线 $y = f(x)$ 在 $x = 1$ 处的切线方程；\n(3) 求 $f(x)$ 的最小值。',
+    answer: '$f\'(x) = x^x(\\ln x + 1)$; $y = x$; $f_{\\min} = e^{-1/e}$',
+    solution: '(1) 取对数：$\\ln f(x) = x\\ln x$。两边对 $x$ 求导：$\\frac{f\'(x)}{f(x)} = \\ln x + 1$，故 $f\'(x) = x^x(\\ln x + 1)$。\n\n(2) $f(1) = 1^1 = 1$，$f\'(1) = 1 \\cdot (0 + 1) = 1$。切线：$y - 1 = 1 \\cdot (x - 1)$，即 $y = x$。\n\n(3) 令 $f\'(x) = x^x(\\ln x + 1) = 0$，由 $x^x > 0$ 得 $\\ln x + 1 = 0$，$x = \\frac{1}{e}$。当 $x \\in (0, \\frac{1}{e})$ 时 $f\'(x) < 0$，$f$ 递减；当 $x \\in (\\frac{1}{e}, +\\infty)$ 时 $f\'(x) > 0$，$f$ 递增。故 $f_{\\min} = f(\\frac{1}{e}) = (\\frac{1}{e})^{1/e} = e^{-1/e}$。',
+    tags: ['对数求导法', '幂指函数', '切线', '最值'],
+    source: '2023·新高考Ⅰ卷模拟卷T22改编',
+  },
+];
+
+export default questions4_2;

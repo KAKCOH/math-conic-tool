@@ -45,6 +45,27 @@ const questions2_1: (Question | ChoiceQuestion)[] = [
     solution: '(1) 设 $e = \\frac{c}{a} = \\frac{1}{2}$，得 $a = 2c$。右准线 $x = \\frac{a^2}{c} = \\frac{(2c)^2}{c} = 4c$。右焦点 $(c, 0)$ 到右准线距离 $4c - c = 3c = 3$，故 $c = 1$。\n进而 $a = 2$，$b^2 = a^2 - c^2 = 4 - 1 = 3$。椭圆方程为 $\\frac{x^2}{4} + \\frac{y^2}{3} = 1$。\n\n(2) 由点差法（垂径定理）：$k_{AB} \\cdot k_{OM} = -\\frac{b^2}{a^2} = -\\frac{3}{4}$。$M(1, 1)$，$k_{OM} = 1$，故 $k_{AB} = -\\frac{3}{4}$。\n（先验证 $M$ 在椭圆内：$\\frac{1}{4} + \\frac{1}{3} = \\frac{7}{12} < 1$，弦存在。）\n过 $M(1, 1)$ 斜率为 $-\\frac{3}{4}$ 的直线：$y - 1 = -\\frac{3}{4}(x - 1)$，整理得 $3x + 4y - 7 = 0$。',
     tags: ['离心率', '准线', '点差法', '中点弦'],
   },
+  {
+    id: '2.1-mid-2',
+    nodeId: '2.1',
+    difficulty: 2,
+    type: 'calculation',
+    content: '已知椭圆 $C: \\frac{x^2}{16} + \\frac{y^2}{12} = 1$ 的左、右焦点分别为 $F_1, F_2$，$P$ 为椭圆上一点，且 $|PF_1| = 5$，$|PF_2| = 3$。\n\n(1) 求 $\\cos\\angle F_1PF_2$ 及 $\\triangle F_1PF_2$ 的面积；\n(2) 求点 $P$ 的坐标（$y_P > 0$）。',
+    answer: '$\\frac{3}{5}$; $6$; $(2, 3)$',
+    solution: '(1) $a^2 = 16 \\Rightarrow a = 4$，验证 $|PF_1| + |PF_2| = 5 + 3 = 8 = 2a$ ✓。\n$b^2 = 12$，$c^2 = a^2 - b^2 = 4 \\Rightarrow c = 2$，$|F_1F_2| = 2c = 4$。\n\n由余弦定理：\n$$\\cos\\angle F_1PF_2 = \\frac{5^2 + 3^2 - 4^2}{2 \\cdot 5 \\cdot 3} = \\frac{34 - 16}{30} = \\frac{3}{5}$$\n$\\sin\\angle F_1PF_2 = \\sqrt{1 - \\frac{9}{25}} = \\frac{4}{5}$。\n$S_{\\triangle F_1PF_2} = \\frac{1}{2} \\cdot |PF_1| \\cdot |PF_2| \\cdot \\sin\\angle F_1PF_2 = \\frac{1}{2} \\cdot 5 \\cdot 3 \\cdot \\frac{4}{5} = 6$。\n\n注：三边 $5, 3, 4$ 构成勾股数，$\\angle PF_2F_1 = 90^\\circ$，面积也可直接用 $S = \\frac{1}{2} \\cdot 3 \\cdot 4 = 6$。\n\n(2) 设 $P(x, y)$（$y > 0$）。$|PF_2|^2 = (x-2)^2 + y^2 = 9$，$|PF_1|^2 = (x+2)^2 + y^2 = 25$。\n两式相减：$(x+2)^2 - (x-2)^2 = 16 \\Rightarrow 8x = 16 \\Rightarrow x = 2$。\n代入 $|PF_2|^2$：$(2-2)^2 + y^2 = y^2 = 9 \\Rightarrow y = 3$（取正）。\n验证：$\\frac{2^2}{16} + \\frac{3^2}{12} = \\frac{1}{4} + \\frac{3}{4} = 1$ ✓。故 $P(2, 3)$。',
+    tags: ['焦点三角形', '余弦定理', '面积', '焦半径'],
+  },
+  {
+    id: '2.1-mid-3',
+    nodeId: '2.1',
+    difficulty: 2,
+    type: 'calculation',
+    content: '已知双曲线 $C: \\frac{x^2}{4} - \\frac{y^2}{5} = 1$ 的左、右焦点分别为 $F_1, F_2$，$P$ 为 $C$ 上一点，且 $PF_1 \\perp PF_2$。\n\n(1) 求 $\\triangle F_1PF_2$ 的面积；\n(2) 求点 $P$ 到 $x$ 轴的距离。',
+    answer: '$5$; $\\frac{5}{3}$',
+    solution: '(1) $a^2 = 4, b^2 = 5$，$c^2 = a^2 + b^2 = 9 \\Rightarrow c = 3$，焦点 $(\\pm 3, 0)$。\n设 $|PF_1| = m, |PF_2| = n$，由双曲线定义 $|m - n| = 2a = 4$。\n$PF_1 \\perp PF_2 \\Rightarrow m^2 + n^2 = |F_1F_2|^2 = (2c)^2 = 36$。\n\n$(m - n)^2 = m^2 + n^2 - 2mn = 36 - 2mn = 4^2 = 16$\n$\\Rightarrow 2mn = 20 \\Rightarrow mn = 10$。\n$S_{\\triangle F_1PF_2} = \\frac{1}{2} \\cdot m \\cdot n \\cdot \\sin 90^\\circ = \\frac{1}{2} \\cdot 10 = 5$。\n\n(2) 设 $P(x_0, y_0)$，$S = \\frac{1}{2} \\cdot |F_1F_2| \\cdot |y_0| = \\frac{1}{2} \\cdot 6 \\cdot |y_0| = 3|y_0| = 5$，得 $|y_0| = \\frac{5}{3}$。\n即点 $P$ 到 $x$ 轴的距离为 $\\frac{5}{3}$。\n\n（验证横坐标：$\\frac{x_0^2}{4} - \\frac{25/9}{5} = 1$，$\\frac{x_0^2}{4} = 1 + \\frac{5}{9} = \\frac{14}{9}$，$x_0 = \\pm \\frac{2\\sqrt{14}}{3}$。）',
+    tags: ['焦点三角形', '双曲线', '垂直条件', '面积'],
+    source: '改编自 2022·浙江杭州一模',
+  },
 
   // ===== 难度 3：压轴 =====
   {
@@ -56,6 +77,28 @@ const questions2_1: (Question | ChoiceQuestion)[] = [
     answer: '$\\frac{a}{3}$; $(\\frac{5}{3}, \\frac{8\\sqrt{2}}{3})$; $4x + 5y - 20 = 0$',
     solution: '(1) $e = \\frac{c}{a} = \\frac{3}{5}$，得 $c = \\frac{3a}{5}$，$b = \\frac{4a}{5}$。\n焦半径公式：$|PF_1| = a + ex_0 = a + \\frac{3}{5}x_0$，$|PF_2| = a - ex_0 = a - \\frac{3}{5}x_0$。\n由 $\\frac{|PF_1|}{|PF_2|} = \\frac{3}{2}$ 得 $a + \\frac{3}{5}x_0 = \\frac{3}{2}(a - \\frac{3}{5}x_0)$。\n$a + \\frac{3}{5}x_0 = \\frac{3}{2}a - \\frac{9}{10}x_0$\n$\\frac{3}{5}x_0 + \\frac{9}{10}x_0 = \\frac{3}{2}a - a$\n$\\frac{15}{10}x_0 = \\frac{1}{2}a$\n$x_0 = \\frac{a}{3}$。\n\n(2) $a = 5$ 时，$x_0 = \\frac{5}{3}$，$b = 4$。\n代入椭圆方程 $\\frac{x_0^2}{25} + \\frac{y_0^2}{16} = 1$：\n$\\frac{25/9}{25} + \\frac{y_0^2}{16} = 1 \\Rightarrow \\frac{1}{9} + \\frac{y_0^2}{16} = 1 \\Rightarrow y_0^2 = 16 \\times \\frac{8}{9} = \\frac{128}{9}$。\n$y_0 = \\frac{8\\sqrt{2}}{3}$（取正）。$P(\\frac{5}{3}, \\frac{8\\sqrt{2}}{3})$。\n\n(3) $a = 5, b = 4$ 时，椭圆为 $\\frac{x^2}{25} + \\frac{y^2}{16} = 1$。\n验证 $M$ 在椭圆内：$\\frac{25/4}{25} + \\frac{4}{16} = \\frac{1}{4} + \\frac{1}{4} = \\frac{1}{2} < 1$。\n由点差法：$k_{AB} \\cdot k_{OM} = -\\frac{b^2}{a^2} = -\\frac{16}{25}$，其中 $k_{OM} = \\frac{2}{5/2} = \\frac{4}{5}$。\n故 $k_{AB} = -\\frac{16}{25} \\div \\frac{4}{5} = -\\frac{16}{25} \\times \\frac{5}{4} = -\\frac{4}{5}$。\n过 $M(\\frac{5}{2}, 2)$ 斜率为 $-\\frac{4}{5}$ 的直线：$y - 2 = -\\frac{4}{5}(x - \\frac{5}{2})$，整理得 $4x + 5y - 20 = 0$。',
     tags: ['焦半径公式', '点差法', '中点弦', '比例'],
+  },
+  {
+    id: '2.1-hard-2',
+    nodeId: '2.1',
+    difficulty: 3,
+    type: 'calculation',
+    content: '已知椭圆 $C: \\frac{x^2}{a^2} + \\frac{y^2}{b^2} = 1$（$a > b > 0$）的离心率 $e = \\frac{\\sqrt{2}}{2}$，右焦点为 $F(c, 0)$。过 $F$ 且垂直于 $x$ 轴的直线交椭圆于 $P$ 点（$P$ 在 $x$ 轴上方），且 $|PF| = \\sqrt{2}$。\n\n(1) 求椭圆 $C$ 的标准方程；\n(2) 若椭圆上存在一点 $Q$ 满足 $\\angle F_1QF_2 = 120^\\circ$，求 $\\triangle F_1QF_2$ 的面积。',
+    answer: '$\\frac{x^2}{8} + \\frac{y^2}{4} = 1$; $4\\sqrt{3}$',
+    solution: '(1) $e = \\frac{c}{a} = \\frac{\\sqrt{2}}{2} \\Rightarrow c = \\frac{\\sqrt{2}}{2}a$，$c^2 = \\frac{a^2}{2}$。\n$b^2 = a^2 - c^2 = a^2 - \\frac{a^2}{2} = \\frac{a^2}{2}$。\n\n过右焦点 $F(c, 0)$ 且垂直于 $x$ 轴的直线 $x = c$，代入椭圆：\n$\\frac{c^2}{a^2} + \\frac{y^2}{b^2} = 1 \\Rightarrow e^2 + \\frac{y^2}{b^2} = 1 \\Rightarrow \\frac{y^2}{b^2} = 1 - e^2 = \\frac{1}{2}$。\n$|PF| = |y| = \\frac{b}{\\sqrt{2}} = \\sqrt{2}$，故 $b = 2$。\n\n$b^2 = 4 = \\frac{a^2}{2} \\Rightarrow a^2 = 8, a = 2\\sqrt{2}$。$c^2 = 4 \\Rightarrow c = 2$。\n椭圆 $C: \\frac{x^2}{8} + \\frac{y^2}{4} = 1$。\n\n(2) 对椭圆上的点 $Q$，焦点三角形面积公式：\n$$S_{\\triangle F_1QF_2} = b^2 \\tan\\frac{\\angle F_1QF_2}{2}$$\n代入 $b^2 = 4$，$\\angle F_1QF_2 = 120^\\circ$：\n$S = 4 \\cdot \\tan 60^\\circ = 4\\sqrt{3}$。\n\n注：面积公式 $S = b^2 \\tan\\frac{\\theta}{2}$ 可通过 $S = \\frac{1}{2}|QF_1||QF_2|\\sin\\theta$ 并结合椭圆定义 $|QF_1|+|QF_2|=2a$ 及余弦定理推导得出。当 $\\theta = 120^\\circ$ 时 $\\tan 60^\\circ = \\sqrt{3}$，数值简洁。',
+    tags: ['离心率', '通径', '焦点三角形', '面积公式'],
+    source: '2022·新高考Ⅱ卷·T16改编',
+  },
+  {
+    id: '2.1-hard-3',
+    nodeId: '2.1',
+    difficulty: 3,
+    type: 'proof',
+    content: '已知椭圆 $C: \\frac{x^2}{a^2} + \\frac{y^2}{b^2} = 1$（$a > b > 0$），$F_1, F_2$ 为左、右焦点，$P$ 为椭圆上任意一点，设 $\\angle F_1PF_2 = \\theta$。\n\n(1) 证明：$\\cos\\theta \\geq 1 - 2e^2$（其中 $e$ 为离心率），并指出等号成立时 $P$ 的位置；\n(2) 利用 (1) 的结论，判断椭圆 $\\frac{x^2}{4} + \\frac{y^2}{3} = 1$ 上是否存在点 $P$ 使 $\\angle F_1PF_2 = 120^\\circ$，并说明理由。',
+    answer: '见解析',
+    solution: '(1) 设 $|PF_1| = m, |PF_2| = n$，由椭圆定义 $m + n = 2a$。\n\n由余弦定理：\n$$\\cos\\theta = \\frac{m^2 + n^2 - 4c^2}{2mn}$$\n\n$m^2 + n^2 = (m + n)^2 - 2mn = 4a^2 - 2mn$，代入得：\n$$\\cos\\theta = \\frac{4a^2 - 2mn - 4c^2}{2mn} = \\frac{4(a^2 - c^2)}{2mn} - 1 = \\frac{2b^2}{mn} - 1$$\n\n由均值不等式，$mn \\leq \\left(\\frac{m+n}{2}\\right)^2 = a^2$（等号当 $m = n = a$，即 $P$ 在 $y$ 轴上时成立）。\n\n$$\\cos\\theta = \\frac{2b^2}{mn} - 1 \\geq \\frac{2b^2}{a^2} - 1 = 2(1 - e^2) - 1 = 1 - 2e^2$$\n\n即 $\\cos\\theta \\geq 1 - 2e^2$。**等号成立条件**：$|PF_1| = |PF_2|$，即 $P$ 在短轴端点 $(0, \\pm b)$ 处。\n\n**几何意义**：当 $P$ 在短轴端点时 $\\angle F_1PF_2$ 取得最大值；$e$ 越大（椭圆越扁），该最大角也越大。\n\n(2) 椭圆 $\\frac{x^2}{4} + \\frac{y^2}{3} = 1$：$a = 2, b = \\sqrt{3}, c = 1$，$e = \\frac{c}{a} = \\frac{1}{2}$。\n\n由 (1)：$\\cos\\theta \\geq 1 - 2 \\cdot \\left(\\frac{1}{2}\\right)^2 = 1 - \\frac{1}{2} = \\frac{1}{2}$。\n\n即 $\\cos\\theta \\geq \\frac{1}{2}$，等价于 $\\theta \\leq 60^\\circ$。\n\n故椭圆上任意一点 $P$ 对应的 $\\angle F_1PF_2$ 最大为 $60^\\circ$（在 $P(0, \\pm\\sqrt{3})$ 处取得），不可能达到 $120^\\circ$。**不存在这样的点 $P$**。\n\n---\n本题揭示了焦点三角形的一个核心不等式：$\\angle F_1PF_2$ 的最大值由离心率 $e$ 决定，$e$ 越大则视角越宽。当 $e \\to 1$ 时视角趋近 $180^\\circ$；当 $e \\to 0$ 时视角趋近 $0^\\circ$。',
+    tags: ['焦点三角形', '余弦不等式', '离心率', '最值', '证明'],
+    source: '改编自 2023·成都七中三诊',
   },
 ];
 

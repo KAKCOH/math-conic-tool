@@ -1,0 +1,110 @@
+import type { Question, ChoiceQuestion } from '../../types';
+
+const questions6_3: (Question | ChoiceQuestion)[] = [
+  // ===== 难度 1：基础巩固 =====
+  {
+    id: '6.3-easy-1',
+    nodeId: '6.3',
+    difficulty: 1,
+    type: 'proof',
+    content: '证明：当 $x > -1$ 时，$\\ln(1 + x) \\le x$。',
+    answer: '证明见解答。',
+    solution: '令 $f(x) = x - \\ln(1+x)$（$x > -1$）。$f\'(x) = 1 - \\frac{1}{1+x} = \\frac{x}{1+x}$。$f(0) = 0$。$-1 < x < 0$ 时 $f\'(x) < 0$，$x > 0$ 时 $f\'(x) > 0$。故 $f(x) \\ge f(0) = 0$，即 $x \\ge \\ln(1+x)$。',
+    tags: ['构造函数', '不等式证明', '基础题'],
+  },
+  {
+    id: '6.3-easy-2',
+    nodeId: '6.3',
+    difficulty: 1,
+    type: 'choice',
+    content: '用导数证明不等式的核心思路是：',
+    options: [
+      '直接将不等式两边相减后求极限',
+      '构造函数 $F(x) = \\text{左边} - \\text{右边}$，利用 $F(x)$ 的单调性和最值判断符号',
+      '对不等式两边同时求导',
+      '用泰勒展开代替所有函数然后比较',
+    ],
+    answer: 'B',
+    solution: 'B 正确。导数证不等式的标准方法：构造 $F(x) = f(x) - g(x)$，通过研究 $F(x)$ 的单调性和最值确定 $F(x)$ 的符号。这是最通用、最严谨的方法。',
+    tags: ['证不等式方法', '构造函数', '概念'],
+  } as ChoiceQuestion,
+  {
+    id: '6.3-easy-3',
+    nodeId: '6.3',
+    difficulty: 1,
+    type: 'proof',
+    content: '证明：当 $x > 0$ 时，$e^x > 1 + x + \\frac{x^2}{2}$。',
+    answer: '证明见解答。',
+    solution: '令 $F(x) = e^x - 1 - x - \\frac{x^2}{2}$（$x > 0$）。$F\'(x) = e^x - 1 - x$，$F\'\'(x) = e^x - 1 > 0$（$x > 0$）。$F\'(0) = 0$，$F\'$ 递增，$F\'(x) > 0$。$F(0) = 0$，$F$ 递增，$F(x) > 0$。故 $e^x > 1 + x + \\frac{x^2}{2}$。',
+    tags: ['构造函数', '高阶导数', '指数不等式'],
+  },
+
+  // ===== 难度 2：综合 =====
+  {
+    id: '6.3-mid-1',
+    nodeId: '6.3',
+    difficulty: 2,
+    type: 'proof',
+    content: '证明：当 $x \\in (0, 1)$ 时，$\\frac{x}{1+x} < \\ln(1+x) < x$。',
+    answer: '证明见解答。',
+    solution: '右半 $\\ln(1+x) < x$ 已在 easy-1 中证明。\n\n左半：令 $G(x) = \\ln(1+x) - \\frac{x}{1+x}$（$x > -1$）。$G\'(x) = \\frac{1}{1+x} - \\frac{(1+x) - x}{(1+x)^2} = \\frac{1}{1+x} - \\frac{1}{(1+x)^2} = \\frac{x}{(1+x)^2}$。$G(0) = 0$。$x > 0$ 时 $G\'(x) > 0$，$G(x) > 0$，即 $\\ln(1+x) > \\frac{x}{1+x}$。\n\n合起来：$\\frac{x}{1+x} < \\ln(1+x) < x$（$x > 0$）。',
+    tags: ['双边不等式', '构造函数', '对数不等式'],
+  },
+  {
+    id: '6.3-mid-2',
+    nodeId: '6.3',
+    difficulty: 2,
+    type: 'proof',
+    content: '已知函数 $f(x) = x\\ln x$。\n\n(1) 求 $f(x)$ 的最小值；\n(2) 利用 (1) 证明：对任意 $n \\in \\mathbb{N}^*$，有 $(1 + \\frac{1}{n})^n < e$。',
+    answer: '$f_{\\min} = -\\frac{1}{e}$; 证明见解答。',
+    solution: '(1) $f\'(x) = \\ln x + 1$，令 $f\'(x) = 0$ 得 $x = \\frac{1}{e}$。$f_{\\min} = f(\\frac{1}{e}) = -\\frac{1}{e}$。\n\n(2) $(1 + \\frac{1}{n})^n < e \\iff n\\ln(1 + \\frac{1}{n}) < 1$。令 $t = \\frac{1}{n} > 0$，即 $\\frac{\\ln(1+t)}{t} < 1$，即 $\\ln(1+t) < t$。这正是 easy-1 的结论。等号不成立（$t > 0$），故严格小于。',
+    tags: ['构造函数', '不等式证明', '极限'],
+    source: '经典极限问题改编',
+  },
+  {
+    id: '6.3-mid-3',
+    nodeId: '6.3',
+    difficulty: 2,
+    type: 'proof',
+    content: '已知 $f(x) = e^x - \\ln(x + 2)$。\n\n(1) 求 $f(x)$ 的单调区间；\n(2) 证明：$f(x) > 0$。',
+    answer: '见解答。',
+    solution: '(1) $f\'(x) = e^x - \\frac{1}{x+2}$（$x > -2$）。$f\'\'(x) = e^x + \\frac{1}{(x+2)^2} > 0$，$f\'$ 递增。$f\'(-1) = e^{-1} - 1 < 0$，$f\'(0) = 1 - \\frac{1}{2} = \\frac{1}{2} > 0$。\n$f\'$ 有唯一零点 $x_0 \\in (-1, 0)$（隐零点）。$x \\in (-2, x_0)$: $f\'(x) < 0$（减）；$x \\in (x_0, +\\infty)$: $f\'(x) > 0$（增）。\n\n(2) $f_{\\min} = f(x_0) = e^{x_0} - \\ln(x_0+2)$。由 $f\'(x_0) = 0$ 得 $e^{x_0} = \\frac{1}{x_0+2}$。$f_{\\min} = \\frac{1}{x_0+2} + \\ln(x_0+2)$。令 $u = x_0+2 \\in (1, 2)$，$f_{\\min} = \\frac{1}{u} + \\ln u$。$\\frac{1}{u} + \\ln u > 0$ 对 $u \\in (1, 2)$ 成立（因为 $u=1$ 时 $=1$，递减？检验 $u=2$: $\\frac{1}{2} + \\ln 2 > 0$）。故 $f(x) > 0$。',
+    tags: ['隐零点', '不等式证明', '构造函数'],
+    source: '2013·新课标Ⅰ卷·理T21改编',
+  },
+
+  // ===== 难度 3：压轴 =====
+  {
+    id: '6.3-hard-1',
+    nodeId: '6.3',
+    difficulty: 3,
+    type: 'proof',
+    content: '已知函数 $f(x) = e^x - e^{-x} - 2x$。\n\n(1) 讨论 $f(x)$ 的单调性；\n(2) 证明：对任意 $x > 0$，有 $\\frac{e^x - e^{-x}}{2} > x$。',
+    answer: '见解答。',
+    solution: '(1) $f\'(x) = e^x + e^{-x} - 2 \\ge 2\\sqrt{e^x \\cdot e^{-x}} - 2 = 0$（均值不等式），等号仅当 $e^x = e^{-x}$ 即 $x = 0$。故 $f\'(x) \\ge 0$，$f$ 在 $\\mathbb{R}$ 上递增。$f(0) = 0$。\n\n(2) 要证的不等式即 $f(x) > 0$（$x > 0$）。由 (1)，$f$ 递增，且 $f(0) = 0$，故 $x > 0$ 时 $f(x) > 0$。即 $e^x - e^{-x} - 2x > 0$，整理得 $\\frac{e^x - e^{-x}}{2} > x$。',
+    tags: ['不等式证明', '单调性', '双曲函数'],
+  },
+  {
+    id: '6.3-hard-2',
+    nodeId: '6.3',
+    difficulty: 3,
+    type: 'calculation',
+    content: '已知函数 $f(x) = x - 1 - a\\ln x$。\n\n(1) 讨论 $f(x)$ 的单调性；\n(2) 若 $f(x) \\ge 0$ 恒成立，求 $a$ 的值，并用此结果证明：$\\ln 2 + \\ln 3 + \\cdots + \\ln n < \\frac{n(n-1)}{2}$（$n \\ge 2$）。',
+    answer: '$a = 1$; 证明见解答。',
+    solution: '(1) $f\'(x) = 1 - \\frac{a}{x} = \\frac{x-a}{x}$。$a \\le 0$ 时 $f\'(x) > 0$，$f$ 递增；$a > 0$ 时 $x \\in (0, a)$: $f\'(x) < 0$，$x \\in (a, +\\infty)$: $f\'(x) > 0$。\n\n(2) $f(1) = 0$。由恒成立 $\\ge 0$ 且 $f(1) = 0$，$x=1$ 必须是最小值点，即 $a = 1$。验证：$a = 1$ 时 $f(x) = x - 1 - \\ln x$，$f_{\\min} = f(1) = 0$，故 $f(x) \\ge 0$，即 $\\ln x \\le x - 1$。\n由 $\\ln x \\le x - 1$（$x > 0$），取 $x = k$（$k = 2, 3, \\dots, n$）得 $\\ln k \\le k - 1$。求和：$\\sum_{k=2}^{n} \\ln k \\le \\sum_{k=2}^{n} (k-1) = 1 + 2 + \\cdots + (n-1) = \\frac{n(n-1)}{2}$。等号仅在 $k=1$ 时成立（$\\ln 1 = 0 = 1-1$），故对 $k \\ge 2$ 严格不等。',
+    tags: ['恒成立', '累加求和', '不等式链'],
+    source: '2017·全国Ⅲ卷·理T21改编',
+  },
+  {
+    id: '6.3-hard-3',
+    nodeId: '6.3',
+    difficulty: 3,
+    type: 'proof',
+    content: '已知函数 $f(x) = \\frac{\\ln x}{x}$。\n\n(1) 求 $f(x)$ 的最大值；\n(2) 证明：$e^{\\pi} > \\pi^{e}$。',
+    answer: '$f_{\\max} = f(e) = \\frac{1}{e}$; 证明见解答。',
+    solution: '(1) $f\'(x) = \\frac{1 - \\ln x}{x^2}$。$x \\in (0, e)$: $f\'(x) > 0$（增），$x \\in (e, +\\infty)$: $f\'(x) < 0$（减）。$f_{\\max} = f(e) = \\frac{1}{e}$。\n\n(2) $e^{\\pi} > \\pi^{e} \\iff \\pi > e\\ln\\pi \\iff \\frac{\\pi}{e} > \\ln\\pi \\iff \\frac{\\ln\\pi}{\\pi} < \\frac{1}{e}$。由 (1)，$f(x) \\le \\frac{1}{e}$，且等号仅当 $x = e$。$\\pi \\neq e$，故 $f(\\pi) = \\frac{\\ln\\pi}{\\pi} < \\frac{1}{e}$。得证。',
+    tags: ['构造函数', '数值比较', '单调性应用'],
+  },
+];
+
+export default questions6_3;

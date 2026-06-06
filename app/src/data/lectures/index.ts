@@ -15,6 +15,17 @@ import lecture3_5 from './node-3-5';
 import lecture3_6 from './node-3-6';
 import lecture3_7 from './node-3-7';
 import lecture4_1 from './node-4-1';
+import lecture4_2 from './node-4-2';
+import lecture4_3 from './node-4-3';
+import lecture4_4 from './node-4-4';
+import lecture5_1 from './node-5-1';
+import lecture5_2 from './node-5-2';
+import lecture5_3 from './node-5-3';
+import lecture5_4 from './node-5-4';
+import lecture6_1 from './node-6-1';
+import lecture6_2 from './node-6-2';
+import lecture6_3 from './node-6-3';
+import lecture6_4 from './node-6-4';
 
 export const lectures: Record<string, string> = {
   '1.1': lecture1_1,
@@ -34,6 +45,17 @@ export const lectures: Record<string, string> = {
   '3.6': lecture3_6,
   '3.7': lecture3_7,
   '4.1': lecture4_1,
+  '4.2': lecture4_2,
+  '4.3': lecture4_3,
+  '4.4': lecture4_4,
+  '5.1': lecture5_1,
+  '5.2': lecture5_2,
+  '5.3': lecture5_3,
+  '5.4': lecture5_4,
+  '6.1': lecture6_1,
+  '6.2': lecture6_2,
+  '6.3': lecture6_3,
+  '6.4': lecture6_4,
 };
 
 export function getLecture(nodeId: string): string {

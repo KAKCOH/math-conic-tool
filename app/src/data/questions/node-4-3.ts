@@ -1,0 +1,109 @@
+import type { Question, ChoiceQuestion } from '../../types';
+
+const questions4_3: (Question | ChoiceQuestion)[] = [
+  // ===== 难度 1：基础巩固 =====
+  {
+    id: '4.3-easy-1',
+    nodeId: '4.3',
+    difficulty: 1,
+    type: 'fill',
+    content: '函数 $f(x) = x^3 - 3x$ 的单调递增区间为 $\\underline{\\qquad}$。',
+    answer: '$(-\\infty, -1)$ 和 $(1, +\\infty)$',
+    solution: '$f\'(x) = 3x^2 - 3 = 3(x-1)(x+1)$。令 $f\'(x) > 0$ 得 $x < -1$ 或 $x > 1$。故增区间为 $(-\\infty, -1)$ 和 $(1, +\\infty)$。',
+    tags: ['单调区间', '多项式', '基础题'],
+  },
+  {
+    id: '4.3-easy-2',
+    nodeId: '4.3',
+    difficulty: 1,
+    type: 'choice',
+    content: '设 $f(x)$ 在 $\\mathbb{R}$ 上可导，下列说法正确的是：',
+    options: [
+      '若 $f\'(x_0) > 0$，则 $f(x)$ 在 $x_0$ 附近单调递增',
+      '若 $f(x)$ 在 $\\mathbb{R}$ 上递增，则 $f\'(x) > 0$ 恒成立',
+      '若 $f\'(x_0) = 0$，则 $x_0$ 是极值点',
+      '若 $f\'(x) > 0$ 对所有 $x$ 成立，则 $f(x)$ 在 $\\mathbb{R}$ 上递增',
+    ],
+    answer: 'D',
+    solution: 'D 正确——导数恒正可推出严格递增。A 错：$f\'(x_0) > 0$ 仅在一点为正，不保证附近单调（如 $f(x) = x + x^2\\sin\\frac{1}{x}$ 在 $x=0$ 附近，$f\'(0)=1$ 但不单调）。B 错：递增函数导数可以为零（如 $f(x)=x^3$ 在 $x=0$ 处 $f\'(0)=0$）。C 错：$f\'(x_0)=0$ 不一定极值（$f(x)=x^3$ 在 $x=0$）。',
+    tags: ['单调性概念', '导数符号', '充分必要条件'],
+  } as ChoiceQuestion,
+  {
+    id: '4.3-easy-3',
+    nodeId: '4.3',
+    difficulty: 1,
+    type: 'fill',
+    content: '函数 $f(x) = \\ln x - x$ 的单调递减区间为 $\\underline{\\qquad}$。',
+    answer: '$(1, +\\infty)$',
+    solution: '定义域 $(0, +\\infty)$。$f\'(x) = \\frac{1}{x} - 1 = \\frac{1-x}{x}$。令 $f\'(x) < 0$ 得 $1 - x < 0$，即 $x > 1$。故减区间为 $(1, +\\infty)$。',
+    tags: ['对数函数', '单调区间', '定义域'],
+  },
+
+  // ===== 难度 2：综合 =====
+  {
+    id: '4.3-mid-1',
+    nodeId: '4.3',
+    difficulty: 2,
+    type: 'calculation',
+    content: '已知函数 $f(x) = x - a\\ln x$（$x > 0$），讨论 $f(x)$ 的单调性。',
+    answer: '当 $a \\le 0$ 时，$f(x)$ 在 $(0, +\\infty)$ 上递增；当 $a > 0$ 时，$f(x)$ 在 $(0, a)$ 上递减，在 $(a, +\\infty)$ 上递增。',
+    solution: '$f\'(x) = 1 - \\frac{a}{x} = \\frac{x - a}{x}$。\n\n当 $a \\le 0$ 时，$x - a > 0$ 对所有 $x > 0$ 成立，$f\'(x) > 0$，$f(x)$ 在 $(0, +\\infty)$ 上单调递增。\n\n当 $a > 0$ 时，$x \\in (0, a)$ 有 $f\'(x) < 0$（递减），$x \\in (a, +\\infty)$ 有 $f\'(x) > 0$（递增）。',
+    tags: ['含参讨论', '对数函数', '分类讨论'],
+  },
+  {
+    id: '4.3-mid-2',
+    nodeId: '4.3',
+    difficulty: 2,
+    type: 'calculation',
+    content: '若函数 $f(x) = x^3 + ax^2 + x + 1$ 在 $\\mathbb{R}$ 上单调递增，求实数 $a$ 的取值范围。',
+    answer: '$[-\\sqrt{3}, \\sqrt{3}]$',
+    solution: '$f\'(x) = 3x^2 + 2ax + 1$。$f(x)$ 在 $\\mathbb{R}$ 上递增，需 $f\'(x) \\ge 0$ 恒成立。\n二次函数 $3x^2 + 2ax + 1$ 开口向上，$\\Delta \\le 0$ 即可。\n$\\Delta = 4a^2 - 12 \\le 0$，$a^2 \\le 3$，得 $-\\sqrt{3} \\le a \\le \\sqrt{3}$。',
+    tags: ['恒成立', '判别式法', '参数范围'],
+  },
+  {
+    id: '4.3-mid-3',
+    nodeId: '4.3',
+    difficulty: 2,
+    type: 'proof',
+    content: '利用单调性证明：当 $x \\ge 0$ 时，$e^x \\ge x + 1$。',
+    answer: '证明见解答。',
+    solution: '令 $g(x) = e^x - x - 1$（$x \\ge 0$）。\n$g\'(x) = e^x - 1$。当 $x > 0$ 时 $g\'(x) > 0$，$g(x)$ 在 $[0, +\\infty)$ 上单调递增。\n$g(0) = e^0 - 0 - 1 = 0$，故当 $x \\ge 0$ 时 $g(x) \\ge g(0) = 0$，即 $e^x \\ge x + 1$。',
+    tags: ['构造函数', '单调性证不等式', '经典不等式'],
+  },
+
+  // ===== 难度 3：压轴 =====
+  {
+    id: '4.3-hard-1',
+    nodeId: '4.3',
+    difficulty: 3,
+    type: 'calculation',
+    content: '已知函数 $f(x) = \\ln x - ax$，$a \\in \\mathbb{R}$。\n\n(1) 讨论 $f(x)$ 的单调性；\n(2) 若 $f(x) \\le 0$ 对任意 $x > 0$ 恒成立，求实数 $a$ 的取值范围。',
+    answer: '见解答; $a \\ge \\frac{1}{e}$',
+    solution: '(1) 定义域 $(0, +\\infty)$。$f\'(x) = \\frac{1}{x} - a = \\frac{1 - ax}{x}$。\n当 $a \\le 0$ 时，$f\'(x) > 0$，$f(x)$ 在 $(0, +\\infty)$ 上递增。\n当 $a > 0$ 时，$x \\in (0, \\frac{1}{a})$ 有 $f\'(x) > 0$（递增），$x \\in (\\frac{1}{a}, +\\infty)$ 有 $f\'(x) < 0$（递减）。\n\n(2) 若 $a \\le 0$，$f(x)$ 递增且 $\\lim_{x \\to +\\infty} f(x) = +\\infty$，不可能 $f(x) \\le 0$ 恒成立。\n若 $a > 0$，$f_{\\max} = f(\\frac{1}{a}) = \\ln\\frac{1}{a} - a \\cdot \\frac{1}{a} = -\\ln a - 1$。\n$f(x) \\le 0$ 恒成立 $\\iff f_{\\max} \\le 0 \\iff -\\ln a - 1 \\le 0 \\iff \\ln a \\ge -1 \\iff a \\ge \\frac{1}{e}$。',
+    tags: ['含参讨论', '恒成立', '导数与单调性'],
+    source: '2022·全国乙卷·文T21改编',
+  },
+  {
+    id: '4.3-hard-2',
+    nodeId: '4.3',
+    difficulty: 3,
+    type: 'calculation',
+    content: '已知函数 $f(x) = e^x - ax$，$a \\in \\mathbb{R}$。\n\n(1) 讨论 $f(x)$ 的单调性；\n(2) 若 $f(x) \\ge 0$ 对任意 $x \\in \\mathbb{R}$ 恒成立，求实数 $a$ 的取值范围。',
+    answer: '见解答; $0 \\le a \\le e$',
+    solution: '(1) $f\'(x) = e^x - a$。\n当 $a \\le 0$ 时，$f\'(x) > 0$，$f(x)$ 在 $\\mathbb{R}$ 上单调递增。\n当 $a > 0$ 时，令 $f\'(x) = 0$ 得 $x = \\ln a$。$x \\in (-\\infty, \\ln a)$ 时 $f\'(x) < 0$（递减），$x \\in (\\ln a, +\\infty)$ 时 $f\'(x) > 0$（递增）。\n\n(2) 若 $a < 0$，$f(x)$ 递增，$\\lim_{x \\to -\\infty} f(x) = -\\infty$（因为 $e^x \\to 0$，$-ax \\to -\\infty$），不满足恒非负。\n若 $a = 0$，$f(x) = e^x > 0$，满足。\n若 $a > 0$，$f_{\\min} = f(\\ln a) = a - a\\ln a \\ge 0$，即 $a(1 - \\ln a) \\ge 0$，得 $1 - \\ln a \\ge 0$，$\\ln a \\le 1$，$a \\le e$。\n综上 $0 \\le a \\le e$。',
+    tags: ['含参讨论', '恒成立', '指数函数'],
+  },
+  {
+    id: '4.3-hard-3',
+    nodeId: '4.3',
+    difficulty: 3,
+    type: 'calculation',
+    content: '已知函数 $f(x) = a(e^x + a) - x$，$a \\in \\mathbb{R}$。\n\n(1) 讨论 $f(x)$ 的单调性；\n(2) 当 $a > 0$ 时，证明 $f(x) > 2\\ln a + \\frac{3}{2}$。',
+    answer: '见解答。',
+    solution: '(1) $f\'(x) = ae^x - 1$。\n当 $a \\le 0$ 时，$f\'(x) < 0$，$f(x)$ 在 $\\mathbb{R}$ 上单调递减。\n当 $a > 0$ 时，令 $f\'(x) = 0$ 得 $x = -\\ln a$。$x \\in (-\\infty, -\\ln a)$ 时 $f\'(x) < 0$（递减），$x \\in (-\\ln a, +\\infty)$ 时 $f\'(x) > 0$（递增）。\n\n(2) 由 (1) 知 $a > 0$ 时，$f_{\\min} = f(-\\ln a) = a(e^{-\\ln a} + a) + \\ln a = a(\\frac{1}{a} + a) + \\ln a = 1 + a^2 + \\ln a$。\n要证 $f(x) > 2\\ln a + \\frac{3}{2}$，只需证 $1 + a^2 + \\ln a > 2\\ln a + \\frac{3}{2}$。\n即 $a^2 - \\ln a - \\frac{1}{2} > 0$。\n令 $g(a) = a^2 - \\ln a - \\frac{1}{2}$（$a > 0$）。$g\'(a) = 2a - \\frac{1}{a} = \\frac{2a^2 - 1}{a}$。\n$a \\in (0, \\frac{\\sqrt{2}}{2})$ 时 $g\'(a) < 0$（递减），$a \\in (\\frac{\\sqrt{2}}{2}, +\\infty)$ 时 $g\'(a) > 0$（递增）。\n$g_{\\min} = g(\\frac{\\sqrt{2}}{2}) = \\frac{1}{2} - \\ln\\frac{\\sqrt{2}}{2} - \\frac{1}{2} = -\\ln\\frac{\\sqrt{2}}{2} = \\frac{1}{2}\\ln 2 > 0$。\n故对所有 $a > 0$ 有 $g(a) > 0$，原不等式得证。',
+    tags: ['含参讨论', '构造辅助函数', '证明不等式'],
+    source: '2023·新高考Ⅰ卷·T19改编',
+  },
+];
+
+export default questions4_3;

@@ -1,0 +1,107 @@
+import type { Question, ChoiceQuestion } from '../../types';
+
+const questions5_4: (Question | ChoiceQuestion)[] = [
+  // ===== 难度 1：基础巩固 =====
+  {
+    id: '5.4-easy-1',
+    nodeId: '5.4',
+    difficulty: 1,
+    type: 'fill',
+    content: '若 $f(x) = x^2 - ax \\ge 0$ 对 $x \\in [0, 1]$ 恒成立，则 $a$ 的最大值为 $\\underline{\\qquad}$。',
+    answer: '$0$',
+    solution: '分离参数：$x \\in [0, 1]$ 时，$f(x) \\ge 0 \\iff a \\le x$（$x > 0$ 时）。$x = 0$ 时 $f(0) = 0 \\ge 0$ 恒成立。$x > 0$ 时 $a \\le x$ 对 $(0, 1]$ 恒成立，故 $a \\le \\min_{x \\in (0, 1]} x = 0$。\n\n端点 $x = 0$ 提供了关键信息：$f(0) = 0$，这要求函数在 $x=0$ 附近非负——这就是"端点效应"：利用端点处函数值的符号来缩小参数范围。',
+    tags: ['端点效应', '恒成立', '基础题'],
+  },
+  {
+    id: '5.4-easy-2',
+    nodeId: '5.4',
+    difficulty: 1,
+    type: 'choice',
+    content: '关于"端点效应"（必要性探路），下列说法正确的是：',
+    options: [
+      '端点效应只考虑区间端点的函数值，无需分析内部',
+      '端点效应利用 $f(a) \\ge 0$ 是 $f(x) \\ge 0$ 在 $[a,b]$ 上的必要条件，由此缩小参数范围',
+      '端点效应与导数无关',
+      '端点效应等价于分离参数法',
+    ],
+    answer: 'B',
+    solution: 'B 正确。端点效应的核心思路是：$f(x) \\ge 0$ 在区间 $I$ 上恒成立 $\\Rightarrow f($端点$) \\ge 0$，这是必要条件。从必要条件出发可缩小参数范围（"必要性探路"），然后再检验充分性。这是一种高效的参数讨论策略，特别适用于 $f(a) = 0$ 且需要讨论 $f$ 在端点附近符号的情况。',
+    tags: ['端点效应', '必要性探路', '概念辨析'],
+  } as ChoiceQuestion,
+  {
+    id: '5.4-easy-3',
+    nodeId: '5.4',
+    difficulty: 1,
+    type: 'fill',
+    content: '若 $f(x) = e^x - ax - 1 \\ge 0$ 对 $x \\ge 0$ 恒成立，由 $f(0) = 0$ 及 $f\'(0) \\ge 0$（否则 $f$ 在 $0$ 附近为负）可得 $a \\le \\underline{\\qquad}$。',
+    answer: '$1$',
+    solution: '$f(0) = e^0 - 0 - 1 = 0$。若在 $x = 0$ 附近 $f(x) \\ge 0$，则 $f\'(0) \\ge 0$（否则 $f$ 在 $x = 0$ 右侧立即变负）。$f\'(x) = e^x - a$，$f\'(0) = 1 - a \\ge 0 \\Rightarrow a \\le 1$。这是端点效应的典型用法——通过端点处导数的符号来限制参数。',
+    tags: ['端点效应', '导数条件', '必要性'],
+  },
+
+  // ===== 难度 2：综合 =====
+  {
+    id: '5.4-mid-1',
+    nodeId: '5.4',
+    difficulty: 2,
+    type: 'calculation',
+    content: '已知 $f(x) = \\ln x - a(x - 1)$。\n\n(1) 讨论 $f(x)$ 的单调性；\n(2) 若 $f(x) \\le 0$ 对 $x > 0$ 恒成立，求 $a$ 的范围。',
+    answer: '见解答; $a = 1$',
+    solution: '(1) $f\'(x) = \\frac{1}{x} - a = \\frac{1 - ax}{x}$。\n$a \\le 0$ 时 $f\'(x) > 0$，$f$ 在 $(0, +\\infty)$ 递增。\n$a > 0$ 时，$x \\in (0, \\frac{1}{a})$: $f\'(x) > 0$（增），$x \\in (\\frac{1}{a}, +\\infty)$: $f\'(x) < 0$（减）。\n\n(2) 注意 $f(1) = \\ln 1 - a(1-1) = 0$。\n$f(x) \\le 0$ 恒成立，而 $f(1) = 0$，故 $x = 1$ 必须是最大值点。\n端点效应：由 $f(1) = 0$ 且 $f(x) \\le 0$ 知 $f\'(1) = 0$（必要条件）。\n$f\'(1) = 1 - a = 0 \\Rightarrow a = 1$。\n当 $a = 1$ 时，$f(x) = \\ln x - x + 1$，$f\'(x) = \\frac{1}{x} - 1$。\n$x \\in (0, 1)$: $f\'(x) > 0$，$x \\in (1, +\\infty)$: $f\'(x) < 0$，$f_{\\max} = f(1) = 0$，故 $f(x) \\le 0$ 成立。\n$a \\neq 1$ 时 $f(1) = 0$ 但 $f\'(1) \\neq 0$，$f$ 在 $x=1$ 附近会取正值，不满足。\n综上 $a = 1$。',
+    tags: ['端点效应', '必要性探路', '恒成立'],
+  },
+  {
+    id: '5.4-mid-2',
+    nodeId: '5.4',
+    difficulty: 2,
+    type: 'calculation',
+    content: '已知 $f(x) = e^x - ax - 1$。若 $f(x) \\ge 0$ 对 $x \\ge 0$ 恒成立，求实数 $a$ 的取值范围。',
+    answer: '$a \\le 1$',
+    solution: '方法一（端点效应）：$f(0) = 0$。$f(x) \\ge 0$ 恒成立 $\\Rightarrow f\'(0) \\ge 0$（必要性）。\n$f\'(x) = e^x - a$，$f\'(0) = 1 - a \\ge 0 \\Rightarrow a \\le 1$。\n当 $a \\le 1$ 时，$f\'(x) = e^x - a \\ge e^x - 1 \\ge 0$（$x \\ge 0$），$f$ 递增，$f(x) \\ge f(0) = 0$。故 $a \\le 1$ 满足。\n\n方法二（分离参数）：$f(x) \\ge 0 \\iff a \\le \\frac{e^x - 1}{x}$（$x > 0$）。\n令 $g(x) = \\frac{e^x - 1}{x}$（$x > 0$）。$g\'(x) = \\frac{xe^x - (e^x-1)}{x^2} = \\frac{(x-1)e^x + 1}{x^2}$。\n分析知 $g(x) > 1$（$x > 0$）且 $\\lim_{x \\to 0^+} g(x) = 1$（洛必达或重要极限）。\n故 $a \\le g_{\\min} = 1$。',
+    tags: ['端点效应', '恒成立', '分离参数'],
+  },
+  {
+    id: '5.4-mid-3',
+    nodeId: '5.4',
+    difficulty: 2,
+    type: 'calculation',
+    content: '已知 $f(x) = e^x + e^{-x} - 2 - ax^2$。\n\n(1) 当 $a = 1$ 时，判断 $f(x)$ 在 $x \\ge 0$ 时的符号；\n(2) 若 $f(x) \\ge 0$ 对 $x \\ge 0$ 恒成立，求 $a$ 的取值范围。',
+    answer: '$f(x) \\ge 0$; $a \\le 1$',
+    solution: '(1) $a = 1$ 时，$f(x) = e^x + e^{-x} - 2 - x^2$。$f(0) = 0$。\n$f\'(x) = e^x - e^{-x} - 2x$，$f\'\'(x) = e^x + e^{-x} - 2 \\ge 0$（均值不等式）。\n$f\'\'(0) = 0$，$f\'\'\'(x) = e^x - e^{-x} \\ge 0$（$x \\ge 0$）。故 $f\'\'(x)$ 递增，$f\'\'(x) \\ge 0$。\n$f\'(x)$ 递增，$f\'(0) = 0$，$f\'(x) \\ge 0$。$f(x)$ 递增，$f(0) = 0$，$f(x) \\ge 0$。\n\n(2) $f(0) = 0$。$f(x) \\ge 0 \\Rightarrow f\'\'(0) \\ge 0$（必要性）。\n$f\'(x) = e^x - e^{-x} - 2ax$，$f\'(0) = 0$。\n$f\'\'(x) = e^x + e^{-x} - 2a$，$f\'\'(0) = 2 - 2a \\ge 0 \\Rightarrow a \\le 1$。\n当 $a \\le 1$ 时，$f(x) = e^x + e^{-x} - 2 - ax^2 \\ge e^x + e^{-x} - 2 - x^2$。\n由 (1) 知后者 $\\ge 0$，故 $f(x) \\ge 0$。充分性成立。\n综上 $a \\le 1$。',
+    tags: ['端点效应', '高阶导数', '必要性探路'],
+  },
+
+  // ===== 难度 3：压轴 =====
+  {
+    id: '5.4-hard-1',
+    nodeId: '5.4',
+    difficulty: 3,
+    type: 'calculation',
+    content: '已知函数 $f(x) = \\sin x - x + ax^2$（$a \\in \\mathbb{R}$）。\n\n(1) 当 $a = \\frac{1}{2}$ 时，讨论 $f(x)$ 的单调性；\n(2) 若 $f(x) \\le 0$ 对 $x \\in [0, \\frac{\\pi}{2}]$ 恒成立，利用端点效应求 $a$ 的范围。',
+    answer: '见解答; $a \\le 0$',
+    solution: '(1) $a = \\frac{1}{2}$ 时，$f(x) = \\sin x - x + \\frac{1}{2}x^2$。$f\'(x) = \\cos x - 1 + x$。\n$f\'\'(x) = -\\sin x + 1 \\ge 0$，$f\'$ 递增。$f\'(0) = 1 - 1 + 0 = 0$，故 $x \\ge 0$ 时 $f\'(x) \\ge 0$，$f$ 递增。$f(0) = 0$，故 $f(x) \\ge 0$（$x \\ge 0$）。即 $f(x) \\le 0$ 不成立。\n\n(2) $f(0) = 0$。由 $f(x) \\le 0$ 恒成立 $\\Rightarrow f\'(0) \\le 0$（必要性，否则 $f$ 在 $0$ 右侧为正）。\n$f\'(x) = \\cos x - 1 + 2ax$，$f\'(0) = 0$（无论如何 $f\'(0) = 0$）。\n继续求导：$f\'\'(x) = -\\sin x + 2a$，$f\'\'(0) = 2a \\le 0 \\Rightarrow a \\le 0$（必要性）。\n当 $a \\le 0$ 时，$f\'\'(x) = -\\sin x + 2a \\le -\\sin x \\le 0$，$f\'$ 递减。$f\'(0) = 0$，故 $x \\ge 0$ 时 $f\'(x) \\le 0$，$f$ 递减。$f(0) = 0$，故 $f(x) \\le 0$。\n综上 $a \\le 0$。',
+    tags: ['端点效应', '高阶导数', '必要性探路'],
+  },
+  {
+    id: '5.4-hard-2',
+    nodeId: '5.4',
+    difficulty: 3,
+    type: 'calculation',
+    content: '已知 $f(x) = \\ln(1 + x) - x + ax^2$。\n\n(1) 当 $a = 0$ 时，证明 $f(x) \\le 0$（$x \\ge 0$）；\n(2) 若 $f(x) \\le 0$ 对 $x \\ge 0$ 恒成立，求 $a$ 的取值范围。',
+    answer: '证明见解答; $a \\le 0$',
+    solution: '(1) $a=0$ 时 $f(x) = \\ln(1+x) - x$。$f\'(x) = \\frac{1}{1+x} - 1 = -\\frac{x}{1+x} \\le 0$（$x \\ge 0$），故 $f$ 递减，$f(x) \\le f(0) = 0$。\n\n(2) $f(0) = 0$。由 $f(x) \\le 0$ 恒成立 $\\Rightarrow f\'(0) \\le 0$（必要性）。$f\'(x) = \\frac{1}{1+x} - 1 + 2ax$，$f\'(0) = 0$，一阶必要性不提供信息。\n$f\'\'(x) = -\\frac{1}{(1+x)^2} + 2a$，$f\'\'(0) = -1 + 2a \\le 0 \\Rightarrow a \\le \\frac{1}{2}$（必要性）。\n但 $a > 0$ 时 $\\lim_{x \\to +\\infty} f(x) = +\\infty$（$ax^2$ 主导），不可能 $\\le 0$。\n当 $a \\le 0$ 时，$ax^2 \\le 0$，故 $f(x) = \\ln(1+x) - x + ax^2 \\le \\ln(1+x) - x \\le 0$（由(1)）。\n综上 $a \\le 0$。此题展示了端点效应的局限：仅由端点附近导数符号得出的必要条件是 $a \\le \\frac{1}{2}$，但函数在无穷远处的行为将范围进一步缩小为 $a \\le 0$，说明必要性探路后还需完整验证。',
+    tags: ['端点效应', '无穷远行为', '必要性+充分性'],
+  },
+  {
+    id: '5.4-hard-3',
+    nodeId: '5.4',
+    difficulty: 3,
+    type: 'calculation',
+    content: '已知 $f(x) = e^x - 1 - x - ax^2$。\n\n(1) 当 $a = \\frac{1}{2}$ 时，判断 $f(x)$ 在 $x \\ge 0$ 时的符号；\n(2) 若 $f(x) \\ge 0$ 对 $x \\ge 0$ 恒成立，求 $a$ 的取值范围。',
+    answer: '$f(x) \\ge 0$; $a \\le \\frac{1}{2}$',
+    solution: '(1) $a = \\frac{1}{2}$ 时 $f(x) = e^x - 1 - x - \\frac{1}{2}x^2$。\n$f(0) = 0$。$f\'(x) = e^x - 1 - x$，由 $e^x \\ge 1 + x$ 知 $f\'(x) \\ge 0$，$f$ 递增，$f(x) \\ge 0$。\n\n(2) $f(0) = 0$。$f(x) \\ge 0 \\Rightarrow f\'(0) \\ge 0$（必要性）。\n$f\'(x) = e^x - 1 - 2ax$，$f\'(0) = 0$。\n$f\'\'(x) = e^x - 2a$，$f\'\'(0) = 1 - 2a \\ge 0 \\Rightarrow a \\le \\frac{1}{2}$。\n充分性：当 $a \\le \\frac{1}{2}$ 时，$f(x) = e^x - 1 - x - ax^2 \\ge e^x - 1 - x - \\frac{1}{2}x^2$。\n由 (1) 知 $e^x - 1 - x - \\frac{1}{2}x^2 \\ge 0$（$x \\ge 0$），故 $f(x) \\ge 0$。\n综上 $a \\le \\frac{1}{2}$。',
+    tags: ['端点效应', '高阶导数', '必要性探路'],
+  },
+];
+
+export default questions5_4;

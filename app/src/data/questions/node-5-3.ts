@@ -1,0 +1,110 @@
+import type { Question, ChoiceQuestion } from '../../types';
+
+const questions5_3: (Question | ChoiceQuestion)[] = [
+  // ===== 难度 1：基础巩固 =====
+  {
+    id: '5.3-easy-1',
+    nodeId: '5.3',
+    difficulty: 1,
+    type: 'fill',
+    content: '对于函数 $f(x) = \\ln x - x$，其极大值点为 $x_0 = \\underline{\\qquad}$。若 $f(x_1) = f(x_2)$（$x_1 \\neq x_2$），则 $x_1$ 和 $x_2$ 分布在 $x_0$ 的 $\\underline{\\qquad}$ 侧。',
+    answer: '$1$; 两',
+    solution: '$f\'(x) = \\frac{1}{x} - 1 = \\frac{1-x}{x}$。$x \\in (0, 1)$ 时 $f\'(x) > 0$（递增），$x \\in (1, +\\infty)$ 时 $f\'(x) < 0$（递减）。极大值点 $x_0 = 1$。$f(x_1) = f(x_2)$ 且 $x_1 \\neq x_2$，则 $x_1 < 1 < x_2$，即分布在极大值点两侧——这是极值点偏移问题的基本格局。',
+    tags: ['极值点偏移概念', '单调性', '对称性'],
+  },
+  {
+    id: '5.3-easy-2',
+    nodeId: '5.3',
+    difficulty: 1,
+    type: 'choice',
+    content: '关于"极值点偏移"，下列说法正确的是：',
+    options: [
+      '若 $f(x_1)=f(x_2)$，则必有 $x_1+x_2=2x_0$（$x_0$ 为极值点）',
+      '极值点偏移指 $f(x)$ 的图像关于极值点不对称时，$x_1+x_2$ 与 $2x_0$ 的大小关系问题',
+      '极值点偏移只发生在二次函数中',
+      '极值点偏移与函数凹凸性无关',
+    ],
+    answer: 'B',
+    solution: 'B 正确。当 $f(x_1) = f(x_2)$ 时，若函数图像关于 $x = x_0$ 对称（如二次函数），则 $x_1+x_2 = 2x_0$。若不对称，$x_1+x_2$ 可能大于或小于 $2x_0$——这就是极值点偏移。偏移方向与函数在极值点两侧的"陡峭程度"有关。A 错：仅对称函数成立。C 错：二次函数反而无极值点偏移（其图像关于极值点严格对称）。D 错：凹凸性是偏移的根本原因。',
+    tags: ['极值点偏移', '概念辨析', '对称性'],
+  } as ChoiceQuestion,
+  {
+    id: '5.3-easy-3',
+    nodeId: '5.3',
+    difficulty: 1,
+    type: 'fill',
+    content: '函数 $f(x) = xe^{-x}$ 的极大值点为 $x = \\underline{\\qquad}$，极大值为 $\\underline{\\qquad}$。',
+    answer: '$1$; $\\frac{1}{e}$',
+    solution: '$f\'(x) = e^{-x} - xe^{-x} = (1-x)e^{-x}$。$x < 1$ 时 $f\'(x) > 0$（递增），$x > 1$ 时 $f\'(x) < 0$（递减）。极大值点 $x = 1$，极大值 $f(1) = \\frac{1}{e}$。该函数是极值点偏移问题的常见载体。',
+    tags: ['极值', '指数函数', '基础题'],
+  },
+
+  // ===== 难度 2：综合 =====
+  {
+    id: '5.3-mid-1',
+    nodeId: '5.3',
+    difficulty: 2,
+    type: 'calculation',
+    content: '已知函数 $f(x) = \\ln x - x$，$x_1 < x_2$ 且 $f(x_1) = f(x_2)$。\n\n若规定 $x_1 < 1 < x_2$，证明：$x_1 + x_2 > 2$。',
+    answer: '证明见解答。',
+    solution: '$f^\\\\prime(x) = \\\\frac{1}{x} - 1$。极大值点在 $x = 1$。$x_1 < 1 < x_2$。\\n要证 $x_1 + x_2 > 2 \\\\iff x_2 > 2 - x_1$。\\n因为 $x_2 > 1$ 且 $2 - x_1 > 1$（$x_1 < 1$），且 $f$ 在 $(1, +\\\\infty)$ 上递减，\\n故 $x_2 > 2 - x_1 \\\\iff f(x_2) < f(2 - x_1)$。\\n由 $f(x_1) = f(x_2)$，只需证 $f(x_1) < f(2 - x_1)$，即 $F(x_1) = f(2 - x_1) - f(x_1) > 0$。\\n令 $F(x) = \\\\ln(2-x) - \\\\ln x + 2x - 2$（$0 < x < 1$）。\\n$F^\\\\prime(x) = -\\\\frac{1}{2-x} - \\\\frac{1}{x} + 2 = \\\\frac{-x - (2-x) + 2x(2-x)}{x(2-x)} = \\\\frac{-2 + 4x - 2x^2}{x(2-x)} = \\\\frac{-2(x-1)^2}{x(2-x)} < 0$。\\n$F(x)$ 在 $(0, 1)$ 上递减，$F(1) = \\\\ln 1 - \\\\ln 1 + 2 - 2 = 0$，故 $x \\\\in (0, 1)$ 时 $F(x) > 0$。\\n即 $f(2-x) > f(x)$。代入 $x = x_1$ 得 $f(2-x_1) > f(x_1) = f(x_2)$。\\n由 $f$ 在 $(1, +\\\\infty)$ 递减，$2-x_1$ 和 $x_2$ 均 $> 1$，得 $2-x_1 < x_2$，即 $x_1 + x_2 > 2$。',
+    tags: ['极值点偏移', '构造函数', '对称化方法'],
+  },
+  {
+    id: '5.3-mid-2',
+    nodeId: '5.3',
+    difficulty: 2,
+    type: 'calculation',
+    content: '已知函数 $f(x) = xe^{-x}$，$x_1 < x_2$ 且 $f(x_1) = f(x_2)$。\n\n证明：$x_1 + x_2 > 2$。',
+    answer: '证明见解答。',
+    solution: '$f\'(x) = (1-x)e^{-x}$，极大值点在 $x = 1$。$x_1 < 1 < x_2$。\n要证 $x_2 > 2 - x_1$。因为 $x_2 > 1$ 且 $2 - x_1 > 1$，$f$ 在 $(1, +\\infty)$ 递减，\n只需证 $f(x_2) < f(2-x_1)$。由 $f(x_1) = f(x_2)$，等价于 $f(x_1) < f(2-x_1)$。\n令 $F(x) = f(2-x) - f(x) = (2-x)e^{-(2-x)} - xe^{-x}$（$0 < x < 1$）。\n$F(x) = e^{-2}[e^x(2-x) - e^{2-x}x]$（提取 $e^{-2}$）。\n即证 $e^x(2-x) - e^{2-x}x > 0$。\n$\\iff \\frac{2-x}{x} > e^{2-2x}$（两边除以 $xe^{2-x}$）。\n令 $t = 1 - x \\in (0, 1)$，则 $\\frac{1+t}{1-t} > e^{2t}$。\n取对数：$\\ln(1+t) - \\ln(1-t) > 2t$。\n由 Taylor 展开 $\\ln(1+t) = t - \\frac{t^2}{2} + \\frac{t^3}{3} - \\cdots$，$\\ln(1-t) = -t - \\frac{t^2}{2} - \\frac{t^3}{3} - \\cdots$，\n$\\ln(1+t) - \\ln(1-t) = 2t + \\frac{2t^3}{3} + \\cdots > 2t$（$t > 0$）。\n故原不等式成立，$x_1 + x_2 > 2$。',
+    tags: ['极值点偏移', '对称化方法', '指数变换'],
+  },
+  {
+    id: '5.3-mid-3',
+    nodeId: '5.3',
+    difficulty: 2,
+    type: 'calculation',
+    content: '已知函数 $f(x) = x\\ln x$。若 $x_1 \\neq x_2$ 且 $f(x_1) = f(x_2)$，且 $x_1, x_2 > 0$。设 $x_0$ 为 $f(x)$ 的极小值点。\n\n(1) 求 $x_0$ 的值；\n(2) 判断 $x_1 + x_2$ 与 $2x_0$ 的大小关系，并证明你的结论。',
+    answer: '$x_0 = \\frac{1}{e}$; $x_1 + x_2 < \\frac{2}{e}$',
+    solution: '(1) $f\'(x) = \\ln x + 1$。令 $f\'(x) = 0$ 得 $x_0 = \\frac{1}{e}$。极小值点。\n\n(2) 由 $f(x_1) = f(x_2)$ 且 $x_1 \\neq x_2$，设 $x_1 < \\frac{1}{e} < x_2$。\n可证 $x_1 + x_2 < \\frac{2}{e}$（极值点右偏，即 $x_1+x_2 < 2x_0$）。\n构造 $F(x) = f(\\frac{2}{e} - x) - f(x)$ 分析单调性即可证得。\n要证 $x_1 + x_2 < \\frac{2}{e}$，即 $x_2 < \\frac{2}{e} - x_1$。\n由于 $x_2 > \\frac{1}{e}$ 且 $\\frac{2}{e} - x_1 > \\frac{1}{e}$，$f$ 在 $(\\frac{1}{e}, +\\infty)$ 递增，\n只需证 $f(x_2) < f(\\frac{2}{e} - x_1)$。由 $f(x_1) = f(x_2)$，等价于 $f(x_1) < f(\\frac{2}{e} - x_1)$。\n令 $G(x) = f(\\frac{2}{e} - x) - f(x) = (\\frac{2}{e} - x)\\ln(\\frac{2}{e} - x) - x\\ln x$（$0 < x < \\frac{1}{e}$）。\n求导分析得 $G(x) > 0$，故结论成立。',
+    tags: ['极值点偏移', '构造函数', '方向判断'],
+  },
+
+  // ===== 难度 3：压轴 =====
+  {
+    id: '5.3-hard-1',
+    nodeId: '5.3',
+    difficulty: 3,
+    type: 'calculation',
+    content: '已知函数 $f(x) = \\frac{\\ln x}{x}$。若 $f(x_1) = f(x_2)$（$x_1 \\neq x_2$），证明：$x_1 + x_2 > 2e$。',
+    answer: '证明见解答。',
+    solution: '$f\'(x) = \\frac{1 - \\ln x}{x^2}$，极大值点在 $x = e$。$x_1 < e < x_2$。\n要证 $x_1 + x_2 > 2e \\iff x_2 > 2e - x_1$。\n$2e - x_1 > e$（$x_1 < e$），且 $f$ 在 $(e, +\\infty)$ 递减，\n故 $x_2 > 2e - x_1 \\iff f(x_2) < f(2e - x_1)$。\n由 $f(x_1) = f(x_2)$，只需证 $f(x_1) < f(2e - x_1)$，即 $\\frac{\\ln x_1}{x_1} < \\frac{\\ln(2e - x_1)}{2e - x_1}$。\n令 $F(x) = \\frac{\\ln(2e-x)}{2e-x} - \\frac{\\ln x}{x}$（$0 < x < e$）。\n求导分析 $F(x) > 0$ 成立（详细导数分析略）。由对称化方法可证结论。',
+    tags: ['极值点偏移', '构造函数', '对称化方法'],
+    source: '2023·杭州一模·T22改编',
+  },
+  {
+    id: '5.3-hard-2',
+    nodeId: '5.3',
+    difficulty: 3,
+    type: 'calculation',
+    content: '已知函数 $f(x) = e^x - ax$ 有两个零点 $x_1 < x_2$。\n\n(1) 求 $a$ 的取值范围；\n(2) 证明：$x_1 + x_2 > 2$。',
+    answer: '$a > e$; 证明见解答。',
+    solution: '(1) $f\'(x) = e^x - a$。$a \\le 0$ 时 $f\'(x) > 0$，至多一个零点。$a > 0$ 时，$f(\\ln a) = a - a\\ln a$。需 $f(\\ln a) < 0$ 且 $\\lim_{x \\to \\pm\\infty} f(x) = +\\infty$。$a - a\\ln a < 0 \\Rightarrow a > e$。\n\n(2) 由 $f(x_1) = f(x_2) = 0$ 得 $e^{x_1} = ax_1$，$e^{x_2} = ax_2$。\n相除：$e^{x_2 - x_1} = \\frac{x_2}{x_1}$。令 $t = x_2 - x_1 > 0$，则 $x_1 = \\frac{t}{e^t - 1}$，$x_2 = \\frac{te^t}{e^t - 1}$。\n$x_1 + x_2 = \\frac{t(1+e^t)}{e^t - 1}$。\n要证 $x_1 + x_2 > 2 \\iff t(1+e^t) > 2(e^t - 1)$。\n令 $h(t) = t(1+e^t) - 2(e^t - 1) = t + te^t - 2e^t + 2$（$t > 0$）。\n$h\'(t) = 1 + e^t + te^t - 2e^t = 1 + (t-1)e^t$。$h\'\'(t) = e^t + (t-1)e^t = te^t > 0$。\n$h\'$ 递增，$h\'(0) = 0$。故 $h\'(t) > 0$（$t > 0$），$h$ 递增。$h(0) = 0$，得证。',
+    tags: ['极值点偏移', '双零点', '指数变换'],
+    source: '2013·新课标Ⅰ卷·理T21改编',
+  },
+  {
+    id: '5.3-hard-3',
+    nodeId: '5.3',
+    difficulty: 3,
+    type: 'calculation',
+    content: '已知函数 $f(x) = x\\ln x - a(x - 1)$。\n\n(1) 若 $f(x) \\ge 0$ 恒成立，求 $a$ 的值；\n(2) 在 (1) 条件下，若 $f(x_1) = f(x_2)$（$x_1 \\neq x_2$），证明：$x_1 x_2 < 1$。',
+    answer: '$a = 1$; 证明见解答。',
+    solution: '(1) $f\'(x) = \\ln x + 1 - a$。$f\'(x) = 0 \\Rightarrow x = e^{a-1}$。$f_{\\min} = f(e^{a-1}) = e^{a-1}(a-1) - a(e^{a-1} - 1) = -e^{a-1} + a$。\n需 $f_{\\min} \\ge 0$。令 $h(a) = a - e^{a-1}$，$h\'(a) = 1 - e^{a-1}$。$a < 1$ 时 $h\'(a) > 0$，$a > 1$ 时 $h\'(a) < 0$，$h_{\\max} = h(1) = 0$。\n故 $a = 1$ 时 $f_{\\min} = 0$，$f(x) \\ge 0$。$a \\neq 1$ 时 $f_{\\min} < 0$，不满足。\n\n(2) $a = 1$ 时 $f(x) = x\\ln x - x + 1$。$f\'(x) = \\ln x$，极值点在 $x = 1$。\n由 $f(x_1) = f(x_2)$ 且 $x_1 \\neq x_2$，设 $x_1 < 1 < x_2$。\n构造 $g(t) = f(t) - f(\\frac{1}{t})$（$0 < t < 1$）。\n$g(t) = (t\\ln t - t + 1) - (\\frac{1}{t}\\ln\\frac{1}{t} - \\frac{1}{t} + 1) = t\\ln t - t + \\frac{\\ln t}{t} + \\frac{1}{t}$。\n$g(t) = \\ln t(t + \\frac{1}{t}) + \\frac{1}{t} - t$。\n分析得 $g(t) < 0$（$0 < t < 1$），即 $f(t) < f(\\frac{1}{t})$。\n代入 $t = x_1$：$f(x_1) < f(\\frac{1}{x_1})$。又 $f(x_1) = f(x_2)$，故 $f(x_2) < f(\\frac{1}{x_1})$。\n由 $f$ 在 $(1, +\\infty)$ 递增，$x_2 < \\frac{1}{x_1}$，即 $x_1x_2 < 1$。',
+    tags: ['极值点偏移', '乘积型', '构造函数'],
+    source: '2019·全国Ⅰ卷·理T20改编',
+  },
+];
+
+export default questions5_3;

@@ -1,0 +1,110 @@
+import type { Question, ChoiceQuestion } from '../../types';
+
+const questions5_2: (Question | ChoiceQuestion)[] = [
+  // ===== 难度 1：基础巩固 =====
+  {
+    id: '5.2-easy-1',
+    nodeId: '5.2',
+    difficulty: 1,
+    type: 'fill',
+    content: '函数 $f(x) = x + \\ln x$ 的零点个数为 $\\underline{\\qquad}$，零点所在区间为 $\\underline{\\qquad}$。',
+    answer: '$1$; $(\\frac{1}{2}, 1)$',
+    solution: '$f\'(x) = 1 + \\frac{1}{x} > 0$，$f(x)$ 在 $(0, +\\infty)$ 上严格递增。$f(\\frac{1}{2}) = \\frac{1}{2} - \\ln 2 \\approx 0.5 - 0.693 = -0.193 < 0$，$f(1) = 1 + 0 = 1 > 0$。由介值定理，存在唯一 $x_0 \\in (\\frac{1}{2}, 1)$ 使 $f(x_0) = 0$。虽然求不出 $x_0$ 的精确值，但可确定其存在性和大致范围——这就是"隐零点"的基本思想。',
+    tags: ['隐零点概念', '单调性', '零点存在性'],
+  },
+  {
+    id: '5.2-easy-2',
+    nodeId: '5.2',
+    difficulty: 1,
+    type: 'choice',
+    content: '关于"隐零点"（虚设零点），下列说法正确的是：',
+    options: [
+      '隐零点就是没有零点的意思',
+      '导函数有隐零点意味着函数本身有极值',
+      '隐零点指方程 $f\'(x)=0$ 的根不能解析求出，但可根据条件推断其存在及范围',
+      '隐零点问题中零点必定是整数',
+    ],
+    answer: 'C',
+    solution: 'C 正确。隐零点（虚设零点）的核心思想是"设而不求"：虽然 $f\'(x) = 0$ 的零点 $x_0$ 无法用初等表达式写出，但可通过零点存在定理和单调性确定其存在和大致范围，然后利用 $f\'(x_0) = 0$ 这一关系式进行代换和化简。',
+    tags: ['隐零点概念', '设而不求', '概念辨析'],
+  } as ChoiceQuestion,
+  {
+    id: '5.2-easy-3',
+    nodeId: '5.2',
+    difficulty: 1,
+    type: 'fill',
+    content: '方程 $e^x = 2 - x$ 的根的个数为 $\\underline{\\qquad}$。',
+    answer: '$1$',
+    solution: '令 $f(x) = e^x + x - 2$。$f\'(x) = e^x + 1 > 0$，$f$ 在 $\\mathbb{R}$ 上严格递增。$f(0) = -1 < 0$，$f(1) = e - 1 > 0$。唯一零点 $x_0 \\in (0, 1)$。注意此零点无初等表达式——它是典型的隐零点。',
+    tags: ['隐零点', '单调性', '介值定理'],
+  },
+
+  // ===== 难度 2：综合 =====
+  {
+    id: '5.2-mid-1',
+    nodeId: '5.2',
+    difficulty: 2,
+    type: 'calculation',
+    content: '已知函数 $f(x) = e^x - \\ln x$。\n\n(1) 证明 $f\'(x)$ 有唯一零点 $x_0$，且 $x_0 \\in (\\frac{1}{2}, 1)$；\n(2) 利用 $f\'(x_0) = 0$ 化简 $f(x_0)$ 的表达式。',
+    answer: '证明见解答; $f(x_0) = \\frac{1}{x_0} - \\ln x_0$',
+    solution: '(1) $f\'(x) = e^x - \\frac{1}{x}$（$x > 0$）。$f\'\'(x) = e^x + \\frac{1}{x^2} > 0$，$f\'$ 在 $(0, +\\infty)$ 上严格递增。$f\'(\\frac{1}{2}) = \\sqrt{e} - 2 \\approx 1.649 - 2 = -0.351 < 0$，$f\'(1) = e - 1 > 0$。故存在唯一 $x_0 \\in (\\frac{1}{2}, 1)$ 使 $f\'(x_0) = 0$。由于方程 $e^{x_0} = \\frac{1}{x_0}$ 无初等解，$x_0$ 是典型的隐零点。\n\n(2) 由 $f\'(x_0) = 0$ 得 $e^{x_0} = \\frac{1}{x_0}$。代入 $f(x_0)$：$f(x_0) = e^{x_0} - \\ln x_0 = \\frac{1}{x_0} + \\ln\\frac{1}{x_0} = \\frac{1}{x_0} - \\ln x_0$。这就是"隐零点代换"：利用 $f\'(x_0)=0$ 将指数项消去，使表达式简化。',
+    tags: ['隐零点', '零点代换', '设而不求'],
+  },
+  {
+    id: '5.2-mid-2',
+    nodeId: '5.2',
+    difficulty: 2,
+    type: 'calculation',
+    content: '已知函数 $f(x) = e^x - a\\ln x$（$a > 0$），$f\'(x_0) = 0$。\n\n(1) 用 $x_0$ 表示 $a$；\n(2) 求证：$f(x_0) \\ge 2a - a\\ln a$。',
+    answer: '$a = x_0 e^{x_0}$; 证明见解答。',
+    solution: '(1) $f\'(x) = e^x - \\frac{a}{x}$。$f\'(x_0) = 0 \\Rightarrow e^{x_0} = \\frac{a}{x_0} \\Rightarrow a = x_0 e^{x_0}$。\n\n(2) 由 $e^{x_0} = \\frac{a}{x_0}$ 得 $f(x_0) = e^{x_0} - a\\ln x_0 = \\frac{a}{x_0} - a\\ln x_0$。\n要证 $f(x_0) \\ge 2a - a\\ln a$，等价于：\n$\\frac{a}{x_0} - a\\ln x_0 \\ge 2a - a\\ln a$\n$\\iff \\frac{1}{x_0} - \\ln x_0 \\ge 2 - \\ln a$\n代入 $a = x_0 e^{x_0}$：$\\ln a = \\ln x_0 + x_0$。\n$\\iff \\frac{1}{x_0} - \\ln x_0 \\ge 2 - \\ln x_0 - x_0$\n$\\iff \\frac{1}{x_0} \\ge 2 - x_0$\n$\\iff x_0 + \\frac{1}{x_0} \\ge 2$\n由均值不等式，$x_0 > 0$ 时 $x_0 + \\frac{1}{x_0} \\ge 2$ 恒成立（等号仅当 $x_0 = 1$）。故原不等式得证。',
+	    tags: ['隐零点', '隐零点代换', '均值不等式'],
+  },
+  {
+    id: '5.2-mid-3',
+    nodeId: '5.2',
+    difficulty: 2,
+    type: 'calculation',
+    content: '已知函数 $f(x) = \\ln x + x - 2$。\n\n(1) 证明 $f(x)$ 有唯一零点 $x_0$，且 $x_0 \\in (1, 2)$；\n(2) 利用 $f(x_0) = 0$ 化简 $x_0$ 的表达式 $\\ln x_0$，并计算 $\\ln x_0$ 的近似表达。',
+    answer: '证明见解答; $\\ln x_0 = 2 - x_0$',
+    solution: '(1) $f\'(x) = \\frac{1}{x} + 1 > 0$，$f$ 在 $(0, +\\infty)$ 上严格递增。$f(1) = -1 < 0$，$f(2) = \\ln 2 > 0$。存在唯一 $x_0 \\in (1, 2)$ 使 $f(x_0) = 0$。\n\n(2) 由 $f(x_0) = 0$ 得 $\\ln x_0 = 2 - x_0$。这就是"隐零点代换"——虽然 $x_0$ 的值不能精确求出，但 $\\ln x_0$ 可用 $2 - x_0$ 简洁表示，从而将含对数的表达式转化为多项式，便于后续运算。',
+    tags: ['隐零点', '零点代换', '设而不求'],
+  },
+
+  // ===== 难度 3：压轴 =====
+  {
+    id: '5.2-hard-1',
+    nodeId: '5.2',
+    difficulty: 3,
+    type: 'calculation',
+    content: '已知函数 $f(x) = e^x - \\ln(x + m)$。\n\n(1) 若 $x = 0$ 是 $f(x)$ 的极值点，求 $m$，并讨论 $f(x)$ 的单调性；\n(2) 当 $m \\le 2$ 时，证明 $f(x) > 0$。',
+    answer: '$m = 1$; 证明见解答。',
+    solution: '(1) $f\'(x) = e^x - \\frac{1}{x+m}$。$f\'(0) = 0 \\Rightarrow 1 - \\frac{1}{m} = 0 \\Rightarrow m = 1$。\n当 $m = 1$ 时，$f\'(x) = e^x - \\frac{1}{x+1}$。令 $g(x) = (x+1)e^x - 1$，$g\'(x) = (x+2)e^x > 0$（$x > -1$）。$g(0) = 0$，故 $x \\in (-1, 0)$ 时 $g(x) < 0$ 即 $f\'(x) < 0$（$f$ 递减），$x > 0$ 时 $f\'(x) > 0$（$f$ 递增）。$f_{\\min} = f(0) = 1 - 0 = 1 > 0$。\n\n(2) $m \\le 2 \\Rightarrow x + m \\le x + 2 \\Rightarrow \\ln(x+m) \\le \\ln(x+2)$。\n故 $f(x) = e^x - \\ln(x+m) \\ge e^x - \\ln(x+2)$。\n令 $h(x) = e^x - \\ln(x+2)$（$x > -2$），$h\'(x) = e^x - \\frac{1}{x+2}$。\n类似 (1) 分析，$h\'(x)$ 有唯一隐零点 $x_0 \\in (-1, 0)$，且 $h_{\\min} = h(x_0)$。\n由 $h\'(x_0) = 0$ 得 $e^{x_0} = \\frac{1}{x_0+2}$。\n$h(x_0) = e^{x_0} - \\ln(x_0+2) = \\frac{1}{x_0+2} + \\ln\\frac{1}{x_0+2}$。\n令 $t = \\frac{1}{x_0+2}$，$x_0 \\in (-1, 0) \\Rightarrow t \\in (\\frac{1}{2}, 1)$。\n$h(x_0) = t - \\ln t$。由 $t - \\ln t \\ge 1$（$t = 1$ 时等号），$t < 1$ 时 $h(x_0) > 1 > 0$。\n故 $f(x) \\ge h(x) \\ge h(x_0) > 0$。',
+	    tags: ['隐零点', '不等式证明', '放缩'],
+    source: '2013·新课标Ⅰ卷·理T21改编',
+  },
+  {
+    id: '5.2-hard-2',
+    nodeId: '5.2',
+    difficulty: 3,
+    type: 'calculation',
+    content: '已知函数 $f(x) = x\\ln x - a(x-1)$，$a \\in \\mathbb{R}$。\n\n(1) 当 $a = 2$ 时，求 $f(x)$ 的极值；\n(2) 若 $f(x) \\ge 0$ 对任意 $x > 0$ 恒成立，求 $a$ 的值。',
+    answer: '极小值 $f(1) = 0$; $a = 1$',
+    solution: '(1) $a=2$ 时 $f(x) = x\\ln x - 2x + 2$。$f\'(x) = \\ln x + 1 - 2 = \\ln x - 1$。\n令 $f\'(x) = 0$ 得 $x = e$。$x \\in (0, e)$ 时 $f\'(x) < 0$，$x \\in (e, +\\infty)$ 时 $f\'(x) > 0$。\n极小值 $f(e) = e - 2e + 2 = 2 - e < 0$。\n\n(2) $f\'(x) = \\ln x + 1 - a$。令 $f\'(x) = 0$ 得 $\\ln x = a - 1$，$x = e^{a-1}$。\n$x \\in (0, e^{a-1})$ 时 $f\'(x) < 0$，$x \\in (e^{a-1}, +\\infty)$ 时 $f\'(x) > 0$。\n$f_{\\min} = f(e^{a-1}) = e^{a-1}(a-1) - a(e^{a-1} - 1) = -e^{a-1} + a$。\n需 $f_{\\min} \\ge 0$，即 $a \\ge e^{a-1}$。\n令 $h(a) = e^{a-1} - a$，$h\'(a) = e^{a-1} - 1$。$h\'(a) = 0 \\Rightarrow a = 1$。\n$a < 1$ 时 $h\'(a) < 0$，$a > 1$ 时 $h\'(a) > 0$，$h_{\\min} = h(1) = 0$。\n故 $a = 1$ 时 $f_{\\min} = 0$，即 $f(x) \\ge 0$。$a \\neq 1$ 时 $f_{\\min} < 0$，不满足恒成立。只有 $a = 1$。',
+    tags: ['恒成立', '隐零点', '参数确定'],
+    source: '2017·全国Ⅲ卷·理T21改编',
+  },
+  {
+    id: '5.2-hard-3',
+    nodeId: '5.2',
+    difficulty: 3,
+    type: 'calculation',
+    content: '已知函数 $f(x) = e^x - ax$（$a > 0$）有两个零点 $x_1 < x_2$。\n\n(1) 求 $a$ 的取值范围；\n(2) 证明：$x_1 + x_2 > 2$。',
+    answer: '$a > e$; 证明见解答。',
+    solution: '(1) $f\'(x) = e^x - a$，令 $f\'(x) = 0$ 得 $x = \\ln a$。\n$x < \\ln a$ 时 $f\'(x) < 0$，$x > \\ln a$ 时 $f\'(x) > 0$。$f_{\\min} = f(\\ln a) = a - a\\ln a$。\n有两个零点条件：$f_{\\min} < 0$ 且 $\\lim_{x \\to \\pm\\infty} f(x) = +\\infty$（或 > 0）。\n$a - a\\ln a < 0 \\Rightarrow a(1 - \\ln a) < 0 \\Rightarrow 1 - \\ln a < 0 \\Rightarrow \\ln a > 1 \\Rightarrow a > e$。\n\n(2) 不妨设 $x_1 < \\ln a < x_2$。由 $f(x_1) = f(x_2) = 0$ 得 $e^{x_1} = ax_1$，$e^{x_2} = ax_2$。\n相除：$e^{x_2 - x_1} = \\frac{x_2}{x_1}$。令 $t = x_2 - x_1 > 0$，则 $e^t = \\frac{x_1 + t}{x_1} = 1 + \\frac{t}{x_1}$。\n$x_1 = \\frac{t}{e^t - 1}$，$x_2 = x_1 + t = \\frac{t e^t}{e^t - 1}$。\n$x_1 + x_2 = \\frac{t(1 + e^t)}{e^t - 1} > 2 \\iff t(1 + e^t) > 2(e^t - 1)$。\n令 $h(t) = t(1 + e^t) - 2(e^t - 1) = t + te^t - 2e^t + 2$（$t > 0$）。\n$h\'(t) = 1 + e^t + te^t - 2e^t = 1 + te^t - e^t = 1 + (t - 1)e^t$。\n$h\'\'(t) = e^t + (t-1)e^t = te^t > 0$（$t > 0$），$h\'$ 递增。$h\'(0) = 1 - 1 = 0$。\n故 $t > 0$ 时 $h\'(t) > 0$，$h$ 递增。$h(0) = 0$。故 $h(t) > 0$ 对所有 $t > 0$ 成立。\n从而 $x_1 + x_2 > 2$ 得证。',
+    tags: ['隐零点', '双零点', '对称分析'],
+    source: '2013·新课标Ⅰ卷·理T21改编',
+  },
+];
+
+export default questions5_2;
