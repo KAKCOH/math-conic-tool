@@ -10,14 +10,7 @@ interface Props {
 
 function renderLatexInline(text: string): string {
   let html = text;
-  html = html.replace(/\$\$([\s\S]*?)\$\$/g, (_, formula) => {
-    try {
-      const rendered = katex.renderToString(formula.trim(), { displayMode: true, throwOnError: false });
-      return `<div class="formula-block">${rendered}</div>`;
-    } catch {
-      return `<code>${formula}</code>`;
-    }
-  });
+  // Inline math only — display math ($$...$$) is handled in lectureMarkdown preprocessing
   html = html.replace(/\$(.*?)\$/g, (_, formula) => {
     try {
       return katex.renderToString(formula.trim(), { displayMode: false, throwOnError: false });
@@ -92,7 +85,19 @@ function renderTable(rows: string[]): string {
 }
 
 function lectureMarkdown(text: string): string {
-  const lines = text.split('\n');
+  // Pre-process multi-line $$...$$ blocks before line-by-line parsing
+  const displayMathBlocks: string[] = [];
+  const preprocessed = text.replace(/\$\$([\s\S]*?)\$\$/g, (_, formula) => {
+    try {
+      const rendered = katex.renderToString(formula.trim(), { displayMode: true, throwOnError: false });
+      displayMathBlocks.push(`<div class="formula-block">${rendered}</div>`);
+    } catch {
+      displayMathBlocks.push(`<code>$${formula}$$</code>`);
+    }
+    return `\x00DM${displayMathBlocks.length - 1}\x00`;
+  });
+
+  const lines = preprocessed.split('\n');
   const result: string[] = [];
   let tableBuffer: string[] = [];
   let i = 0;
@@ -161,7 +166,9 @@ function lectureMarkdown(text: string): string {
   }
 
   flushTable();
-  return result.join('\n');
+  let html = result.join('\n');
+  html = html.replace(/\x00DM(\d+)\x00/g, (_, idx) => displayMathBlocks[parseInt(idx)] || '');
+  return html;
 }
 
 export function LectureView({ content, onComplete, onStartQuestions, showAutoStart }: Props) {
