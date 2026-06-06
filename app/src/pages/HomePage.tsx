@@ -279,22 +279,22 @@ function computeChapterStats() {
   });
 }
 
-/* ── Tree view ── */
-function TreeView() {
+/* ── Subject Tree ── */
+function SubjectTree({ icon, title, chapters, startIndex }: {
+  icon: string;
+  title: string;
+  chapters: ChapterStat[];
+  startIndex: number;
+}) {
   const prefersReduced = useReducedMotion();
 
-  const chapterStats = computeChapterStats();
   let totalCleared = 0;
   let totalUpgraded = 0;
-  chapterStats.forEach(ch => {
+  chapters.forEach(ch => {
     totalCleared += ch.cleared;
     totalUpgraded += ch.upgraded;
   });
-  const totalNodes = chapterStats.reduce((s, c) => s + c.total, 0);
-
-  // Split: first 3 chapters = 圆锥曲线, last 3 = 导数
-  const conicChapters = chapterStats.slice(0, 3);
-  const derivChapters = chapterStats.slice(3, 6);
+  const totalNodes = chapters.reduce((s, c) => s + c.total, 0);
 
   return (
     <div className="space-y-0">
@@ -316,10 +316,10 @@ function TreeView() {
             }}
           />
           <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center font-mono text-xl font-medium text-primary-light">
-            M
+            {icon}
           </div>
           <div>
-            <div className="text-base font-semibold text-text">Art of Math</div>
+            <div className="text-base font-semibold text-text">{title}</div>
             <div className="text-sm text-text-muted mt-0.5">
               {totalCleared} / {totalNodes} 通关
               {totalUpgraded > 0 && (
@@ -332,20 +332,22 @@ function TreeView() {
 
       <ConnectorLines />
 
-      {/* 圆锥曲线 */}
-      <div className="mb-10">
-        <p className="text-center text-[11px] uppercase tracking-[0.12em] text-primary/60 font-medium mb-4">圆锥曲线</p>
-        <ChapterGrid chapters={conicChapters} startIndex={0} />
-      </div>
+      <ChapterGrid chapters={chapters} startIndex={startIndex} />
+    </div>
+  );
+}
 
-      {/* Divider */}
-      <div className="border-t border-white/[0.04] my-8" />
+/* ── Tree view (both subjects) ── */
+function TreeView() {
+  const chapterStats = computeChapterStats();
 
-      {/* 导数 */}
-      <div>
-        <p className="text-center text-[11px] uppercase tracking-[0.12em] text-primary/60 font-medium mb-4">导数</p>
-        <ChapterGrid chapters={derivChapters} startIndex={3} />
-      </div>
+  const conicChapters = chapterStats.slice(0, 3);
+  const derivChapters = chapterStats.slice(3, 6);
+
+  return (
+    <div className="space-y-16">
+      <SubjectTree icon="C" title="圆锥曲线" chapters={conicChapters} startIndex={0} />
+      <SubjectTree icon="D" title="导数" chapters={derivChapters} startIndex={3} />
     </div>
   );
 }
