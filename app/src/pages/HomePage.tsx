@@ -333,8 +333,8 @@ function SubjectTree({ icon, title, chapters, startIndex }: {
 }
 
 const SUBJECTS = [
-  { id: 'conic', icon: 'C', title: '圆锥曲线' },
-  { id: 'derivative', icon: 'D', title: '导数' },
+  { id: 'conic', icon: '锥', title: '圆锥曲线' },
+  { id: 'derivative', icon: '导', title: '导数' },
 ] as const;
 
 /* ── Tree view (both subjects) ── */
@@ -379,7 +379,7 @@ export function HomePage() {
           <h1 className="font-display text-[clamp(2.25rem,5vw,3.5rem)] font-normal not-italic leading-tight tracking-[-0.01em] text-text">
             <em className="italic text-primary">Art</em> of Math
           </h1>
-          <p className="text-[13px] text-text-dim tracking-[0.04em] mt-2 font-body">
+          <p className="inline-block text-[15px] text-text-muted tracking-[0.03em] mt-2.5 font-body px-4 py-1 rounded-full bg-white/[0.03] border border-white/[0.06]">
             致力消除高中数学学习的信息差
           </p>
         </motion.header>
