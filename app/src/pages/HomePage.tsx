@@ -423,10 +423,8 @@ export function HomePage() {
 
         {/* Footer */}
         <motion.footer className="text-center pt-16" {...fadeUp(1.7)}>
-          <div className="text-xs text-text-dim/50 space-y-1">
-            <p>数学竞赛生中最无天赋之人</p>
-            <p>高考 698 · 北大本科在读</p>
-          </div>
+          <div className="font-display italic text-primary text-base">Art of Math</div>
+          <div className="text-xs text-text-dim/50 mt-1.5">design by 和枼</div>
         </motion.footer>
       </div>
 

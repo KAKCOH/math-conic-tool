@@ -80,10 +80,10 @@ export function CornerFold() {
               <div className="text-center mb-6">
                 <h3 className="text-lg font-semibold text-text">和枼</h3>
                 <p className="text-sm text-text-muted mt-3 leading-relaxed">
-                  北京大学本科在读
+                  数学竞赛生中最无天赋之人
                 </p>
                 <p className="text-sm text-text-muted mt-1.5 leading-relaxed">
-                  三年数学竞赛经历，失利后 7 个月复习高考，698 裸分被北大录取
+                  高考 698 · 北大本科在读
                 </p>
               </div>
 
