@@ -8,7 +8,7 @@ const lecture2_5 = `
 
 对椭圆 $\\frac{x^2}{a^2}+\\frac{y^2}{b^2}=1$，作变换：
 
-$$\\begin{cases} x' = \\dfrac{x}{a} \\\\[6pt] y' = \\dfrac{y}{b} \\end{cases}$$
+$$\\begin{cases} x' = \\dfrac{x}{a} \\\\ y' = \\dfrac{y}{b} \\end{cases}$$
 
 椭圆变为单位圆：$x'^2 + y'^2 = 1$。
 

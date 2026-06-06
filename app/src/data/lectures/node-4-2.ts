@@ -8,8 +8,8 @@ const lecture4_2 = `
 
 $$
 \\begin{aligned}
-(u \\pm v)' &= u' \\pm v' \\\\[4pt]
-(u \\cdot v)' &= u'v + uv' \\\\[4pt]
+(u \\pm v)' &= u' \\pm v' \\\\
+(u \\cdot v)' &= u'v + uv' \\\\
 \\left(\\frac{u}{v}\\right)' &= \\frac{u'v - uv'}{v^2} \\quad (v \\neq 0)
 \\end{aligned}
 $$

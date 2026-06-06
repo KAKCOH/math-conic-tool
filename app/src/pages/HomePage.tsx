@@ -223,7 +223,7 @@ function ChapterGrid({ chapters, startIndex }: { chapters: ChapterStat[]; startI
               />
               <div className="relative">
                 <div className="text-[11px] text-text-dim uppercase tracking-wider mb-1">
-                  第{CHINESE_NUMBERS[ch.order - 1] || ch.order}章
+                  第{CHINESE_NUMBERS[ci] || ci + 1}章
                 </div>
                 <div className="text-[15px] font-semibold text-text leading-snug">{ch.name}</div>
                 <div className="text-xs text-text-muted mt-1.5 font-mono tabular-nums">{ch.cleared}/{ch.total}</div>
@@ -379,8 +379,8 @@ export function HomePage() {
           <h1 className="font-display text-[clamp(2.25rem,5vw,3.5rem)] font-normal not-italic leading-tight tracking-[-0.01em] text-text">
             <em className="italic text-primary">Art</em> of Math
           </h1>
-          <p className="text-[13px] text-text-dim tracking-[0.08em] mt-2 font-body">
-            design by 和枼
+          <p className="text-[13px] text-text-dim tracking-[0.04em] mt-2 font-body">
+            致力消除高中数学学习的信息差
           </p>
         </motion.header>
 
