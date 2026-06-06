@@ -23,6 +23,7 @@ export interface ChapterDef {
   id: string;
   name: string;
   order: number;
+  subjectId: string;
   nodes: NodeDef[];
 }
 

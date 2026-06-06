@@ -61,8 +61,9 @@ export function NodePage() {
   const isUnlocked = useCallback(() => {
     if (!chapterDef || !nodeId) return false;
     const chapterIdx = allChapters.findIndex(c => c.id === chapterDef.id);
+    const chapter = allChapters[chapterIdx];
     const isFirstInSubject = chapterIdx === 0 ||
-      allChapters[chapterIdx].nodes[0].id.split('.')[0] !== allChapters[chapterIdx - 1].nodes[0].id.split('.')[0];
+      chapter.subjectId !== allChapters[chapterIdx - 1].subjectId;
     if (isFirstInSubject) return true;
     const prevChapter = allChapters[chapterIdx - 1];
     return prevChapter.nodes.every(n => {

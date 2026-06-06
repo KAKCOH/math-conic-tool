@@ -106,7 +106,11 @@ export function ChapterPage() {
   });
 
   const CH_NUM = ['一', '二', '三', '四', '五', '六'] as const;
-  const orderLabel = CH_NUM[chapter.order - 1] || String(chapter.order);
+  const subjectChapters = allChapters.filter(c => c.subjectId === chapter.subjectId);
+  const relativeOrder = subjectChapters.findIndex(c => c.id === chapter.id) + 1;
+  const orderLabel = CH_NUM[relativeOrder - 1] || String(relativeOrder);
+
+  const SUBJECT_NAMES: Record<string, string> = { conic: '圆锥曲线', derivative: '导数' };
 
   const fadeUp = (delay: number) => prefersReduced
     ? {}
@@ -126,7 +130,7 @@ export function ChapterPage() {
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="group-hover:-translate-x-0.5 transition-transform">
             <polyline points="15 18 9 12 15 6" />
           </svg>
-          圆锥曲线
+          {SUBJECT_NAMES[chapter.subjectId] || '首页'}
         </Link>
 
         <div className="flex items-start justify-between gap-6">

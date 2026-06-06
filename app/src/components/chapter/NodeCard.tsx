@@ -39,9 +39,9 @@ export function NodeCard({ node, chapterId }: Props) {
   const nodeState = nodeStates[node.id];
 
   const chapterIdx = allChapters.findIndex(c => c.id === chapterId);
-  // 不同学科的章节独立解锁：节点编号第一位不同即为新学科起点
+  const chapter = allChapters[chapterIdx];
   const isFirstInSubject = chapterIdx === 0 ||
-    allChapters[chapterIdx].nodes[0].id.split('.')[0] !== allChapters[chapterIdx - 1].nodes[0].id.split('.')[0];
+    chapter.subjectId !== allChapters[chapterIdx - 1].subjectId;
 
   let chapterUnlocked = true;
   if (!isFirstInSubject) {

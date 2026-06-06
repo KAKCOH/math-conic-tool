@@ -4,6 +4,7 @@ export const chapter1: ChapterDef = {
   id: 'ch1',
   name: '基础知识',
   order: 1,
+  subjectId: 'conic',
   nodes: [
     { id: '1.1', name: '椭圆', chapterId: 'ch1', order: 1 },
     { id: '1.2', name: '双曲线', chapterId: 'ch1', order: 2 },
@@ -16,6 +17,7 @@ export const chapter2: ChapterDef = {
   id: 'ch2',
   name: '进阶知识',
   order: 2,
+  subjectId: 'conic',
   nodes: [
     { id: '2.1', name: '第二定义、第三定义与中点弦', chapterId: 'ch2', order: 1 },
     { id: '2.2', name: '焦点三角形与焦点弦', chapterId: 'ch2', order: 2 },
@@ -29,6 +31,7 @@ export const chapter3: ChapterDef = {
   id: 'ch3',
   name: '解题策略方法',
   order: 3,
+  subjectId: 'conic',
   nodes: [
     { id: '3.1', name: '联立与参数法', chapterId: 'ch3', order: 1 },
     { id: '3.2', name: '定义法与数形结合', chapterId: 'ch3', order: 2 },
@@ -44,6 +47,7 @@ export const chapter4: ChapterDef = {
   id: 'ch4',
   name: '导数基础知识',
   order: 4,
+  subjectId: 'derivative',
   nodes: [
     { id: '4.1', name: '导数的定义与几何意义', chapterId: 'ch4', order: 1 },
     { id: '4.2', name: '导数的运算', chapterId: 'ch4', order: 2 },
@@ -56,6 +60,7 @@ export const chapter5: ChapterDef = {
   id: 'ch5',
   name: '导数进阶知识',
   order: 5,
+  subjectId: 'derivative',
   nodes: [
     { id: '5.1', name: '构造函数与同构变换', chapterId: 'ch5', order: 1 },
     { id: '5.2', name: '隐零点与虚设零点', chapterId: 'ch5', order: 2 },
@@ -68,6 +73,7 @@ export const chapter6: ChapterDef = {
   id: 'ch6',
   name: '导数解题策略与技巧',
   order: 6,
+  subjectId: 'derivative',
   nodes: [
     { id: '6.1', name: '恒成立与存在性问题', chapterId: 'ch6', order: 1 },
     { id: '6.2', name: '双变量与多变量问题', chapterId: 'ch6', order: 2 },

@@ -223,7 +223,7 @@ function ChapterGrid({ chapters, startIndex }: { chapters: ChapterStat[]; startI
               />
               <div className="relative">
                 <div className="text-[11px] text-text-dim uppercase tracking-wider mb-1">
-                  第{CHINESE_NUMBERS[ci] || ci + 1}章
+                  第{CHINESE_NUMBERS[ch.order - 1] || ch.order}章
                 </div>
                 <div className="text-[15px] font-semibold text-text leading-snug">{ch.name}</div>
                 <div className="text-xs text-text-muted mt-1.5 font-mono tabular-nums">{ch.cleared}/{ch.total}</div>
@@ -332,17 +332,31 @@ function SubjectTree({ icon, title, chapters, startIndex }: {
   );
 }
 
+const SUBJECTS = [
+  { id: 'conic', icon: 'C', title: '圆锥曲线' },
+  { id: 'derivative', icon: 'D', title: '导数' },
+] as const;
+
 /* ── Tree view (both subjects) ── */
 function TreeView() {
   const chapterStats = computeChapterStats();
 
-  const conicChapters = chapterStats.slice(0, 3);
-  const derivChapters = chapterStats.slice(3, 6);
-
   return (
     <div className="space-y-16">
-      <SubjectTree icon="C" title="圆锥曲线" chapters={conicChapters} startIndex={0} />
-      <SubjectTree icon="D" title="导数" chapters={derivChapters} startIndex={3} />
+      {SUBJECTS.map(subject => {
+        const chapters = chapterStats.filter(c => c.subjectId === subject.id);
+        if (chapters.length === 0) return null;
+        const startIndex = allChapters.findIndex(c => c.id === chapters[0].id);
+        return (
+          <SubjectTree
+            key={subject.id}
+            icon={subject.icon}
+            title={subject.title}
+            chapters={chapters}
+            startIndex={startIndex}
+          />
+        );
+      })}
     </div>
   );
 }
