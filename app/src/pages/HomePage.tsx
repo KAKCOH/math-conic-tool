@@ -141,6 +141,13 @@ function ConicGeometryBackground() {
   );
 }
 
+const CHINESE_NUMBERS = ['一', '二', '三', '四', '五', '六'] as const;
+
+function chapterLabel(order: number): string {
+  const idx = order - 1;
+  return idx >= 0 && idx < CHINESE_NUMBERS.length ? `第${CHINESE_NUMBERS[idx]}章` : `第${order}章`;
+}
+
 /* ── SVG bezier connector ── */
 function ConnectorLines() {
   const prefersReduced = useReducedMotion();
@@ -156,35 +163,30 @@ function ConnectorLines() {
   return (
     <div className="w-full h-16 overflow-visible">
       <svg viewBox="0 0 720 64" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
-        {/* Trunk down */}
         <motion.path
           d="M 360 0 L 360 16"
           fill="none" stroke="rgba(59,130,246,0.15)" strokeWidth="1.5"
           variants={pathVariants} custom={0.1} initial="hidden" animate="visible"
           style={prefersReduced ? { pathLength: 1, opacity: 1 } : undefined}
         />
-        {/* Branch to ch1 */}
         <motion.path
           d="M 360 16 Q 360 48 120 48 L 120 64"
           fill="none" stroke="rgba(59,130,246,0.15)" strokeWidth="1.5"
           variants={pathVariants} custom={0.3} initial="hidden" animate="visible"
           style={prefersReduced ? { pathLength: 1, opacity: 1 } : undefined}
         />
-        {/* Branch to ch2 */}
         <motion.path
           d="M 360 16 L 360 64"
           fill="none" stroke="rgba(59,130,246,0.15)" strokeWidth="1.5"
           variants={pathVariants} custom={0.25} initial="hidden" animate="visible"
           style={prefersReduced ? { pathLength: 1, opacity: 1 } : undefined}
         />
-        {/* Branch to ch3 */}
         <motion.path
           d="M 360 16 Q 360 48 600 48 L 600 64"
           fill="none" stroke="rgba(59,130,246,0.15)" strokeWidth="1.5"
           variants={pathVariants} custom={0.35} initial="hidden" animate="visible"
           style={prefersReduced ? { pathLength: 1, opacity: 1 } : undefined}
         />
-        {/* Junction glow dots */}
         <motion.circle cx="360" cy="16" r="2.5" fill="#3B82F6" opacity="0.4"
           initial={{ opacity: 0 }} animate={{ opacity: 0.4 }} transition={{ delay: 1.0, duration: 0.5 }} />
         <motion.circle cx="120" cy="48" r="2" fill="#3B82F6" opacity="0.3"
@@ -198,95 +200,41 @@ function ConnectorLines() {
   );
 }
 
-/* ── Tree view ── */
-function TreeView() {
+type ChapterStat = ReturnType<typeof computeChapterStats>[number];
+
+function ChapterGrid({ chapters, startIndex }: { chapters: ChapterStat[]; startIndex: number }) {
   const nodeStates = useProgressStore(s => s.nodeStates);
   const prefersReduced = useReducedMotion();
 
-  let totalCleared = 0;
-  let totalUpgraded = 0;
-  const chapterStats = allChapters.map(ch => {
-    let cleared = 0;
-    let upgraded = 0;
-    ch.nodes.forEach(n => {
-      const s = nodeStates[n.id]?.status;
-      if (s === 'cleared' || s === 'upgraded') cleared++;
-      if (s === 'upgraded') upgraded++;
-    });
-    totalCleared += cleared;
-    totalUpgraded += upgraded;
-    return { ...ch, cleared, upgraded, total: ch.nodes.length };
-  });
-  const totalNodes = chapterStats.reduce((s, c) => s + c.total, 0);
-
   return (
-    <div className="space-y-0">
-      {/* Root node */}
-      <motion.div
-        className="flex justify-center mb-0"
-        initial={prefersReduced ? { opacity: 1 } : { opacity: 0, y: 16 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, delay: 0.5 }}
-      >
-        <div className="group relative inline-flex items-center gap-3.5 px-6 py-4 rounded-2xl bg-surface-card border border-primary/20 hover:border-primary/40 transition-all duration-300 hover:shadow-[0_0_40px_rgba(59,130,246,0.08)]">
-          {/* Rotating glow border */}
-          <div className="absolute inset-[-2px] rounded-[22px] opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-            style={{
-              background: 'conic-gradient(from 0deg, transparent, rgba(59,130,246,0.3), transparent, rgba(59,130,246,0.1), transparent)',
-              mask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
-              maskComposite: 'exclude',
-              WebkitMaskComposite: 'xor',
-              padding: '2px',
-            }}
-          />
-          <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center font-mono text-xl font-medium text-primary-light">
-            C
-          </div>
-          <div>
-            <div className="text-base font-semibold text-text">圆锥曲线</div>
-            <div className="text-sm text-text-muted mt-0.5">
-              {totalCleared} / {totalNodes} 通关
-              {totalUpgraded > 0 && (
-                <span className="text-gold ml-2 font-medium">★ {totalUpgraded}</span>
-              )}
-            </div>
-          </div>
-        </div>
-      </motion.div>
-
-      {/* SVG connectors */}
-      <ConnectorLines />
-
-      {/* 3 Chapter branches */}
-      <div className="grid grid-cols-3 gap-5">
-        {chapterStats.map((ch, ci) => (
+    <div className="grid grid-cols-3 gap-5">
+      {chapters.map((ch, ci) => {
+        const realIndex = startIndex + ci;
+        return (
           <motion.div
             key={ch.id}
             className="flex flex-col gap-3"
             initial={prefersReduced ? { opacity: 1 } : { opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.9 + ci * 0.1 }}
+            transition={{ duration: 0.5, delay: 0.9 + realIndex * 0.1 }}
           >
-            {/* Chapter card */}
             <Link
               to={`/chapter/${ch.id}`}
               className="group/card relative block text-center px-3 py-4 rounded-2xl bg-surface-card border border-white/5 hover:border-primary/20 hover:bg-surface-card-hover transition-all duration-200 hover:-translate-y-0.5 overflow-hidden"
             >
-              {/* Radial gradient hover overlay */}
               <div
                 className="absolute inset-0 rounded-2xl opacity-0 group-hover/card:opacity-100 transition-opacity duration-300"
                 style={{ background: 'radial-gradient(ellipse at 50% 0%, rgba(59,130,246,0.06) 0%, transparent 70%)' }}
               />
               <div className="relative">
                 <div className="text-[11px] text-text-dim uppercase tracking-wider mb-1">
-                  第{ch.order === 1 ? '一' : ch.order === 2 ? '二' : '三'}章
+                  {chapterLabel(ch.order)}
                 </div>
                 <div className="text-[15px] font-semibold text-text leading-snug">{ch.name}</div>
                 <div className="text-xs text-text-muted mt-1.5 font-mono tabular-nums">{ch.cleared}/{ch.total}</div>
               </div>
             </Link>
 
-            {/* Node leaves */}
             <div className="flex flex-col gap-px">
               {ch.nodes.map((node) => {
                 const s = nodeStates[node.id]?.status;
@@ -311,7 +259,92 @@ function TreeView() {
               })}
             </div>
           </motion.div>
-        ))}
+        );
+      })}
+    </div>
+  );
+}
+
+function computeChapterStats() {
+  const nodeStates = useProgressStore.getState().nodeStates;
+  return allChapters.map(ch => {
+    let cleared = 0;
+    let upgraded = 0;
+    ch.nodes.forEach(n => {
+      const s = nodeStates[n.id]?.status;
+      if (s === 'cleared' || s === 'upgraded') cleared++;
+      if (s === 'upgraded') upgraded++;
+    });
+    return { ...ch, cleared, upgraded, total: ch.nodes.length };
+  });
+}
+
+/* ── Tree view ── */
+function TreeView() {
+  const prefersReduced = useReducedMotion();
+
+  const chapterStats = computeChapterStats();
+  let totalCleared = 0;
+  let totalUpgraded = 0;
+  chapterStats.forEach(ch => {
+    totalCleared += ch.cleared;
+    totalUpgraded += ch.upgraded;
+  });
+  const totalNodes = chapterStats.reduce((s, c) => s + c.total, 0);
+
+  // Split: first 3 chapters = 圆锥曲线, last 3 = 导数
+  const conicChapters = chapterStats.slice(0, 3);
+  const derivChapters = chapterStats.slice(3, 6);
+
+  return (
+    <div className="space-y-0">
+      {/* Root node */}
+      <motion.div
+        className="flex justify-center mb-0"
+        initial={prefersReduced ? { opacity: 1 } : { opacity: 0, y: 16 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 0.5 }}
+      >
+        <div className="group relative inline-flex items-center gap-3.5 px-6 py-4 rounded-2xl bg-surface-card border border-primary/20 hover:border-primary/40 transition-all duration-300 hover:shadow-[0_0_40px_rgba(59,130,246,0.08)]">
+          <div className="absolute inset-[-2px] rounded-[22px] opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+            style={{
+              background: 'conic-gradient(from 0deg, transparent, rgba(59,130,246,0.3), transparent, rgba(59,130,246,0.1), transparent)',
+              mask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
+              maskComposite: 'exclude',
+              WebkitMaskComposite: 'xor',
+              padding: '2px',
+            }}
+          />
+          <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center font-mono text-xl font-medium text-primary-light">
+            M
+          </div>
+          <div>
+            <div className="text-base font-semibold text-text">Art of Math</div>
+            <div className="text-sm text-text-muted mt-0.5">
+              {totalCleared} / {totalNodes} 通关
+              {totalUpgraded > 0 && (
+                <span className="text-gold ml-2 font-medium">★ {totalUpgraded}</span>
+              )}
+            </div>
+          </div>
+        </div>
+      </motion.div>
+
+      <ConnectorLines />
+
+      {/* 圆锥曲线 */}
+      <div className="mb-10">
+        <p className="text-center text-[11px] uppercase tracking-[0.12em] text-primary/60 font-medium mb-4">圆锥曲线</p>
+        <ChapterGrid chapters={conicChapters} startIndex={0} />
+      </div>
+
+      {/* Divider */}
+      <div className="border-t border-white/[0.04] my-8" />
+
+      {/* 导数 */}
+      <div>
+        <p className="text-center text-[11px] uppercase tracking-[0.12em] text-primary/60 font-medium mb-4">导数</p>
+        <ChapterGrid chapters={derivChapters} startIndex={3} />
       </div>
     </div>
   );
