@@ -6,6 +6,7 @@ import { useProgressStore } from '../store/useProgress';
 import { CornerFold } from '../components/home/CornerFold';
 import { MagicCircle } from '../components/home/MagicCircle';
 import { LetterModal } from '../components/home/LetterModal';
+import { VisitorCounter } from '../components/home/VisitorCounter';
 
 const LETTER_KEY = 'artofmath-letter-seen';
 
@@ -453,6 +454,9 @@ export function HomePage() {
           <p className="mt-3 text-[18px] text-text-muted tracking-[0.06em] font-display">
             https://artofmath.cn
           </p>
+          <div className="mt-4">
+            <VisitorCounter />
+          </div>
         </motion.header>
 
         {/* Mind map section */}
