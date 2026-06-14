@@ -8,7 +8,7 @@ export function CornerFold() {
     <>
       {/* Corner fold triangle */}
       <button
-        onClick={() => setOpen(true)}
+        onClick={(e) => { e.stopPropagation(); setOpen(true); }}
         className="fixed top-0 right-0 z-50 w-[72px] h-[72px] cursor-pointer group"
         aria-label="关于我"
       >
