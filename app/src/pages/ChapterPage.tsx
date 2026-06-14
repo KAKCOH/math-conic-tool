@@ -3,6 +3,7 @@ import { motion, useReducedMotion } from 'framer-motion';
 import { allChapters } from '../data/chapters';
 import { useProgressStore } from '../store/useProgress';
 import { NodeCard } from '../components/chapter/NodeCard';
+import { SubjectSidebar } from '../components/layout/SubjectSidebar';
 
 function ProgressRing({ cleared, total }: { cleared: number; total: number }) {
   const r = 24;
@@ -36,13 +37,12 @@ function ProgressRing({ cleared, total }: { cleared: number; total: number }) {
   );
 }
 
-/* Background SVG per chapter type */
 function ChapterBgShape({ order }: { order: number }) {
   const prefersReduced = useReducedMotion();
   const anim = prefersReduced ? {} : { animation: 'spin 120s linear infinite', transformOrigin: '200px 200px' };
 
   return (
-    <div className="absolute pointer-events-none opacity-[0.035] -top-32 -right-24 w-[500px] h-[500px]" aria-hidden="true">
+    <div className="absolute pointer-events-none opacity-[0.025] -top-20 -right-16 w-[400px] h-[400px]" aria-hidden="true">
       <svg viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg" style={anim}>
         {order % 3 === 1 && (
           <>
@@ -90,7 +90,7 @@ export function ChapterPage() {
 
   if (!chapter) {
     return (
-      <div className="max-w-lg lg:max-w-2xl xl:max-w-3xl mx-auto px-4 py-20 text-center">
+      <div className="max-w-lg mx-auto px-4 py-20 text-center">
         <p className="text-text-muted">章节不存在</p>
         <Link to="/" className="text-primary-light mt-4 inline-block text-sm">返回首页</Link>
       </div>
@@ -110,102 +110,109 @@ export function ChapterPage() {
   const relativeOrder = subjectChapters.findIndex(c => c.id === chapter.id) + 1;
   const orderLabel = CH_NUM[relativeOrder - 1] || String(relativeOrder);
 
-  const SUBJECT_NAMES: Record<string, string> = { conic: '圆锥曲线', derivative: '导数' };
-
   const fadeUp = (delay: number) => prefersReduced
     ? {}
     : { initial: { opacity: 0, y: 12 }, animate: { opacity: 1, y: 0 }, transition: { duration: 0.5, delay } };
 
   return (
-    <div className="max-w-lg lg:max-w-2xl xl:max-w-3xl mx-auto px-4 py-8 pb-20 relative">
-      {/* Background geometry */}
-      <ChapterBgShape order={chapter.order} />
+    <div className="flex min-h-screen">
+      {/* Sidebar */}
+      <SubjectSidebar
+        subjectId={chapter.subjectId}
+        activeChapterId={chapter.id}
+      />
 
-      {/* Back breadcrumb */}
-      <motion.div {...fadeUp(0)} className="mb-8 relative z-10">
-        <Link
-          to="/"
-          className="inline-flex items-center gap-1.5 text-text-dim hover:text-text-muted transition-colors text-sm mb-4 group"
-        >
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="group-hover:-translate-x-0.5 transition-transform">
-            <polyline points="15 18 9 12 15 6" />
-          </svg>
-          {SUBJECT_NAMES[chapter.subjectId] || '首页'}
-        </Link>
+      {/* Main content */}
+      <div className="flex-1 min-w-0">
+        <div className="max-w-2xl mx-auto px-6 py-8 pb-20 relative">
+          <ChapterBgShape order={chapter.order} />
 
-        <div className="flex items-start justify-between gap-6">
-          <div>
-            <motion.span
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.1, type: 'spring', stiffness: 400 }}
-              className="inline-block text-xs font-medium text-primary-light bg-primary/10 px-2.5 py-1 rounded-full mb-2.5 tracking-wide"
+          {/* Breadcrumb */}
+          <motion.div {...fadeUp(0)} className="mb-8 relative z-10">
+            <Link
+              to="/"
+              className="inline-flex items-center gap-1.5 text-text-dim hover:text-text-muted transition-colors text-sm mb-4 group"
             >
-              第{orderLabel}章
-            </motion.span>
-            <h1 className="text-2xl font-bold text-text tracking-[-0.01em]">
-              {chapter.name}
-            </h1>
-            <div className="h-0.5 w-16 bg-gradient-to-r from-primary/60 to-transparent rounded-full mt-2" />
-          </div>
-          <motion.div
-            initial={{ opacity: 0, scale: 0.5 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.2, type: 'spring', stiffness: 300, damping: 20 }}
-          >
-            <ProgressRing cleared={cleared} total={chapter.nodes.length} />
-          </motion.div>
-        </div>
-        {upgraded > 0 && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.4 }}
-            className="flex items-center gap-1.5 mt-3 text-gold-light text-xs font-medium"
-          >
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" opacity="0.8">
-              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
-            </svg>
-            {upgraded} 个节点已升级
-          </motion.div>
-        )}
-      </motion.div>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="group-hover:-translate-x-0.5 transition-transform">
+                <polyline points="15 18 9 12 15 6" />
+              </svg>
+              首页
+            </Link>
 
-      {/* Node list with timeline */}
-      <div className="relative">
-        <div className="timeline-line" />
-
-        <div className="space-y-1.5 relative">
-          {chapter.nodes.map((node, i) => {
-            const nodeState = nodeStates[node.id];
-            const status = nodeState?.status || 'locked';
-            return (
+            <div className="flex items-start justify-between gap-6">
+              <div>
+                <motion.span
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: 0.1, type: 'spring', stiffness: 400 }}
+                  className="inline-block text-xs font-medium text-primary-light bg-primary/10 px-2.5 py-1 rounded-full mb-2.5 tracking-wide"
+                >
+                  第{orderLabel}章
+                </motion.span>
+                <h1 className="text-2xl font-bold text-text tracking-[-0.01em]">
+                  {chapter.name}
+                </h1>
+                <div className="h-0.5 w-16 bg-gradient-to-r from-primary/60 to-transparent rounded-full mt-2" />
+              </div>
               <motion.div
-                key={node.id}
-                {...fadeUp(0.1 + i * 0.05)}
-                className="relative pl-10"
+                initial={{ opacity: 0, scale: 0.5 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 0.2, type: 'spring', stiffness: 300, damping: 20 }}
               >
-                <motion.div
-                  className="timeline-dot"
-                  style={{
-                    borderColor:
-                      status === 'upgraded' ? 'oklch(0.78 0.16 85 / 0.6)' :
-                      status === 'cleared' ? 'oklch(0.68 0.02 260 / 0.4)' :
-                      status === 'available' ? 'oklch(0.62 0.20 250 / 0.4)' :
-                      'rgba(255,255,255,0.08)',
-                    backgroundColor:
-                      status === 'upgraded' ? 'oklch(0.78 0.16 85 / 0.15)' :
-                      status === 'cleared' ? 'oklch(0.68 0.02 260 / 0.1)' :
-                      status === 'available' ? 'oklch(0.62 0.20 250 / 0.1)' :
-                      'transparent',
-                  }}
-                  animate={status === 'available' ? { scale: [1, 1.2, 1] } : {}}
-                  transition={{ duration: 2, repeat: Infinity }}
-                />
-                <NodeCard node={node} chapterId={chapter.id} />
+                <ProgressRing cleared={cleared} total={chapter.nodes.length} />
               </motion.div>
-            );
-          })}
+            </div>
+            {upgraded > 0 && (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.4 }}
+                className="flex items-center gap-1.5 mt-3 text-gold-light text-xs font-medium"
+              >
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" opacity="0.8">
+                  <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                </svg>
+                {upgraded} 个节点已升级
+              </motion.div>
+            )}
+          </motion.div>
+
+          {/* Node list with timeline */}
+          <div className="relative">
+            <div className="timeline-line" />
+            <div className="space-y-1.5 relative">
+              {chapter.nodes.map((node, i) => {
+                const nodeState = nodeStates[node.id];
+                const status = nodeState?.status || 'locked';
+                return (
+                  <motion.div
+                    key={node.id}
+                    {...fadeUp(0.1 + i * 0.05)}
+                    className="relative pl-10"
+                  >
+                    <motion.div
+                      className="timeline-dot"
+                      style={{
+                        borderColor:
+                          status === 'upgraded' ? 'oklch(0.78 0.16 85 / 0.6)' :
+                          status === 'cleared' ? 'oklch(0.68 0.02 260 / 0.4)' :
+                          status === 'available' ? 'oklch(0.62 0.20 250 / 0.4)' :
+                          'rgba(255,255,255,0.08)',
+                        backgroundColor:
+                          status === 'upgraded' ? 'oklch(0.78 0.16 85 / 0.15)' :
+                          status === 'cleared' ? 'oklch(0.68 0.02 260 / 0.1)' :
+                          status === 'available' ? 'oklch(0.62 0.20 250 / 0.1)' :
+                          'transparent',
+                      }}
+                      animate={status === 'available' ? { scale: [1, 1.2, 1] } : {}}
+                      transition={{ duration: 2, repeat: Infinity }}
+                    />
+                    <NodeCard node={node} chapterId={chapter.id} />
+                  </motion.div>
+                );
+              })}
+            </div>
+          </div>
         </div>
       </div>
     </div>

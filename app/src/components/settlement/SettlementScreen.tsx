@@ -12,33 +12,68 @@ interface Props {
   chapterId: string;
 }
 
+function ResultIcon({ result }: { result: SettlementResult }) {
+  const iconProps = { width: 56, height: 56, viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: 1.2, strokeLinecap: 'round' as const, strokeLinejoin: 'round' as const };
+  switch (result) {
+    case 'perfect':
+      return (
+        <svg {...iconProps} className="text-gold-light">
+          <path d="M2 20h20" /><path d="M12 2l2.5 7h7.5l-6 4.5 2.5 7-6.5-4.5-6.5 4.5 2.5-7-6-4.5h7.5z" fill="oklch(0.78 0.16 85 / 0.15)" />
+        </svg>
+      );
+    case 'cleared':
+      return (
+        <svg {...iconProps} className="text-silver-light">
+          <circle cx="12" cy="12" r="10" />
+          <polyline points="8 12 11 15 16 9" />
+        </svg>
+      );
+    default:
+      return (
+        <svg {...iconProps} className="text-primary-light">
+          <polyline points="1 4 1 10 7 10" />
+          <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10" />
+        </svg>
+      );
+  }
+}
+
+function StarIcons({ count }: { count: number }) {
+  return (
+    <span className="inline-flex gap-0.5">
+      {Array.from({ length: count }, (_, i) => (
+        <svg key={i} width="8" height="8" viewBox="0 0 24 24" fill="currentColor" className="text-gold/50">
+          <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+        </svg>
+      ))}
+    </span>
+  );
+}
+
 const configs = {
   perfect: {
     title: '完美通关',
     subtitle: '三题全对',
-    emoji: '👑',
     bg: 'from-gold/5 via-transparent to-gold/5',
     border: 'border-gold/20',
     textColor: 'text-gold-light',
     particleColor: '#f59e0b',
     particleCount: 30,
-    badge: '节点升级 ★',
+    badge: '节点升级',
   },
   cleared: {
     title: '通关',
     subtitle: '前两题正确',
-    emoji: '🎉',
     bg: 'from-silver/5 via-transparent to-silver/5',
     border: 'border-silver/20',
     textColor: 'text-silver-light',
     particleColor: '#94a3b8',
     particleCount: 15,
-    badge: '节点通关 ✓',
+    badge: '节点通关',
   },
   failed: {
     title: '继续加油',
     subtitle: '第 1 题未通过',
-    emoji: '💪',
     bg: 'from-primary/5 via-transparent to-primary/5',
     border: 'border-primary/20',
     textColor: 'text-primary-light',
@@ -113,14 +148,14 @@ export function SettlementScreen({
       <Particles color={config.particleColor} count={config.particleCount} />
 
       <div className={`relative z-10 p-8 text-center bg-gradient-to-b ${config.bg}`}>
-        {/* Emoji */}
+        {/* Result icon */}
         <motion.div
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
           transition={{ type: 'spring', stiffness: 250, damping: 18 }}
-          className="text-5xl mb-4"
+          className="flex justify-center mb-4"
         >
-          {config.emoji}
+          <ResultIcon result={result} />
         </motion.div>
 
         {/* Title & subtitle */}
@@ -172,7 +207,7 @@ export function SettlementScreen({
                 {r.isCorrect ? '✓' : '✗'}
               </div>
               <span className="text-xs text-text-muted">第{i + 1}题</span>
-              <span className="text-xs text-text-muted/50">{'⭐'.repeat(i + 1)}</span>
+              <span className="text-xs text-text-muted/50"><StarIcons count={i + 1} /></span>
             </motion.div>
           ))}
         </motion.div>
@@ -183,12 +218,21 @@ export function SettlementScreen({
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
             transition={{ delay: 1.0, type: 'spring', stiffness: 300, damping: 16 }}
-            className={`inline-block mt-5 px-4 py-1.5 rounded-full border text-sm font-medium ${
+            className={`inline-flex items-center gap-1.5 mt-5 px-4 py-1.5 rounded-full border text-sm font-medium ${
               result === 'perfect'
                 ? 'bg-gold/10 border-gold/25 text-gold-light'
                 : 'bg-silver/5 border-silver/20 text-silver-light'
             }`}
           >
+            {result === 'perfect' ? (
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+              </svg>
+            ) : (
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                <polyline points="20 6 9 17 4 12" />
+              </svg>
+            )}
             {config.badge}
           </motion.div>
         )}
@@ -212,7 +256,7 @@ export function SettlementScreen({
             {results.map((r, i) => (
               <div key={i} className="flex items-center justify-between px-3 py-2 rounded-lg bg-surface/50 text-sm">
                 <span className="text-text-muted">
-                  第{i + 1}题 <span className="text-text-muted/50">{'⭐'.repeat(i + 1)}</span>
+                  第{i + 1}题 <span className="text-text-muted/50"><StarIcons count={i + 1} /></span>
                 </span>
                 <span className={`font-medium ${r.isCorrect ? 'text-success' : 'text-danger'}`}>
                   {r.isCorrect ? '正确' : '错误'}
