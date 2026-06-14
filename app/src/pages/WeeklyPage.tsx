@@ -1,7 +1,8 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { weeklyIssues, type WeeklyIssue, type WeeklyProblem } from '../data/weekly';
+import { WeeklySidebar } from '../components/layout/WeeklySidebar';
 import katex from 'katex';
 
 function renderMarkdown(text: string): string {
@@ -107,42 +108,57 @@ function IssueSection({ issue }: { issue: WeeklyIssue }) {
 }
 
 export function WeeklyPage() {
+  const [searchParams] = useSearchParams();
+  const weekFilter = searchParams.get('week');
+  const issues = weekFilter
+    ? weeklyIssues.filter(i => i.id === weekFilter)
+    : weeklyIssues;
+
   return (
-    <div className="relative z-10 max-w-3xl mx-auto px-4 py-12 pb-24">
-      {/* Back link */}
-      <Link
-        to="/"
-        className="inline-flex items-center gap-1.5 text-xs text-text-dim hover:text-text transition-colors mb-10"
-      >
-        <span className="text-[10px]">←</span> 返回首页
-      </Link>
+    <div className="flex min-h-screen">
+      <WeeklySidebar activeWeekId={weekFilter || undefined} />
 
-      {/* Page title */}
-      <motion.div
-        className="text-center mb-16"
-        initial={{ opacity: 0, y: 12 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-      >
-        <h1 className="font-display text-[clamp(1.75rem,4vw,2.5rem)] font-normal not-italic leading-tight tracking-[-0.01em] text-text">
-          3 Problems per Week
-        </h1>
-        <p className="text-[13px] text-text-dim mt-2">
-          每周精选三道新颖且有相当难度的高中数学题
-        </p>
-      </motion.div>
+      <div className="flex-1 min-w-0">
+        <div className="max-w-2xl mx-auto px-6 py-8 pb-20 relative">
+          {/* Back link */}
+          <Link
+            to="/"
+            className="inline-flex items-center gap-1.5 text-sm text-text-dim hover:text-text-muted transition-colors mb-8 group"
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="group-hover:-translate-x-0.5 transition-transform">
+              <polyline points="15 18 9 12 15 6" />
+            </svg>
+            首页
+          </Link>
 
-      {/* Issues */}
-      {weeklyIssues.length === 0 ? (
-        <p className="text-center text-text-dim text-sm py-16">暂无内容，敬请期待</p>
-      ) : (
-        weeklyIssues.map((issue) => <IssueSection key={issue.id} issue={issue} />)
-      )}
+          {/* Page title */}
+          <motion.div
+            className="mb-12"
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            <h1 className="font-display text-[clamp(1.75rem,4vw,2.5rem)] font-normal not-italic leading-tight tracking-[-0.01em] text-text">
+              3 Problems per Week
+            </h1>
+            <p className="text-[13px] text-text-dim mt-2">
+              每周精选三道新颖且有相当难度的高中数学题
+            </p>
+          </motion.div>
 
-      {/* Footer */}
-      <footer className="text-center pt-12">
-        <div className="text-xs text-text-dim/50">design by 和枼</div>
-      </footer>
+          {/* Issues */}
+          {issues.length === 0 ? (
+            <p className="text-center text-text-dim text-sm py-16">暂无内容，敬请期待</p>
+          ) : (
+            issues.map((issue) => <IssueSection key={issue.id} issue={issue} />)
+          )}
+
+          {/* Footer */}
+          <footer className="text-center pt-12">
+            <div className="text-xs text-text-dim/50">design by 和枼</div>
+          </footer>
+        </div>
+      </div>
     </div>
   );
 }
